@@ -26,9 +26,45 @@ Experiments with living algae support labile C production as the mechanism, sinc
 
 This project asks the question:
 
-> Is leaf litter decomposition in the presence and absence of pond sediments limited by inorganic N and P and labile C?
+> Is the increased decomposition rate of leaf litter in the presence of pond sediments, due to the supply of inorganic N and P, and labile C from the sediments?
 
 
 ### Hypotheses
 
-1. If decomposition of leaf material is limited by inorganic N and P, then additions of N and P will increase the rate of decomposition 	
+Broadly, we are hypothesizing that the priming effect of the sediments is the result of increased availability of inorganic N and P, and labile C resulting from the mineralization of phytodetritus. 
+
+This hypothesis presumes that the decomposition of litter in the pond water is limited by inorganic N and P, and labile C.
+
+#### Specific Hypotheses
+
+1. If decomposition of leaf material is limited by inorganic N and P, then additions of N and P will increase the rate of decomposition and the effect will be greater in the absence of pond sediments.
+
+2. If decomposition of leaf material is limited by labile C, then additions of glucose will increase the rate of decomposition and the effect will be greater in the absence of pond sediments.
+
+3. Increased nutrient availability (N, P, and labile C), will increase the bacteria to fungal biomass ratio of the decomposer community.
+
+## Experimental Design
+
+### Treatments and Levels
+
+| Treatments | Levels |
+| ---------- | ------ |
+| Sediments  | Yes / No |
+| Nutrients  | Yes / No |
+| Glucose    | Yes / No |
+| Duration   | 2 weeks / 12 weeks |
+
+### Design and Replicates
+
+| *2 Weeks*    | No Glucose | Glucose |
+| No Nutrients | 4          | 4       |
+| Nutrients    | 4          | 4       |
+
+| *12 Weeks*   | No Glucose | Glucose |
+| No Nutrients | 4          | 4       |
+| Nutrients    | 4          | 4       |
+
+
+## Set-up
+
+
