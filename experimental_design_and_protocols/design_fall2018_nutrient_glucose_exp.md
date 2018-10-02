@@ -56,14 +56,14 @@ This hypothesis presumes that the decomposition of litter in the pond water is l
 
 ### Design and Replicates
 
-|*2 Weeks* |      |         |         |
-| -------  | ---- | ------- | ------- |
+|*2 Weeks* |      |         |
+| -------  | ---- | ------- |
 |              | No Glucose | Glucose |
 | No Nutrients | 4          | 4       |
 | Nutrients    | 4          | 4       |
 
-|*12 Weeks* |      |         |         |
-| -------  | ---- | ------- | ------- |
+|*12 Weeks* |      |        |
+| -------  | ---- | ------- |
 |              | No Glucose | Glucose |
 | No Nutrients | 4          | 4       |
 | Nutrients    | 4          | 4       |
@@ -71,4 +71,34 @@ This hypothesis presumes that the decomposition of litter in the pond water is l
 
 ## Set-up
 
+ * Total Bottles needed = 16 for 2 week harvest + 16 for 12 week harvest = 32 bottles
+ * Total Leaf Discs needed = (10 discs on sediments + 10 discs on shelf) * 32 bottles = 640 leaf discs
+ * Total Nutrient Solution needed 
 
+*TO BE COMPLETED*
+
+## Protocols
+### Field Sampling
+
+1. Do a YSI profile.
+2. Collect 1 L of water for chlorophyll and nutrient samples.
+3. Filter water through GFF filter - freeze filter for chlorophyll - freeze filtrate for nutrients
+
+### Initial Bottle Set-up
+
+1. Collect 3 Ekman dredge samples from Lancer Park Pond away from the immediate shoreline.`
+2. Pass the sediments through 250 um mesh to remove macroinvertebrates and CPOM.
+3. Collect 20 L of pond surface water.
+4. Homogenize the sediments and then add 100 ml of slurry to each jar.
+5. Fill the remaining volume of the jar with pond water and allow to settle in the dark.
+6. Collect a 3 replicate 10 ml samples of sediment slurry and add to pre-weighed crucibles for LOI.
+
+## Timeline
+
+| Date | Task |
+| ---- | ---- |
+| Oct. 2 | Set up bottles, Process Environmental Samples |
+| Oct. 9 | Prepare leaf discs, Prepare N-P and Glucose Stock |
+| Oct. 17 | Add leaf discs to bottles |
+| Oct. 30 | Break-down 2 week experiment |
+| Jan 15 | Break-down 12 week experiment |
