@@ -56,11 +56,15 @@ This hypothesis presumes that the decomposition of litter in the pond water is l
 
 ### Design and Replicates
 
-| *2 Weeks*    | No Glucose | Glucose |
+|*2 Weeks* |      |         |         |
+| -------  | ---- | ------- | ------- |
+|              | No Glucose | Glucose |
 | No Nutrients | 4          | 4       |
 | Nutrients    | 4          | 4       |
 
-| *12 Weeks*   | No Glucose | Glucose |
+|*12 Weeks* |      |         |         |
+| -------  | ---- | ------- | ------- |
+|              | No Glucose | Glucose |
 | No Nutrients | 4          | 4       |
 | Nutrients    | 4          | 4       |
 
