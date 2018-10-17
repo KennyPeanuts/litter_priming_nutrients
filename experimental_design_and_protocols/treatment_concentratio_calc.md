@@ -128,7 +128,7 @@ Thus the C is `` of the mass of the
 
     72 / 180 = 0.4
 
-So to get 0.286 g/L, we need to dissolve `0.715` C6H12O6 into 1 L of di water
+So to get 0.286 g/L, we need to dissolve `0.715` g C6H12O6 into 1 L of di water
 
     T * f = P
 
@@ -147,4 +147,4 @@ So in this case
     f = 0.40
     P = 0.286 g/L
 
-    T = 0.286 / 0.4 = 0.715 g KH2PO4
+    T = 0.286 / 0.4 = 0.715 g C6H12O6
