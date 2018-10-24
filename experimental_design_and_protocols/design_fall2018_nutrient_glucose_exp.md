@@ -99,6 +99,6 @@ This hypothesis presumes that the decomposition of litter in the pond water is l
 | ---- | ---- |
 | Oct. 2 | Set up bottles, Process Environmental Samples |
 | Oct. 9 | Prepare leaf discs, Prepare N-P and Glucose Stock |
-| Oct. 17 | Add leaf discs to bottles |
-| Oct. 30 | Break-down 2 week experiment |
-| Jan 15 | Break-down 12 week experiment |
+| Oct. 31 | Add leaf discs to bottles |
+| Nov. 14 | Break-down 2 week experiment |
+| Jan 23 | Break-down 12 week experiment |
