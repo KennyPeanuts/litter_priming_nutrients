@@ -47,14 +47,16 @@ For each bottle:
 
 7) Remove the shelf and repeat steps 2 - 6
 
+8) Add 10 ml of filter sterilized formalin to 3 autoclaved scintillation vials as Bacterial Blanks.
+
 **NOTE: Keep careful notes on the number of leaves in each sample because it may differ from the intended amount.**
 
 ## Sample Bottles Needed
 
 | Treatment Level | Leaf Mass | C:N Analysis | Fugal Biomass | Bacterial Biomass | N and P Conc. | lDOC Conc. |
 | --------------- | --------- | ------------ | ------------- | ----------------- | ------------- | ---------- |
-| NG-NN           | 4 pre-weighed crucible | 4 pre-weighed scint vials | 4 scint vials | 4 scint vials | 4 50 ml Falcon Tubes | 4 DOC vials |
-| NG-YN           | 4 pre-weighed crucible | 4 pre-weighed scint vials | 4 scint vials | 4 scint vials | 4 50 ml Falcon Tubes | 4 DOC vials |
-| YG-NN           | 4 pre-weighed crucible | 4 pre-weighed scint vials | 4 scint vials | 4 scint vials | 4 50 ml Falcon Tubes | 4 DOC vials |
-| YG-YN           | 4 pre-weighed crucible | 4 pre-weighed scint vials | 4 scint vials | 4 scint vials | 4 50 ml Falcon Tubes | 4 DOC vials |
- 
+| NG-NN           | 4 pre-weighed crucible | 4 pre-weighed scint vials | 4 scint vials | 4 scint vials | 4, 50 ml Falcon Tubes | 4 DOC vials |
+| NG-YN           | 4 pre-weighed crucible | 4 pre-weighed scint vials | 4 scint vials | 4 scint vials | 4, 50 ml Falcon Tubes | 4 DOC vials |
+| YG-NN           | 4 pre-weighed crucible | 4 pre-weighed scint vials | 4 scint vials | 4 scint vials | 4, 50 ml Falcon Tubes | 4 DOC vials |
+| YG-YN           | 4 pre-weighed crucible | 4 pre-weighed scint vials | 4 scint vials | 4 scint vials | 4, 50 ml Falcon Tubes | 4 DOC vials |
+| Bacterial Blank | none | none | none | 3 scint vials | none | none | 
