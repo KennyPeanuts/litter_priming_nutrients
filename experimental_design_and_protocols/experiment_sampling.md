@@ -41,7 +41,7 @@ For each bottle:
 
 4) Following the penetrometer measurements, place these 3 leaf discs into a pre-weighed and labeled scintillation vial for C:N analysis.
 
-5) Remove 1 leaf disc and place into an autoclaved scintillation vial with 10 ml of 2% filter sterilized formalin.
+5) Remove 1 leaf disc and place into a sterile vial and add NUMBER of glutaraldehyde.
 
 6) Remove the remaining 4 leaf discs and place into a pre-weighed crucible for LOI analysis.
 
@@ -55,8 +55,8 @@ For each bottle:
 
 | Treatment Level | Leaf Mass | C:N Analysis | Fugal Biomass | Bacterial Biomass | N and P Conc. | lDOC Conc. |
 | --------------- | --------- | ------------ | ------------- | ----------------- | ------------- | ---------- |
-| NG-NN           | 4 pre-weighed crucible | 4 pre-weighed scint vials | 4 scint vials | 4 scint vials | 4, 50 ml Falcon Tubes | 4 DOC vials |
-| NG-YN           | 4 pre-weighed crucible | 4 pre-weighed scint vials | 4 scint vials | 4 scint vials | 4, 50 ml Falcon Tubes | 4 DOC vials |
-| YG-NN           | 4 pre-weighed crucible | 4 pre-weighed scint vials | 4 scint vials | 4 scint vials | 4, 50 ml Falcon Tubes | 4 DOC vials |
-| YG-YN           | 4 pre-weighed crucible | 4 pre-weighed scint vials | 4 scint vials | 4 scint vials | 4, 50 ml Falcon Tubes | 4 DOC vials |
-| Bacterial Blank | none | none | none | 3 scint vials | none | none | 
+| NG-NN           | 4 pre-weighed crucible | 4 pre-weighed scint vials | 4 scint vials | 4 sterile vials | 4, 50 ml Falcon Tubes | 4 DOC vials |
+| NG-YN           | 4 pre-weighed crucible | 4 pre-weighed scint vials | 4 scint vials | 4 sterile vials | 4, 50 ml Falcon Tubes | 4 DOC vials |
+| YG-NN           | 4 pre-weighed crucible | 4 pre-weighed scint vials | 4 scint vials | 4 sterile vials | 4, 50 ml Falcon Tubes | 4 DOC vials |
+| YG-YN           | 4 pre-weighed crucible | 4 pre-weighed scint vials | 4 scint vials | 4 sterile vials | 4, 50 ml Falcon Tubes | 4 DOC vials |
+| Bacterial Blank | none | none | none | 4 sterile vials | none | none | 
