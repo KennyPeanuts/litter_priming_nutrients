@@ -43,6 +43,29 @@ Three replicate leaves were randomly selected from the top and sediments from ea
 
     mean.tough <- data.frame(location, nutrients, glucose, mean.tot.mass2, mean.tot.mass14)    
 
+### Calculate Difference Between Sed and Top
+    
+    mean.tot.mass2.diff <- mean.tough$mean.tot.mass2[mean.tough$location == "top"] - mean.tough$mean.tot.mass2[mean.tough$location == "sed"]
+    mean.tot.mass14.diff <- mean.tough$mean.tot.mass14[mean.tough$location == "top"] - mean.tough$mean.tot.mass14[mean.tough$location == "sed"]
+    
+#### Create treatment name variable
+    
+    treat <- c(rep("NGNN", 4), rep("NNYN", 4), rep("YGNN", 4), rep("YGYN", 4))
+    
+#### Create data.frame
+    
+    diff.mean.tough <- data.frame(treat, mean.tot.mass2.diff, mean.tot.mass14.diff)
+    
+### test for location effect
+    
+    t.test(diff.mean.tough$mean.tot.mass2, mu = 0)
+    t.test(diff.mean.tough$mean.tot.mass14, mu = 0)
+    
+### ANOVA by treatment
+    
+    summary(aov(mean.tot.mass2.diff ~ treat, data = diff.mean.tough))
+    summary(aov(mean.tot.mass14.diff ~ treat, data = diff.mean.tough))
+    
 ### 3 - way ANOVA
     
     anova(lm(mean.tot.mass2 ~ location * nutrients * glucose, data = mean.tough))
