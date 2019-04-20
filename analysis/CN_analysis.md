@@ -4,6 +4,10 @@
 
 * 4 March 2019
 
+## Modified
+
+* 2019-April-19 - KF - added analysis of the CN results
+
 ## Authors
 
 * KF
@@ -15,14 +19,15 @@
 
 ### Import Data
 
-    CN2 <- read.table("./data/CN_week2.csv", header = T, sep = ",") # for the 2 week incubation
-    CN14 <- read.table("./data/CN_week14.csv", header = T, sep = ",") # for the 2 week incubation
+    CN <- read.table("./data/CN_all.csv", header = T, sep = ",")
     
-### Calculate Mass of Sample
+## Analysis
     
-    CN2_samp_mass <- CN2$Vial_leaf_mass - CN2$Vial_mass
-    CN14_samp_mass <- CN14$Vial_Leaf_Mass - CN14$Vial_mass
-
-    stem(CN2_samp_mass)    
-    stem(CN14_samp_mass)    
+    plot(CN_mol ~ Treat, data = CN, subset = Location == "Sed" & Date == "2018-11-12", main = "Sed", ylim = c(20, 100))
+    plot(CN_mol ~ Treat, data = CN, subset = Location == "Top" & Date == "2018-11-12", main = "Top", ylim = c(20, 100))
+    
+    plot(CN_mol ~ Treat, data = CN, subset = Location == "Sed" & Date == "2019-02-07", main = "Sed", ylim =c(20, 100))
+    plot(CN_mol ~ Treat, data = CN, subset = Location == "Top" & Date == "2019-02-07", main = "Top", ylim = c(20, 100))
+    
+    plot(CN_mol ~ Nutrients, data = CN, subset = Location == "Top")
     
