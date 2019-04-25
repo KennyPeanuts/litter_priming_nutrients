@@ -4,6 +4,10 @@
 
 * 14 Feb 2019
 
+## Modified
+
+* 25 April 2019 - KF - completed the analysis based on the diff between the top and sediment
+
 ## Authors
 
 * KF
@@ -61,41 +65,82 @@ Three replicate leaves were randomly selected from the top and sediments from ea
     t.test(diff.mean.tough$mean.tot.mass2, mu = 0)
     t.test(diff.mean.tough$mean.tot.mass14, mu = 0)
     
+    #=============================================
+    
+    Week 2 One Sample t-test
+    
+    data:  diff.mean.tough$mean.tot.mass2
+    t = 3.1061, df = 14, p-value = 0.007739
+    alternative hypothesis: true mean is not equal to 0
+    95 percent confidence interval:
+      10.62836 58.05608
+    sample estimates:
+      mean of x 
+    34.34222 
+    
+    #===============================================
+    
+    #================================================
+    
+    14 Week One Sample t-test
+    
+    data:  diff.mean.tough$mean.tot.mass14
+    t = 3.897, df = 15, p-value = 0.00143
+    alternative hypothesis: true mean is not equal to 0
+    95 percent confidence interval:
+      15.69373 53.58544
+    sample estimates:
+      mean of x 
+    34.63958 
+    
+    #===============================================
+    
+    
+    
 ### ANOVA by treatment
     
     summary(aov(mean.tot.mass2.diff ~ treat, data = diff.mean.tough))
+    
+    #===============================================
+    
+    Week 2
+    
+    Df Sum Sq Mean Sq F value Pr(>F)
+    treat        3   3414    1138   0.562  0.651
+    Residuals   11  22257    2023               
+    1 observation deleted due to missingness
+    
+    #==============================================
+    
     summary(aov(mean.tot.mass14.diff ~ treat, data = diff.mean.tough))
     
-### 3 - way ANOVA
+    #===============================================
     
-    anova(lm(mean.tot.mass2 ~ location * nutrients * glucose, data = mean.tough))
-    anova(lm(mean.tot.mass14 ~ location * nutrients * glucose, data = mean.tough))
+    Week 14
+    
+    Df Sum Sq Mean Sq F value Pr(>F)
+    treat        3   4668    1556   1.306  0.318
+    Residuals   12  14294    1191     
+    
+    #==============================================
+    
+### Look for Homogenity of Variance
+    
+    tapply(diff.mean.tough$mean.tot.mass14.diff, diff.mean.tough$treat, sd)
+    
+    #===============================================
+    
+    NGNN     NNYN     YGNN     YGYN 
+    47.99450 43.21679 16.23251 18.16559 
+    
+    #===============================================
 
-############
-
-    Response: mean.tot.mass2
-                                Df  Sum Sq Mean Sq F value Pr(>F)  
-    location                    1  7172.8  7172.8  5.9248 0.0231 *
-    nutrients                   1  3871.9  3871.9  3.1982 0.0869 .
-    glucose                     1     6.2     6.2  0.0051 0.9435  
-    location:nutrients          1  2110.9  2110.9  1.7436 0.1997  
-    location:glucose            1    50.6    50.6  0.0418 0.8399  
-    nutrients:glucose           1   162.1   162.1  0.1339 0.7178  
-    location:nutrients:glucose  1    83.2    83.2  0.0688 0.7955  
-    Residuals                  23 27844.4  1210.6 
-    
-    Response: mean.tot.mass14
-                                Df  Sum Sq Mean Sq F value  Pr(>F)   
-    location                    1  9599.2  9599.2 10.7608 0.00316 **
-    nutrients                   1  2105.5  2105.5  2.3602 0.13754   
-    glucose                     1   591.4   591.4  0.6630 0.42352   
-    location:nutrients          1   694.1   694.1  0.7781 0.38648   
-    location:glucose            1   892.2   892.2  1.0001 0.32725   
-    nutrients:glucose           1   293.8   293.8  0.3294 0.57136   
-    location:nutrients:glucose  1   747.9   747.9  0.8384 0.36897   
-    Residuals                  24 21409.2   892.1  
-    
 ##########################
+    
+## Plot of Treatment Effect on Difference between TOP and BOTTOM
+    
+    plot(mean.tot.mass2.diff ~ treat, data = diff.mean.tough, main = "Week 2")
+    plot(mean.tot.mass14.diff ~ treat, data = diff.mean.tough, main = "Week 14")
     
 #### Plot of location effect
   
