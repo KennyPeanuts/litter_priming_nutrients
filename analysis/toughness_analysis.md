@@ -7,6 +7,7 @@
 ## Modified
 
 * 25 April 2019 - KF - completed the analysis based on the diff between the top and sediment
+* 25 April 2019 - KF - began coding figure of toughness difference
 
 ## Authors
 
@@ -138,9 +139,13 @@ Three replicate leaves were randomly selected from the top and sediments from ea
 ##########################
     
 ## Plot of Treatment Effect on Difference between TOP and BOTTOM
-    
-    plot(mean.tot.mass2.diff ~ treat, data = diff.mean.tough, main = "Week 2")
-    plot(mean.tot.mass14.diff ~ treat, data = diff.mean.tough, main = "Week 14")
+    par(las = 1, mfcol = c(2, 1), cex = 1, lwd = 2)
+    par(mar = c(2, 10, 4, 10))
+    plot(mean.tot.mass2.diff ~ treat, data = diff.mean.tough, xlab = " ", ylab = "Toughness Difference", cex.lab = 1.5, cex.axis = 1.2, ylim = c(-50, 150))
+    abline(h = 0)
+    par(mar = c(4, 10, 2, 10))
+    plot(mean.tot.mass14.diff ~ treat, data = diff.mean.tough, xlab = " ", ylab = "Toughness Difference", cex.lab = 1.5, cex.axis = 1.2, ylim = c(-50, 150))
+    abline(h = 0)
     
 #### Plot of location effect
   
