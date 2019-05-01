@@ -55,11 +55,13 @@ Three replicate leaves were randomly selected from the top and sediments from ea
     
 #### Create treatment name variable
     
-    treat <- c(rep("NGNN", 4), rep("NNYN", 4), rep("YGNN", 4), rep("YGYN", 4))
+    treat <- c(rep("NGNN", 4), rep("NGYN", 4), rep("YGNN", 4), rep("YGYN", 4))
+    gluc <- c(rep("N", 8), rep("Y", 8))
+    nut <- c(rep("N", 4), rep("Y", 4), rep("N", 4), rep("Y", 4))
     
 #### Create data.frame
     
-    diff.mean.tough <- data.frame(treat, mean.tot.mass2.diff, mean.tot.mass14.diff)
+    diff.mean.tough <- data.frame(treat, gluc, nut, mean.tot.mass2.diff, mean.tot.mass14.diff)
     
 ### test for location effect
     
@@ -131,7 +133,9 @@ Three replicate leaves were randomly selected from the top and sediments from ea
     
     #===============================================
     
-    NGNN     NNYN     YGNN     YGYN 
+    # Standard Deviation of the Difference of the treatments
+    
+    NGNN     NGYN     YGNN     YGYN 
     47.99450 43.21679 16.23251 18.16559 
     
     #===============================================
@@ -139,14 +143,33 @@ Three replicate leaves were randomly selected from the top and sediments from ea
 ##########################
     
 ## Plot of Treatment Effect on Difference between TOP and BOTTOM
-    par(las = 1, mfcol = c(2, 1), cex = 1, lwd = 2)
-    par(mar = c(2, 10, 4, 10))
-    plot(mean.tot.mass2.diff ~ treat, data = diff.mean.tough, xlab = " ", ylab = "Toughness Difference", cex.lab = 1.5, cex.axis = 1.2, ylim = c(-50, 150))
-    abline(h = 0)
-    par(mar = c(4, 10, 2, 10))
-    plot(mean.tot.mass14.diff ~ treat, data = diff.mean.tough, xlab = " ", ylab = "Toughness Difference", cex.lab = 1.5, cex.axis = 1.2, ylim = c(-50, 150))
-    abline(h = 0)
+    par(las = 1, cex = 1, lwd = 2)
+    #par(mfcol = c(2, 1))
+    par(mar = c(5, 5, 5, 5))
+    plot(mean.tot.mass2.diff ~ treat, data = diff.mean.tough, xlab = " ", ylab = "Toughness Difference (g)", cex.lab = 1.5, cex.axis = 1.2, ylim = c(-50, 150), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F, cex.lab = 0.5)
+    axis(2)
+    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
+    abline(h = 0, lwd = 3)
+    text(2, 150, "No Sediment Contact is Greater")
+    text(2, -50, "Sediment Contact is Greater")
+    box()
+    dev.copy(jpeg, "./output/plots/toughness_diff_treat_week2.jpg")
+    dev.off()
     
+    par(las = 1, cex = 1, lwd = 2)
+    #par(mfcol = c(2, 1))
+    par(mar = c(5, 5, 5, 5))
+    plot(mean.tot.mass14.diff ~ treat, data = diff.mean.tough, xlab = " ", ylab = "Toughness Difference (g)", cex.lab = 1.5, cex.axis = 1.2, ylim = c(-50, 150), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F, cex.lab = 0.5)
+    axis(2)
+    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
+    abline(h = 0, lwd = 3)
+    text(2, 150, "No Sediment Contact is Greater")
+    text(2, -50, "Sediment Contact is Greater")
+    box()
+    dev.copy(jpeg, "./output/plots/toughness_diff_treat_week14.jpg")
+    dev.off()
+    
+
 #### Plot of location effect
   
     par(las = 1, mfcol = c(2, 1))

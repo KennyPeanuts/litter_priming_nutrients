@@ -56,6 +56,7 @@
 ### Calc the differenece between the TOP and SED samples
     
     mass.loss.disc.diff <- mass_loss_disc[LOI14$Location == "Top"] - mass_loss_disc[LOI14$Location == "Sed"]
+    treat.diff <- LOI14$Treat[LOI14$Location == "Top"]
     
     t.test(mass.loss.disc.diff, mu = 0)
     
@@ -97,4 +98,46 @@ Since there was no effect of location, I analyzed the effect of treatment on mas
     dev.off()
     
 ![Mass Loss by Location](../output/plots/mass_loss_location.jpg)
+    
+### Plot of Mass Loss by Treatment
+#### TOP    
+    par(las = 1, cex = 1, lwd = 2)
+    #par(mfcol = c(2, 1))
+    par(mar = c(5, 5, 5, 5))
+    plot(mass_loss_disc * 1000 ~ Treat, data = LOI14, subset = Location == "Top", xlab = " ", ylab = "Mass Loss (mg)", cex.lab = 1.5, cex.axis = 1.2, ylim = c(-0.5, 2.5), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F, cex.lab = 0.5)
+    axis(2)
+    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
+    abline(h = 0, lwd = 3)
+    box()
+    text(1.15, 2.5, "No Sediment Contact")
+    dev.copy(jpeg, "./output/plots/mass_loss_treat_top_wk14.jpg")
+    dev.off()
+    
+#### SED    
+    par(las = 1, cex = 1, lwd = 2)
+    #par(mfcol = c(2, 1))
+    par(mar = c(5, 5, 5, 5))
+    plot(mass_loss_disc * 1000 ~ Treat, data = LOI14, subset = Location == "Sed", xlab = " ", ylab = "Mass Loss (mg)", cex.lab = 1.5, cex.axis = 1.2, ylim = c(-0.5, 2.5), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F, cex.lab = 0.5)
+    axis(2)
+    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
+    abline(h = 0, lwd = 3)
+    box()
+    text(1, 2.5, "Sediment Contact")
+    dev.copy(jpeg, "./output/plots/mass_loss_treat_sed_wk14.jpg")
+    dev.off()
+    
+### Plot of Mass Loss Difference by Treatment
+    
+    par(las = 1, cex = 1, lwd = 2)
+    #par(mfcol = c(2, 1))
+    par(mar = c(5, 5, 5, 5))
+    plot(mass.loss.disc.diff * 1000 ~ treat.diff, data = LOI14, xlab = " ", ylab = "Mass Loss Difference (mg)", cex.lab = 1.5, cex.axis = 1.2, ylim = c(-1.5, 1.50), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F, cex.lab = 0.5)
+    axis(2)
+    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
+    abline(h = 0, lwd = 3)
+    text(2, 1.50, "No Sediment Contact is Greater")
+    text(2, -1.50, "Sediment Contact is Greater")
+    box()
+    dev.copy(jpeg, "./output/plots/mass_loss_diff_treat_wk14.jpg")
+    dev.off()
     
