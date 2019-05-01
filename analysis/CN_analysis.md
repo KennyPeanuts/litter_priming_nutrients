@@ -211,6 +211,7 @@
     
     
 # Plots for SFS
+## Differences
    # Week 2 
     par(las = 1, cex = 1, lwd = 2)
     #par(mfcol = c(2, 1))
@@ -266,5 +267,98 @@
     text(2, -10, "Sediment Contact is Greater")
     box()
     dev.copy(jpeg, "./output/plots/percC_diff_treat_wk14.jpg")
+    dev.off()
+
+## Mass
+### Perc C
+
+   # Week 2 
+    par(las = 1, cex = 1, lwd = 2)
+    #par(mfcol = c(2, 1))
+    par(mar = c(5, 5, 5, 5))
+    plot(perc_C ~ Treat, data = CN, subset = Date == "2018-11-12" & Location =="Top", xlab = " ", ylab = "Percent C", cex.lab = 1.5, cex.axis = 1.2, ylim = c(30, 50), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F)
+    axis(2)
+    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
+    box()
+    dev.copy(jpeg, "./output/plots/percC_treat_top_wk2.jpg")
+    dev.off()
+    
+   # Week 2 
+    par(las = 1, cex = 1, lwd = 2)
+    #par(mfcol = c(2, 1))
+    par(mar = c(5, 5, 5, 5))
+    plot(perc_C ~ Treat, data = CN, subset = Date == "2018-11-12" & Location =="Sed", xlab = " ", ylab = "Percent C", cex.lab = 1.5, cex.axis = 1.2, ylim = c(30, 50), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F)
+    axis(2)
+    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
+    box()
+    dev.copy(jpeg, "./output/plots/percC_treat_sed_wk2.jpg")
+    dev.off()
+    
+   # Week 14 
+    par(las = 1, cex = 1, lwd = 2)
+    #par(mfcol = c(2, 1))
+    par(mar = c(5, 5, 5, 5))
+    plot(perc_C ~ Treat, data = CN, subset = Date == "2019-02-07" & Location =="Top", xlab = " ", ylab = "Percent C", cex.lab = 1.5, cex.axis = 1.2, ylim = c(30, 50), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F)
+    axis(2)
+    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
+    box()
+    dev.copy(jpeg, "./output/plots/percC_treat_top_wk14.jpg")
+    dev.off()
+    
+   # Week 14 
+    par(las = 1, cex = 1, lwd = 2)
+    #par(mfcol = c(2, 1))
+    par(mar = c(5, 5, 5, 5))
+    plot(perc_C ~ Treat, data = CN, subset = Date == "2019-02-07" & Location =="Sed", xlab = " ", ylab = "Percent C", cex.lab = 1.5, cex.axis = 1.2, ylim = c(30, 50), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F)
+    axis(2)
+    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
+    box()
+    dev.copy(jpeg, "./output/plots/percC_treat_sed_wk14.jpg")
+    dev.off()
+    
+### Perc N
+
+   # Week 2 
+    par(las = 1, cex = 1, lwd = 2)
+    #par(mfcol = c(2, 1))
+    par(mar = c(5, 5, 5, 5))
+    plot(perc_N ~ Treat, data = CN, subset = Date == "2018-11-12" & Location =="Top", xlab = " ", ylab = "Percent N", cex.lab = 1.5, cex.axis = 1.2, ylim = c(0, 4), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F)
+    axis(2)
+    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
+    box()
+    dev.copy(jpeg, "./output/plots/percN_treat_top_wk2.jpg")
+    dev.off()
+    
+   # Week 2 
+    par(las = 1, cex = 1, lwd = 2)
+    #par(mfcol = c(2, 1))
+    par(mar = c(5, 5, 5, 5))
+    plot(perc_N ~ Treat, data = CN, subset = Date == "2018-11-12" & Location =="Sed", xlab = " ", ylab = "Percent N", cex.lab = 1.5, cex.axis = 1.2, ylim = c(0, 4), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F)
+    axis(2)
+    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
+    box()
+    dev.copy(jpeg, "./output/plots/percN_treat_sed_wk2.jpg")
+    dev.off()
+    
+   # Week 14 
+    par(las = 1, cex = 1, lwd = 2)
+    #par(mfcol = c(2, 1))
+    par(mar = c(5, 5, 5, 5))
+    plot(perc_N ~ Treat, data = CN, subset = Date == "2019-02-07" & Location =="Top", xlab = " ", ylab = "Percent N", cex.lab = 1.5, cex.axis = 1.2, ylim = c(0, 4), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F)
+    axis(2)
+    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
+    box()
+    dev.copy(jpeg, "./output/plots/percN_treat_top_wk14.jpg")
+    dev.off()
+    
+   # Week 14 
+    par(las = 1, cex = 1, lwd = 2)
+    #par(mfcol = c(2, 1))
+    par(mar = c(5, 5, 5, 5))
+    plot(perc_N ~ Treat, data = CN, subset = Date == "2019-02-07" & Location =="Sed", xlab = " ", ylab = "Percent N", cex.lab = 1.5, cex.axis = 1.2, ylim = c(0, 4), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F)
+    axis(2)
+    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
+    box()
+    dev.copy(jpeg, "./output/plots/percN_treat_sed_wk14.jpg")
     dev.off()
     

@@ -43,10 +43,11 @@ Three replicate leaves were randomly selected from the top and sediments from ea
     mean.tot.mass2 <- c(mean.tot.mass2.top, mean.tot.mass2.sed)
     mean.tot.mass14 <- c(mean.tot.mass14.top, mean.tot.mass14.sed)
     location <- c(rep("top", 16), rep("sed", 16))
+    treat <- rep(c(rep("NGNN", 4), rep("NGYN", 4), rep("YGNN", 4), rep("YGYN", 4)), 2)
     nutrients <- rep(c("N", "N", "N", "N", "Y", "Y", "Y", "Y", "N", "N", "N", "N", "Y", "Y", "Y", "Y"), 2)
     glucose <- rep(c(rep("N", 8), rep("Y", 8)), 2)
 
-    mean.tough <- data.frame(location, nutrients, glucose, mean.tot.mass2, mean.tot.mass14)    
+    mean.tough <- data.frame(location, treat, nutrients, glucose, mean.tot.mass2, mean.tot.mass14)    
 
 ### Calculate Difference Between Sed and Top
     
@@ -190,5 +191,50 @@ Three replicate leaves were randomly selected from the top and sediments from ea
     dev.off()
     
 ![Boxplot of toughness](../output/plots/toughness.jpg)
+
+## Plots of Toughness by Timefram 
     
+    # Week 2 
+    par(las = 1, cex = 1, lwd = 2)
+    #par(mfcol = c(2, 1))
+    par(mar = c(5, 5, 5, 5))
+    plot(mean.tot.mass2 ~ treat, data = mean.tough, subset = location == "top", xlab = " ", ylab = "Toughness (g of water)", cex.lab = 1.5, cex.axis = 1.2, ylim = c(0, 250), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F, cex.lab = 0.5)
+    axis(2)
+    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
+    box()
+    dev.copy(jpeg, "./output/plots/mean_tough_top_treat_wk2.jpg")
+    dev.off()
+    
+    # Week 2 
+    par(las = 1, cex = 1, lwd = 2)
+    #par(mfcol = c(2, 1))
+    par(mar = c(5, 5, 5, 5))
+    plot(mean.tot.mass2 ~ treat, data = mean.tough, subset = location == "sed", xlab = " ", ylab = "Toughness (g of water)", cex.lab = 1.5, cex.axis = 1.2, ylim = c(0, 250), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F, cex.lab = 0.5)
+    axis(2)
+    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
+    box()
+    dev.copy(jpeg, "./output/plots/mean_tough_sed_wk2.jpg")
+    dev.off()
+    
+    # Week 14 
+    par(las = 1, cex = 1, lwd = 2)
+    #par(mfcol = c(2, 1))
+    par(mar = c(5, 5, 5, 5))
+    plot(mean.tot.mass14 ~ treat, data = mean.tough, subset = location == "top", xlab = " ", ylab = "Toughness (g of water)", cex.lab = 1.5, cex.axis = 1.2, ylim = c(0, 250), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F, cex.lab = 0.5)
+    axis(2)
+    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
+    box()
+    dev.copy(jpeg, "./output/plots/mean_tough_top_treat_wk14.jpg")
+    dev.off()
+    
+    # Week 14 
+    par(las = 1, cex = 1, lwd = 2)
+    #par(mfcol = c(2, 1))
+    par(mar = c(5, 5, 5, 5))
+    plot(mean.tot.mass14 ~ treat, data = mean.tough, subset = location == "sed", xlab = " ", ylab = "Toughness (g of water)", cex.lab = 1.5, cex.axis = 1.2, ylim = c(0, 250), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F)
+    axis(2)
+    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F, cex.axis = 1)
+    box()
+    dev.copy(jpeg, "./output/plots/mean_tough_sed_wk14.jpg")
+    dev.off()
     
