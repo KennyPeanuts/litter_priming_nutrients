@@ -32,21 +32,78 @@
     
     erg <- data.frame(erg, ErgLeaf, Location)
 
-### Plot Ergosterol Per leaf by Treatment
-#### 2 Week
+### Create Difference Variable 
     
-    plot(ErgLeaf ~ Location, data = erg, subset = HarvestDate == "11/12/19")
+    erg.diff.2 <- erg$ErgLeaf[erg$HarvestDate == "11/12/19" & erg$Location == "Top"] - erg$ErgLeaf[erg$HarvestDate == "11/12/19" & erg$Location == "Sed"] 
     
-#### 14 Week
+    erg.diff.14 <- erg$ErgLeaf[erg$HarvestDate == "2/7/19" & erg$Location == "Top"] - erg$ErgLeaf[erg$HarvestDate == "2/7/19" & erg$Location == "Sed"]
     
-    plot(ErgLeaf ~ Location, data = erg, subset = HarvestDate == "2/7/19")
+### Create Lables For Difference Variables
     
-### Plot Ergosterol Per leaf by Treatment
-#### 2 Week
+    treat.diff <- c(rep("NGNN", 4), rep("NGYN", 4), rep("YGNN", 4), rep("YGYN", 4))
     
-    plot(ErgLeaf ~ Treat, data = erg, subset = HarvestDate == "11/12/19")
+### Make Difference Data Frame 
     
-#### 14 Week
+    erg.diff <- data.frame(treat.diff, erg.diff.2, erg.diff.14)
     
-    plot(ErgLeaf ~ Treat, data = erg, subset = HarvestDate == "2/7/19")
+## Treatment Effect Analysis
+    
+    plot(erg.diff.2 ~ treat.diff, data= erg.diff)
+    abline(h = 0)
+
+    plot(erg.diff.14 ~ treat.diff, data= erg.diff)    
+    abline(h = 0)
+    
+    
+### Test for Location Effect
+    
+    t.test(erg.diff$erg.diff.2, mu=0)
+   
+    > t.test(erg.diff$erg.diff.2, mu=0)
+    
+    One Sample t-test
+    
+    data:  erg.diff$erg.diff.2
+    t = 2.4851, df = 14, p-value = 0.02621
+    alternative hypothesis: true mean is not equal to 0
+    95 percent confidence interval:
+      0.02531584 0.34443083
+    sample estimates:
+      mean of x 
+    0.1848733 
+    
+    t.test(erg.diff$erg.diff.14, mu=0)
+    
+    > t.test(erg.diff$erg.diff.14, mu=0)
+    
+    One Sample t-test
+    
+    data:  erg.diff$erg.diff.14
+    t = 3.7838, df = 15, p-value = 0.001802
+    alternative hypothesis: true mean is not equal to 0
+    95 percent confidence interval:
+      0.3663114 1.3113574
+    sample estimates:
+      mean of x 
+    0.8388344 
+    
+    anova(lm(erg.diff.2~ treat.diff, data= erg.diff))
+    
+    anova(lm(erg.diff.2~ treat.diff, data= erg.diff))
+    Analysis of Variance Table
+    
+    Response: erg.diff.2
+    Df  Sum Sq  Mean Sq F value Pr(>F)
+    treat.diff  3 0.09435 0.031450   0.324 0.8081
+    Residuals  11 1.06786 0.097079
+    
+    anova(lm(erg.diff.14~ treat.diff, data= erg.diff))
+    
+    anova(lm(erg.diff.14~ treat.diff, data= erg.diff))
+    Analysis of Variance Table
+    
+    Response: erg.diff.14
+    Df  Sum Sq Mean Sq F value Pr(>F)
+    treat.diff  3  1.3579 0.45262  0.5204 0.6763
+    Residuals  12 10.4374 0.86978   
     
