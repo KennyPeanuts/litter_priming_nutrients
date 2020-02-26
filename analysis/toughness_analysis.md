@@ -8,6 +8,7 @@
 
 * 25 April 2019 - KF - completed the analysis based on the diff between the top and sediment
 * 25 April 2019 - KF - began coding figure of toughness difference
+* 26 Feb 2020 - KF - summary stats for treatment levels 
 
 ## Authors
 
@@ -63,7 +64,25 @@ Three replicate leaves were randomly selected from the top and sediments from ea
 #### Create data.frame
     
     diff.mean.tough <- data.frame(treat, gluc, nut, mean.tot.mass2.diff, mean.tot.mass14.diff)
+
+### Summary Stats for difference
     
+    summary(mean.tot.mass2.diff)
+    sd(mean.tot.mass2.diff, na.rm = T)
+
+    summary(mean.tot.mass14.diff)
+    sd(mean.tot.mass14.diff, na.rm = T)
+    
+###########################
+> summary(mean.tot.mass2.diff)
+Min.      1st Qu.  Median    Mean    3rd Qu.    Max.     NAs  SD 
+-31.267   4.833    20.667    34.342  56.733     130.133  1    42.82169
+    
+> summary(mean.tot.mass14.diff)
+Min.      1st Qu.  Median    Mean    3rd Qu.    Max.   SD
+-19.833   5.008    37.467    34.640  64.858     94.700 35.55487 
+    
+##############################
 ### test for location effect
     
     t.test(diff.mean.tough$mean.tot.mass2, mu = 0)

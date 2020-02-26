@@ -34,7 +34,7 @@
 
 ### Create Difference Variable 
     
-    erg.diff.2 <- erg$ErgLeaf[erg$HarvestDate == "11/12/19" & erg$Location == "Top"] - erg$ErgLeaf[erg$HarvestDate == "11/12/19" & erg$Location == "Sed"] 
+    erg.diff.2 <- erg$ErgLeaf[erg$HarvestDate == "11/12/18" & erg$Location == "Top"] - erg$ErgLeaf[erg$HarvestDate == "11/12/18" & erg$Location == "Sed"] 
     
     erg.diff.14 <- erg$ErgLeaf[erg$HarvestDate == "2/7/19" & erg$Location == "Top"] - erg$ErgLeaf[erg$HarvestDate == "2/7/19" & erg$Location == "Sed"]
     
@@ -58,7 +58,8 @@
 ### Test for Location Effect
     
     t.test(erg.diff$erg.diff.2, mu=0)
-   
+
+################################       
     > t.test(erg.diff$erg.diff.2, mu=0)
     
     One Sample t-test
@@ -86,9 +87,12 @@
     sample estimates:
       mean of x 
     0.8388344 
-    
+###############################    
+
     anova(lm(erg.diff.2~ treat.diff, data= erg.diff))
-    
+
+################################    
+
     anova(lm(erg.diff.2~ treat.diff, data= erg.diff))
     Analysis of Variance Table
     
@@ -96,6 +100,8 @@
     Df  Sum Sq  Mean Sq F value Pr(>F)
     treat.diff  3 0.09435 0.031450   0.324 0.8081
     Residuals  11 1.06786 0.097079
+    
+##########################
     
     anova(lm(erg.diff.14~ treat.diff, data= erg.diff))
     
@@ -105,5 +111,70 @@
     Response: erg.diff.14
     Df  Sum Sq Mean Sq F value Pr(>F)
     treat.diff  3  1.3579 0.45262  0.5204 0.6763
-    Residuals  12 10.4374 0.86978   
+    Residuals  12 10.4374 0.86978 
+    
+#######################################
+  
+## Summary Statistics
+
+### Ergosterol by Location
+    
+    tapply(erg$ErgLeaf[erg$HarvestDate == "11/12/18"], erg$Location[erg$HarvestDate == "11/12/18"], summary)
+    tapply(erg$ErgLeaf[erg$HarvestDate == "11/12/18"], erg$Location[erg$HarvestDate == "11/12/18"], sd, na.rm = T)
+    
+
+###################################
+# 2 weeks
+    
+$Sed
+Min.     1st Qu.  Median    Mean     3rd Qu.  Max.    SD
+0.02205  0.07279  0.09095   0.11460  0.15676  0.25760 0.06641734
+    
+$Top
+Min.    1st Qu.  Median   Mean    3rd Qu.   Max.    SD          NAs 
+0.0853  0.1003   0.1648   0.2930  0.3795    1.3065  0.32386367     1 
+
+###################################
+
+tapply(erg$ErgLeaf[erg$HarvestDate == "2/7/19"], erg$Location[erg$HarvestDate == "2/7/19"], summary)
+tapply(erg$ErgLeaf[erg$HarvestDate == "2/7/19"], erg$Location[erg$HarvestDate == "2/7/19"], sd, na.rm = T)
+
+####################################
+
+$Sed
+Min.     1st Qu.  Median    Mean     3rd Qu.    Max.    SD
+0.06115  0.14814  0.38545   0.63532  0.85955    2.23295 0.6810563
+
+$Top
+Min.    1st Qu.  Median    Mean     3rd Qu.    Max.     SD
+0.1039  0.6278   1.5230    1.4742   2.0782     4.0646   1.0420158 
+
+########################################
+
+### Summary for Ergosterol Difference
+#### Week 2
+
+    summary(erg.diff$erg.diff.2)
+    sd(erg.diff$erg.diff.2, na.rm = T)
+
+#################    
+# Week 2
+    
+Min.      1st Qu.   Median     Mean     3rd Qu.     Max.     SD        NAs 
+-0.02435  0.02405   0.10515    0.18487  0.18190     1.10425  0.2881235     1 
+    
+####################
+    
+### Week `14
+    
+    summary(erg.diff$erg.diff.14)
+    sd(erg.diff$erg.diff.14, na.rm = T) 
+    
+###############################
+# Week 14
+    
+Min.     1st Qu.  Median    Mean    3rd Qu.    Max.    SD
+-0.5226  0.1668   0.7249    0.8388  1.5106     2.3681  0.8867637
+    
+###################################
     
