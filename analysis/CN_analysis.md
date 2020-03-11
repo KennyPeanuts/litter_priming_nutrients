@@ -39,6 +39,87 @@
 #### Create CN.diff data.frame
     
     CN.diff <- data.frame(Date.diff, Treat.diff, Nutrients.diff, Glucose.diff, perc.C.diff, perc.N.diff, CN.mol.diff)
+
+## Summary Statistics
+### Summary of Perc C
+#### Week 2
+    
+    tapply(CN$perc_C[CN$Date == "2018-11-12"], CN$Location[CN$Date == "2018-11-12"], summary)
+    tapply(CN$perc_C[CN$Date == "2018-11-12"], CN$Location[CN$Date == "2018-11-12"], sd)
+    
+    
+    #========================================
+    # Week 2
+    
+    $Sed
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.  SD
+    41.25   45.55   46.19   45.94   46.61   47.41 1.4140472
+    
+    $Top
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.  SD 
+    44.90   46.46   46.95   46.83   47.46   48.63 0.9426346  
+    
+    
+    #=========================================
+
+#### Week 14
+    
+    tapply(CN$perc_C[CN$Date == "2019-02-07"], CN$Location[CN$Date == "2019-02-07"], summary, na.rm = T)
+    tapply(CN$perc_C[CN$Date == "2019-02-07"], CN$Location[CN$Date == "2019-02-07"], sd, na.rm = T)
+    
+    
+    #========================================
+    # Week 14
+    $Sed
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.  SD
+    31.83   38.31   40.83   40.96   44.22   50.00 4.844574
+    
+    $Top
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.  SD
+    42.46   43.11   44.20   44.24   45.03   47.09 1.262288
+    
+    
+    #=========================================
+    
+### Summary of Perc N
+#### Week 2
+    
+    tapply(CN$perc_N[CN$Date == "2018-11-12"], CN$Location[CN$Date == "2018-11-12"], summary)
+    tapply(CN$perc_N[CN$Date == "2018-11-12"], CN$Location[CN$Date == "2018-11-12"], sd)
+    
+    
+    #========================================
+    # Week 2
+    $Sed
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.  SD
+    0.760   1.038   1.080   1.111   1.260   1.390 0.1915507 
+    
+    $Top
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.   SD
+    0.650   0.825   1.020   1.115   1.250   2.050 0.4011816
+     
+    
+    
+    #=========================================
+    
+    #### Week 14
+    
+    tapply(CN$perc_N[CN$Date == "2019-02-07"], CN$Location[CN$Date == "2019-02-07"], summary, na.rm = T)
+    tapply(CN$perc_N[CN$Date == "2019-02-07"], CN$Location[CN$Date == "2019-02-07"], sd, na.rm = T)
+    
+    
+    #========================================
+    # Week 14
+    $Sed
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.   SD 
+    0.900   1.465   1.735   1.645   1.840   2.330 0.3953732  
+    
+    $Top
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.  SD 
+    0.750   1.228   1.650   1.686   2.145   3.300 0.6507624
+    
+    #=========================================
+    
     
 ### Test of location Effect
 #### 2 Weeks
