@@ -42,8 +42,24 @@
 
 ## Summary Statistics
 ### Summary of Perc C
-#### Week 2
+
     
+    tapply(CN$perc_C, CN$Date, summary)
+    tapply(CN$perc_C, CN$Date, sd)
+    
+    #=======================================
+    
+    $`2018-11-12`
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.  SD
+    41.25   45.99   46.52   46.38   47.06   48.63 1.265312   
+    
+    $`2019-02-07`
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.  SD
+    31.83   41.03   43.20   42.60   45.03   50.00 3.862320 
+    
+    #===========================================
+
+#### Week 2    
     tapply(CN$perc_C[CN$Date == "2018-11-12"], CN$Location[CN$Date == "2018-11-12"], summary)
     tapply(CN$perc_C[CN$Date == "2018-11-12"], CN$Location[CN$Date == "2018-11-12"], sd)
     
@@ -82,6 +98,23 @@
     #=========================================
     
 ### Summary of Perc N
+    
+    tapply(CN$perc_N, CN$Date, summary)
+    tapply(CN$perc_N, CN$Date, sd)
+    
+    #=======================================
+    $`2018-11-12`
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.  SD 
+    0.650   0.900   1.080   1.113   1.250   2.050 0.3092492  
+    
+    $`2019-02-07`
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.  SD
+    0.750   1.285   1.695   1.666   1.905   3.300 0.5300879 
+    
+    
+    #===========================================    
+    
+    
 #### Week 2
     
     tapply(CN$perc_N[CN$Date == "2018-11-12"], CN$Location[CN$Date == "2018-11-12"], summary)
