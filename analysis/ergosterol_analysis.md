@@ -6,6 +6,7 @@
 
 ## Modified
 
+* 2020-10-21 - KF - cleaned up formatting and added metadata
 
 ## Authors
 
@@ -45,6 +46,17 @@
 ### Make Difference Data Frame 
     
     erg.diff <- data.frame(treat.diff, erg.diff.2, erg.diff.14)
+
+## Metadata for erg.diff
+This data frame contains the difference between the ergosterol in the treatment levels of the experiment. It is used to run t-tests that the difference is equal to or not equal to 0 to determine the treatment effect.
+
+### Variable Descriptions
+
+* treat.diff is the treatment labels where NGNN = no glucose and no nutrient addition, NGYN = no glucose but nutrient addition, YGNN = yes glucose addition but no nutrient addition, and YGYN = addition of both glucose and nutrient.
+
+* erg.diff.2 is the ergosterol concentration of the leaf discs not in contact with the sediment (TOP) minus the ergosterol concentration of the leaf discs in contact with the sediment (SED) at the 2-week harvesting time. Ergosterol concentration is in ug ergosterol / leaf disc 
+
+* erg.diff.14 is the ergosterol concentration of the leaf discs not in contact with the sediment (TOP) minus the ergosterol concentration of the leaf discs in contact with the sediment (SED) at the 14-week harvesting time.
     
 ## Treatment Effect Analysis
     
@@ -87,6 +99,7 @@
     sample estimates:
       mean of x 
     0.8388344 
+
 ###############################    
 
     anova(lm(erg.diff.2~ treat.diff, data= erg.diff))
@@ -118,36 +131,37 @@
 ## Summary Statistics
 
 ### Ergosterol by Location
+calculate the summary statistics for the ergosterol after 2 weeks of incubation for the sediment or water treatments
     
     tapply(erg$ErgLeaf[erg$HarvestDate == "11/12/18"], erg$Location[erg$HarvestDate == "11/12/18"], summary)
     tapply(erg$ErgLeaf[erg$HarvestDate == "11/12/18"], erg$Location[erg$HarvestDate == "11/12/18"], sd, na.rm = T)
     
 
 ###################################
-# 2 weeks
+# 2 weeks Ergosterol 
     
-$Sed
-Min.     1st Qu.  Median    Mean     3rd Qu.  Max.    SD
-0.02205  0.07279  0.09095   0.11460  0.15676  0.25760 0.06641734
+    $Sed
+    Min.     1st Qu.  Median    Mean     3rd Qu.  Max.    SD
+    0.02205  0.07279  0.09095   0.11460  0.15676  0.25760 0.06641734
     
-$Top
-Min.    1st Qu.  Median   Mean    3rd Qu.   Max.    SD          NAs 
-0.0853  0.1003   0.1648   0.2930  0.3795    1.3065  0.32386367     1 
+    $Top
+    Min.    1st Qu.  Median   Mean    3rd Qu.   Max.    SD          NAs 
+    0.0853  0.1003   0.1648   0.2930  0.3795    1.3065  0.32386367     1 
 
 ###################################
 
-tapply(erg$ErgLeaf[erg$HarvestDate == "2/7/19"], erg$Location[erg$HarvestDate == "2/7/19"], summary)
-tapply(erg$ErgLeaf[erg$HarvestDate == "2/7/19"], erg$Location[erg$HarvestDate == "2/7/19"], sd, na.rm = T)
+    tapply(erg$ErgLeaf[erg$HarvestDate == "2/7/19"], erg$Location[erg$HarvestDate == "2/7/19"], summary)
+    tapply(erg$ErgLeaf[erg$HarvestDate == "2/7/19"], erg$Location[erg$HarvestDate == "2/7/19"], sd, na.rm = T)
 
 ####################################
 
-$Sed
-Min.     1st Qu.  Median    Mean     3rd Qu.    Max.    SD
-0.06115  0.14814  0.38545   0.63532  0.85955    2.23295 0.6810563
+    $Sed
+    Min.     1st Qu.  Median    Mean     3rd Qu.    Max.    SD
+    0.06115  0.14814  0.38545   0.63532  0.85955    2.23295 0.6810563
 
-$Top
-Min.    1st Qu.  Median    Mean     3rd Qu.    Max.     SD
-0.1039  0.6278   1.5230    1.4742   2.0782     4.0646   1.0420158 
+    $Top
+    Min.    1st Qu.  Median    Mean     3rd Qu.    Max.     SD
+    0.1039  0.6278   1.5230    1.4742   2.0782     4.0646   1.0420158 
 
 ########################################
 
@@ -160,12 +174,12 @@ Min.    1st Qu.  Median    Mean     3rd Qu.    Max.     SD
 #################    
 # Week 2
     
-Min.      1st Qu.   Median     Mean     3rd Qu.     Max.     SD        NAs 
--0.02435  0.02405   0.10515    0.18487  0.18190     1.10425  0.2881235     1 
+    Min.      1st Qu.   Median     Mean     3rd Qu.     Max.     SD        NAs 
+    -0.02435  0.02405   0.10515    0.18487  0.18190     1.10425  0.2881235     1 
     
 ####################
     
-### Week `14
+### Week 14
     
     summary(erg.diff$erg.diff.14)
     sd(erg.diff$erg.diff.14, na.rm = T) 
@@ -173,8 +187,8 @@ Min.      1st Qu.   Median     Mean     3rd Qu.     Max.     SD        NAs
 ###############################
 # Week 14
     
-Min.     1st Qu.  Median    Mean    3rd Qu.    Max.    SD
--0.5226  0.1668   0.7249    0.8388  1.5106     2.3681  0.8867637
+    Min.     1st Qu.  Median    Mean    3rd Qu.    Max.    SD
+    -0.5226  0.1668   0.7249    0.8388  1.5106     2.3681  0.8867637
     
 ###################################
     
