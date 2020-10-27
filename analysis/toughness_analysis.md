@@ -74,13 +74,13 @@ Three replicate leaves were randomly selected from the top and sediments from ea
     sd(mean.tot.mass14.diff, na.rm = T)
     
 ###########################
-> summary(mean.tot.mass2.diff)
-Min.      1st Qu.  Median    Mean    3rd Qu.    Max.     NAs  SD 
--31.267   4.833    20.667    34.342  56.733     130.133  1    42.82169
+#> summary(mean.tot.mass2.diff)
+     Min.      1st Qu.  Median    Mean    3rd Qu.    Max.     NAs  SD 
+     -31.267   4.833    20.667    34.342  56.733     130.133  1    42.82169
     
-> summary(mean.tot.mass14.diff)
-Min.      1st Qu.  Median    Mean    3rd Qu.    Max.   SD
--19.833   5.008    37.467    34.640  64.858     94.700 35.55487 
+#> summary(mean.tot.mass14.diff)
+     Min.      1st Qu.  Median    Mean    3rd Qu.    Max.   SD
+     -19.833   5.008    37.467    34.640  64.858     94.700 35.55487 
     
 ##############################
 ### test for location effect
@@ -100,10 +100,10 @@ Min.      1st Qu.  Median    Mean    3rd Qu.    Max.   SD
     sample estimates:
       mean of x 
     34.34222 
+
+#===============================================
     
-    #===============================================
-    
-    #================================================
+#================================================
     
     14 Week One Sample t-test
     
@@ -116,9 +116,15 @@ Min.      1st Qu.  Median    Mean    3rd Qu.    Max.   SD
       mean of x 
     34.63958 
     
-    #===============================================
+#===============================================
     
+## Plot of toughness difference by week
     
+    boxplot(mean.tot.mass2.diff, mean.tot.mass14.diff, ylab = "Toughness Difference", axes = F, col = 8)
+    axis(2)
+    axis(1, c("2-weeks", "14-weeks"), at = c(1, 2))
+    abline(h = 0)
+    box()
     
 ### ANOVA by treatment
     
@@ -189,7 +195,42 @@ Min.      1st Qu.  Median    Mean    3rd Qu.    Max.   SD
     dev.copy(jpeg, "./output/plots/toughness_diff_treat_week14.jpg")
     dev.off()
     
+## Test of Glucose and Nutrient Additions
+#### 2 weeks    
+    tough.diff.mod2 <- lm(mean.tot.mass2.diff ~ gluc * nut, data = diff.mean.tough)
+    anova(tough.diff.mod2)
+    
+##########################################
+#2 - way ANOVA results for 2 weeks
+    
+    Analysis of Variance Table
+    
+    Response: mean.tot.mass2.diff
+    Df  Sum Sq Mean Sq F value Pr(>F)
+    gluc       1    29.6   29.56  0.0146 0.9060
+    nut        1  2765.2 2765.23  1.3666 0.2671
+    gluc:nut   1   619.5  619.47  0.3062 0.5911
+    Residuals 11 22257.5 2023.41   
+    
+###########################################
 
+#### 14 weeks    
+    tough.diff.mod14 <- lm(mean.tot.mass14.diff ~ gluc * nut, data = diff.mean.tough)
+    anova(tough.diff.mod14)
+    
+##########################################
+#2 - way ANOVA results for 14 weeks
+
+    Analysis of Variance Table
+    
+    Response: mean.tot.mass14.diff
+    Df  Sum Sq Mean Sq F value Pr(>F)
+    gluc       1  1784.4  1784.4  1.4980 0.2445
+    nut        1  1388.2  1388.2  1.1654 0.3016
+    gluc:nut   1  1495.8  1495.8  1.2557 0.2844
+    Residuals 12 14293.9  1191.2       
+
+##########################################
 #### Plot of location effect
   
     par(las = 1, mfcol = c(2, 1))
