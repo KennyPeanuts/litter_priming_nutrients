@@ -153,7 +153,24 @@
     
     #=========================================
     
+### Summary Stats for Differences 
+#### Perc_C
+
+    tapply(CN.diff$perc.C.diff, CN.diff$Date.diff, summary)
+    tapply(CN.diff$perc.C.diff, CN.diff$Date.diff, sd)
     
+##########################################
+# Summary of Perc C top - Perc C sed by date (mg)
+    
+    $`2018-11-12`
+       Min.    1st Qu.  Median  Mean    3rd Qu.    Max.     SD 
+      -0.4900  -0.1150  0.7100  0.8881  1.3600     3.6500   1.228361
+
+    $`2019-02-07`
+       Min.    1st Qu.  Median    Mean    3rd Qu.    Max.       SD
+      -5.0200  0.8925   4.0400    3.2881  6.0025     12.4600    4.567996 
+       
+##########################################
 ### Test of location Effect
 #### 2 Weeks
 ##### Percent C
@@ -272,58 +289,48 @@
     
     #============================
     
+### Plot of Difference by Date
+    
+    boxplot(CN.diff$perc.C.diff[CN.diff$Date.diff == "2018-11-12"], CN.diff$perc.C.diff[CN.diff$Date.diff == "2019-02-07"], axes = F, ylab = "Difference in Percent C")
+    axis(2)
+    axis(1, c("2-weeks", "14-weeks"), at = c(1, 2))
+    abline(h = 0)
+    box()
+    
 #### Analysis of Treatment Effect
     
     perc.C.diff.aov <- aov(perc.C.diff ~ Treat.diff * Date.diff, data = CN.diff)
     summary(perc.C.diff.aov)
+##### Percent C
+##### 2-week 
+    anova(lm(perc.C.diff ~ Treat.diff, data = CN.diff, subset = Date.diff == "2018-11-12"))
     
-    plot(perc.C.diff ~ Treat.diff, data = CN.diff, subset = Date.diff == "2018-11-12", ylim = c(-5, 15))
-    abline(h = 0)
+########################################
+# Difference in percent C between the top and sediment after 2 weeks
     
-    plot(perc.C.diff ~ Treat.diff, data = CN.diff, subset = Date.diff == "2019-02-07", ylim = c(-5, 15))
-    abline(h = 0)
+    Analysis of Variance Table
+
+    Response: perc.C.diff
+                Df  Sum Sq Mean Sq F value Pr(>F)
+    Treat.diff  3  4.4606  1.4869  0.9818 0.4338
+    Residuals  12 18.1725  1.5144  
     
-    plot(perc_C ~ Treat, data = CN, subset = Location == "Sed" & Date == "2018-11-12", ylim = c(40, 50)) 
-    plot(perc_C ~ Treat, data = CN, subset = Location == "Top" & Date == "2018-11-12", add = T, col = 8) 
+########################################
+##### 14-week 
     
-    plot(perc_C ~ Treat, data = CN, subset = Location == "Sed" & Date == "2019-02-07", ylim = c(20, 50)) 
-    plot(perc_C ~ Treat, data = CN, subset = Location == "Top" & Date == "2019-02-07", add = T, col = 8) 
+    anova(lm(perc.C.diff ~ Treat.diff, data = CN.diff, subset = Date.diff == "2019-02-07"))
+
+########################################
+# Difference in percent C between the top and sediment after 14 weeks
     
+    Analysis of Variance Table
+
+    Response: perc.C.diff
+               Df  Sum Sq Mean Sq F value Pr(>F)
+    Treat.diff  3   0.798  0.2659  0.0102 0.9985
+    Residuals  12 312.201 26.0168 
     
-    plot(perc_N ~ Treat, data = CN, subset = Location == "Sed" & Date == "2018-11-12", ylim = c(0, 5)) 
-    plot(perc_N ~ Treat, data = CN, subset = Location == "Top" & Date == "2018-11-12", add = T, col = 8) 
-   
-    par(las = 1, mfcol = c(1, 2)) 
-    plot(perc_C ~ Treat, data = CN, subset = Date == "2018-11-12", ylim = c(0, 50)) 
-    plot(perc_C ~ Treat, data = CN, Date == "2019-02-07", ylim = c(0, 50), col = 8) 
-    
-    par(las = 1, mfcol = c(1, 2)) 
-    plot(perc_N ~ Treat, data = CN, subset = Date == "2018-11-12", ylim = c(0, 5)) 
-    plot(perc_N ~ Treat, data = CN, Date == "2019-02-07", ylim = c(0, 5), col = 8) 
-    
-    plot(CN_mol ~ Treat, data = CN, subset = Location == "Sed" & Date == "2018-11-12", main = "Sed", ylim = c(20, 100))
-    plot(CN_mol ~ Treat, data = CN, subset = Location == "Top" & Date == "2018-11-12", main = "Top", ylim = c(20, 100))
-    
-    plot(CN_mol ~ Treat, data = CN, subset = Location == "Sed" & Date == "2019-02-07", main = "Sed", ylim =c(20, 100))
-    plot(CN_mol ~ Treat, data = CN, subset = Location == "Top" & Date == "2019-02-07", main = "Top", ylim = c(20, 100))
-    
-    par(las = 1, mfcol = c(1, 2)) 
-    plot(CN_mol ~ Nutrients, data = CN, subset = Location == "Top", ylim = c(0, 100), main = "Top")
-    plot(CN_mol ~ Nutrients, data = CN, subset = Location == "Sed", ylim = c(0, 100), main = "Sed")
-   
-    par(las = 1, mfcol = c(2, 2)) 
-    plot(perc_N ~ Nutrients, data = CN, subset = Location == "Top" & Date == "2018-11-12", ylim = c(0, 5), main = "Top")
-    plot(perc_N ~ Nutrients, data = CN, subset = Location == "Sed" & Date == "2018-11-12", ylim = c(0, 5), main = "Sed")
-    plot(perc_N ~ Nutrients, data = CN, subset = Location == "Top" & Date == "2019-02-07", ylim = c(0, 5), main = "Top")
-    plot(perc_N ~ Nutrients, data = CN, subset = Location == "Sed" & Date == "2019-02-07", ylim = c(0, 5), main = "Sed")
-    
-    
-    
-    anova(lm(perc_C ~ Nutrients * Glucose * Date, data = CN))
-    anova(lm(perc_N ~ Nutrients * Glucose * Date, data = CN))
-    
-    
-    
+########################################    
 # Plots for SFS
 ## Differences
    # Week 2 
