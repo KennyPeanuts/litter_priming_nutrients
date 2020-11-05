@@ -7,6 +7,8 @@
 ## Modified
 
 * 2019-April-19 - KF - added analysis of the CN results
+* 2020-11-01 - KF- worked on analysis of perc_C for the manuscript
+* 2020-11-05 - KF- worked on analysis of perc_N and CN for the manuscript
 
 ## Authors
 
@@ -272,10 +274,16 @@
     
     #============================
     
-#### Analysis of Treatment Effect
+### Analysis of Treatment and Date Effects
+#### Perc C Difference by Treatment ANOVA
     
-    perc.C.diff.aov <- aov(perc.C.diff ~ Treat.diff * Date.diff, data = CN.diff)
-    summary(perc.C.diff.aov)
+    perc.C.diff.aov.2weeks <- aov(perc.C.diff ~ Treat.diff, data = CN.diff, subset = Date.diff == "2018-11-12")
+    summary(perc.C.diff.aov.2weeks)
+    
+##################################################
+    
+    perc.C.diff.aov.14 <- aov(perc.C.diff ~ Treat.diff, data = CN.diff, subset = Date.diff == "2019-02-07")
+    summary(perc.C.diff.aov.14)
     
     plot(perc.C.diff ~ Treat.diff, data = CN.diff, subset = Date.diff == "2018-11-12", ylim = c(-5, 15))
     abline(h = 0)
@@ -320,7 +328,10 @@
     
     
     anova(lm(perc_C ~ Nutrients * Glucose * Date, data = CN))
+    
     anova(lm(perc_N ~ Nutrients * Glucose * Date, data = CN))
+    anova(lm(perc_N ~ Nutrients * Date, data = CN))
+    tapply(perc_N, Nutrients, 
     
     
     
