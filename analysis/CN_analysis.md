@@ -49,9 +49,8 @@
     tapply(CN$perc_C, CN$Date, summary)
     tapply(CN$perc_C, CN$Date, sd)
     
-#############################################
-
-# Percent C by date harvested across all samples
+    #############################################
+    # Percent C by date harvested across all samples
     
     $`2018-11-12`
     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.  SD
@@ -61,7 +60,7 @@
     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.  SD
     31.83   41.03   43.20   42.60   45.03   50.00 3.862320 
     
-##################################################
+    ##################################################
 
 ### Percent C by location for each week    
 #### Week 2    
@@ -69,8 +68,8 @@
     tapply(CN$perc_C[CN$Date == "2018-11-12"], CN$Location[CN$Date == "2018-11-12"], summary)
     tapply(CN$perc_C[CN$Date == "2018-11-12"], CN$Location[CN$Date == "2018-11-12"], sd)
     
-##################################################    
-# Percent C by location after Week 2
+    ##################################################    
+    # Percent C by location after Week 2
     
     $Sed
     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.  SD
@@ -80,15 +79,15 @@
     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.  SD 
     44.90   46.46   46.95   46.83   47.46   48.63 0.9426346  
     
-##################################################    
+    ##################################################    
 
 #### Week 14
     
     tapply(CN$perc_C[CN$Date == "2019-02-07"], CN$Location[CN$Date == "2019-02-07"], summary, na.rm = T)
     tapply(CN$perc_C[CN$Date == "2019-02-07"], CN$Location[CN$Date == "2019-02-07"], sd, na.rm = T)
     
-##################################################
-# Percent C by location after Week 14
+    ##################################################
+    # Percent C by location after Week 14
     
     $Sed
     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.  SD
@@ -98,9 +97,76 @@
     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.  SD
     42.46   43.11   44.20   44.24   45.03   47.09 1.262288
     
-##################################################    
+    ##################################################    
 
-### Summary of Perc N
+    
+### Summary Stats for Differences 
+#### Perc_C in the TOP location minus the Perc C in the SED location by date 
+
+    tapply(CN.diff$perc.C.diff, CN.diff$Date.diff, summary)
+    tapply(CN.diff$perc.C.diff, CN.diff$Date.diff, sd)
+    
+    ##########################################
+    # Summary of Perc C top - Perc C sed by date 
+    
+    $`2018-11-12`
+       Min.    1st Qu.  Median  Mean    3rd Qu.    Max.     SD 
+      -0.4900  -0.1150  0.7100  0.8881  1.3600     3.6500   1.228361
+
+    $`2019-02-07`
+       Min.    1st Qu.  Median    Mean    3rd Qu.    Max.       SD
+      -5.0200  0.8925   4.0400    3.2881  6.0025     12.4600    4.567996 
+       
+    ##########################################
+       
+### Test of location Effect
+#### 2 Weeks
+##### Percent C Difference (TOP - SED)
+    
+    t.test(perc.C.diff[CN.diff$Date == "2018-11-12"], mu = 0)
+    
+    ##################################################    
+    # t-test results for the hypothesis that the mean difference between the TOP and SED location is equal to 0.
+       
+    One Sample t-test
+    
+    data:  perc.C.diff[CN.diff$Date == "2018-11-12"]
+    t = 2.8921, df = 15, p-value = 0.01117
+    alternative hypothesis: true mean is not equal to 0
+    95 percent confidence interval:
+      0.2335779 1.5426721
+    sample estimates:
+      mean of x 
+    0.888125  
+
+    ##################################################        
+
+After 2 weeks, the percent C of the TOP samples minus the percent C of the SED samples was not equal to 0 and had a mean of 0.889 percent, which indicates that the TOP samples had a greater percent C after 2 weeks of incubation.
+    
+#### 14 Weeks
+##### Percent C Difference (TOP - SED)
+    
+    t.test(perc.C.diff[CN.diff$Date == "2019-02-07"], mu = 0)
+    
+    ##################################################    
+    # t-test results for the hypothesis that the mean difference between the TOP and SED location is equal to 0.
+    
+    One Sample t-test
+    
+    data:  perc.C.diff[CN.diff$Date == "2019-02-07"]
+    t = 2.8793, df = 15, p-value = 0.01147
+    alternative hypothesis: true mean is not equal to 0
+    95 percent confidence interval:
+      0.8540116 5.7222384
+    sample estimates:
+      mean of x 
+    3.288125 
+    
+    ##################################################    
+        
+After 14 weeks, the percent C of the TOP samples minus the percent C of the SED samples was not equal to 0 and had a mean of 0.889 percent, which indicates that the TOP samples had a greater percent C after 14 weeks of incubation.
+    
+## Summary of Perc N
 #### Summary of Perc N by date across all locations and treatments
     
     tapply(CN$perc_N, CN$Date, summary)
@@ -154,72 +220,6 @@
     0.750   1.228   1.650   1.686   2.145   3.300 0.6507624
     
 ##################################################    
-    
-### Summary Stats for Differences 
-#### Perc_C in the TOP location minus the Perc C in the SED location by date 
-
-    tapply(CN.diff$perc.C.diff, CN.diff$Date.diff, summary)
-    tapply(CN.diff$perc.C.diff, CN.diff$Date.diff, sd)
-    
-##########################################
-# Summary of Perc C top - Perc C sed by date 
-    
-    $`2018-11-12`
-       Min.    1st Qu.  Median  Mean    3rd Qu.    Max.     SD 
-      -0.4900  -0.1150  0.7100  0.8881  1.3600     3.6500   1.228361
-
-    $`2019-02-07`
-       Min.    1st Qu.  Median    Mean    3rd Qu.    Max.       SD
-      -5.0200  0.8925   4.0400    3.2881  6.0025     12.4600    4.567996 
-       
-##########################################
-### Test of location Effect
-#### 2 Weeks
-##### Percent C Difference (TOP - SED)
-    
-    t.test(perc.C.diff[CN.diff$Date == "2018-11-12"], mu = 0)
-    
-##################################################    
-# t-test results for the hypothesis that the mean difference between the TOP and SED location is equal to 0.
-       
-    One Sample t-test
-    
-    data:  perc.C.diff[CN.diff$Date == "2018-11-12"]
-    t = 2.8921, df = 15, p-value = 0.01117
-    alternative hypothesis: true mean is not equal to 0
-    95 percent confidence interval:
-      0.2335779 1.5426721
-    sample estimates:
-      mean of x 
-    0.888125  
-
-##################################################        
-
-After 2 weeks, the percent C of the TOP samples minus the percent C of the SED samples was not equal to 0 and had a mean of 0.889 percent, which indicates that the TOP samples had a greater percent C after 2 weeks of incubation.
-    
-#### 14 Weeks
-##### Percent C Difference (TOP - SED)
-    
-    t.test(perc.C.diff[CN.diff$Date == "2019-02-07"], mu = 0)
-    
-##################################################    
-# t-test results for the hypothesis that the mean difference between the TOP and SED location is equal to 0.
-    
-    One Sample t-test
-    
-    data:  perc.C.diff[CN.diff$Date == "2019-02-07"]
-    t = 2.8793, df = 15, p-value = 0.01147
-    alternative hypothesis: true mean is not equal to 0
-    95 percent confidence interval:
-      0.8540116 5.7222384
-    sample estimates:
-      mean of x 
-    3.288125 
-    
-##################################################    
-        
-After 14 weeks, the percent C of the TOP samples minus the percent C of the SED samples was not equal to 0 and had a mean of 0.889 percent, which indicates that the TOP samples had a greater percent C after 14 weeks of incubation.
-    
 ##### Percent N
     
     t.test(perc.N.diff[CN.diff$Date == "2018-11-12"], mu = 0)
