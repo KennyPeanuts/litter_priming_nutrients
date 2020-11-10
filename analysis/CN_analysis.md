@@ -62,6 +62,47 @@
     
     ##################################################
 
+### Effect of Treatment Additions on Perc C
+    
+Although there was an effect of location on the perc C (i.e., the difference between the TOP and the SED perc C did not equal 0), there was no effect of the treatment additions on the difference (see below). Given this, I am analyzing the effect of the treatments on percent C for each date but I am pooling the TOP and SED samples.
+    
+#### Effect of treatment additons on Perc C after 2 Weeks
+    
+    anova(lm(perc_C ~ Glucose * Nutrients, data = CN, subset = Date == "2018-11-12"))
+    
+    ##################################################
+    # Two-way ANOVA of the effect of the treatment additions on the percent C after 2 weeks
+    
+    Analysis of Variance Table
+    
+    Response: perc_C
+                       Df Sum Sq  Mean Sq F value  Pr(>F)  
+    Glucose            1  4.938   4.9377  3.5503   0.06996 .
+    Nutrients          1  4.083   4.0827  2.9356   0.09770 .
+    Glucose:Nutrients  1  1.670   1.6699  1.2007   0.28252  
+    Residuals         28  38.941  1.3908       
+    
+    ################################################## 
+
+#### Effect of treatment additons on Perc C after 2 Weeks
+    
+    anova(lm(perc_C ~ Glucose * Nutrients, data = CN, subset = Date == "2019-02-07"))
+
+    ##################################################
+    # Two-way ANOVA of the effect of the treatment additions on the percent C after 14 weeks
+    Analysis of Variance Table
+    
+    Response: perc_C
+                       Df Sum Sq  Mean Sq F value Pr(>F)
+    Glucose            1   4.97   4.9691  0.3071  0.5838
+    Nutrients          1   4.46   4.4626  0.2758  0.6036
+    Glucose:Nutrients  1   0.00   0.0000  0.0000  0.9997
+    Residuals         28   453.01 16.1790  
+    
+    ################################################## 
+    
+After 2 weeks and 14 weeks, both the glucose and nutrient additions showed no significant effect on percent C.
+    
 ### Percent C by location for each week    
 #### Week 2    
    
@@ -204,9 +245,10 @@ After 2 weeks, there were no significant effects of the treatment additions on t
     Glucose.diff:Nutrients.diff  1   0.041   0.0410  0.0016  0.9690
     Residuals                   12   312.201 26.0168
     
-   ################################################## 
+    ################################################## 
     
-  
+After 14 weeks, there were no significant effects of the treatment additions on the difference in the perc C between the TOP and SED locations, indicating that the greater percent C in the TOP location was not affected by the increased labile C or N and P.
+    
 ## Summary of Perc N
 #### Summary of Perc N by date across all locations and treatments
     
