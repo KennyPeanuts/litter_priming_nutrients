@@ -43,7 +43,7 @@
     
     CN.diff <- data.frame(Date.diff, Treat.diff, Nutrients.diff, Glucose.diff, perc.C.diff, perc.N.diff, CN.mol.diff)
 
-## Summary Statistics
+## Summary of Perc C
 ### Summary of Perc C by date across both locations and treatments
     
     tapply(CN$perc_C, CN$Date, summary)
@@ -164,16 +164,57 @@ After 2 weeks, the percent C of the TOP samples minus the percent C of the SED s
     
     ##################################################    
         
-After 14 weeks, the percent C of the TOP samples minus the percent C of the SED samples was not equal to 0 and had a mean of 0.889 percent, which indicates that the TOP samples had a greater percent C after 14 weeks of incubation.
+After 14 weeks, the percent C of the TOP samples minus the percent C of the SED samples was not equal to 0 and had a mean of 3.288 percent, which indicates that the TOP samples had a greater percent C after 14 weeks of incubation and that the difference was greater than in was after 2 weeks.
+
+### Test of treatment effects on percent C difference between TOP and SED locations
+#### Two-way ANOVA of the effect of glucose and nutrient additions on the difference between the perc C of the TOP and SED samples after 2 weeks
     
+    anova(lm(perc.C.diff ~ Glucose.diff * Nutrients.diff, data = CN.diff, subset = Date.diff == "2018-11-12"))
+   
+    ################################################## 
+    # ANOVA of the effect of glucose and nutrients on perc C TOP - perc C SED after 2 weeks
+    
+    Analysis of Variance Table
+    
+    Response: perc.C.diff
+                                 Df  Sum Sq   Mean Sq F value Pr(>F)
+    Glucose.diff                 1   0.0053   0.0053  0.0035  0.9540
+    Nutrients.diff               1   1.0973   1.0973  0.7246  0.4113
+    Glucose.diff:Nutrients.diff  1   3.3581   3.3581  2.2175  0.1623
+    Residuals                   12   18.1725  1.5144     
+    
+    ##################################################
+
+After 2 weeks, there were no significant effects of the treatment additions on the difference in the perc C between the TOP and SED locations, indicating that the greater percent C in the TOP location was not affected by the increased labile C or N and P.
+    
+        
+#### Two-way ANOVA of the effect of glucose and nutrient additions on the difference between the perc C of the TOP and SED samples after 14 weeks.
+    
+    anova(lm(perc.C.diff ~ Glucose.diff * Nutrients.diff, data = CN.diff, subset = Date.diff == "2019-02-07"))
+    
+    ################################################## 
+    # ANOVA of the effect of glucose and nutrients on perc C TOP - perc C SED after 14 weeks
+    
+    Analysis of Variance Table
+    
+    Response: perc.C.diff
+                                 Df  Sum Sq  Mean Sq F value Pr(>F)
+    Glucose.diff                 1   0.183   0.1828  0.0070  0.9346
+    Nutrients.diff               1   0.574   0.5738  0.0221  0.8844
+    Glucose.diff:Nutrients.diff  1   0.041   0.0410  0.0016  0.9690
+    Residuals                   12   312.201 26.0168
+    
+   ################################################## 
+    
+  
 ## Summary of Perc N
 #### Summary of Perc N by date across all locations and treatments
     
     tapply(CN$perc_N, CN$Date, summary)
     tapply(CN$perc_N, CN$Date, sd)
     
-##################################################    
-# Percent C by date across all locations and treatments
+    ##################################################    
+    # Percent N by date across all locations and treatments
     
     $`2018-11-12`
     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.  SD 
@@ -183,16 +224,16 @@ After 14 weeks, the percent C of the TOP samples minus the percent C of the SED 
     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.  SD
     0.750   1.285   1.695   1.666   1.905   3.300 0.5300879 
     
-##################################################    
+    ##################################################    
 
 ### Summary of Perc N by location    
-#### Week 2
+#### Percent N in the TOP and SED locations across all treatments after Week 2
     
     tapply(CN$perc_N[CN$Date == "2018-11-12"], CN$Location[CN$Date == "2018-11-12"], summary)
     tapply(CN$perc_N[CN$Date == "2018-11-12"], CN$Location[CN$Date == "2018-11-12"], sd)
     
-##################################################    
-# Summary of Perc N by location after Week 2
+    ##################################################    
+    # Summary of Perc N by location after Week 2
     
     $Sed
     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.  SD
@@ -202,14 +243,15 @@ After 14 weeks, the percent C of the TOP samples minus the percent C of the SED 
     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.   SD
     0.650   0.825   1.020   1.115   1.250   2.050 0.4011816
     
-##################################################    
-#### Week 14
+    ##################################################    
+    
+#### Percent N in the TOP and SED locations across all treatments after Week 14
     
     tapply(CN$perc_N[CN$Date == "2019-02-07"], CN$Location[CN$Date == "2019-02-07"], summary, na.rm = T)
     tapply(CN$perc_N[CN$Date == "2019-02-07"], CN$Location[CN$Date == "2019-02-07"], sd, na.rm = T)
     
-##################################################    
-# Percent N by location after Week 14
+    ##################################################    
+    # Percent N by location after Week 14
     
     $Sed
     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.   SD 
@@ -219,12 +261,16 @@ After 14 weeks, the percent C of the TOP samples minus the percent C of the SED 
     Min. 1st Qu.  Median    Mean 3rd Qu.    Max.  SD 
     0.750   1.228   1.650   1.686   2.145   3.300 0.6507624
     
-##################################################    
-##### Percent N
+    ##################################################    
+    
+### Test of location Effect on Percent N
+#### 2 Weeks
+##### Percent N Difference (TOP - SED)
     
     t.test(perc.N.diff[CN.diff$Date == "2018-11-12"], mu = 0)
     
-    #===========================
+    ##################################################
+    # t-test that the percent N in the TOP location minus the percent N in the SED location is equal to 0 after 2 weeks.
     
     One Sample t-test
     
@@ -237,7 +283,33 @@ After 14 weeks, the percent C of the TOP samples minus the percent C of the SED 
       mean of x 
     0.00375 
     
-    #===========================
+    ##################################################
+    
+The mean of the difference in percent N between the TOP and SED samples was not different from 0 after 2 weeks, which indicates that there was not effect of location on the percent N.
+    
+    
+#### 14 Weeks
+##### Percent N Difference (TOP - SED)
+    
+    t.test(perc.N.diff[CN.diff$Date == "2019-02-07"], mu = 0)
+    
+    ##################################################
+    
+    One Sample t-test
+    
+    data:  perc.N.diff[CN.diff$Date == "2019-02-07"]
+    t = 0.2777, df = 15, p-value = 0.785
+    alternative hypothesis: true mean is not equal to 0
+    95 percent confidence interval:
+      -0.275355  0.357855
+    sample estimates:
+      mean of x 
+    0.04125 
+    
+    ##################################################
+    
+The mean of the difference in percent N between the TOP and SED samples was not different from 0 after 14 weeks, which indicates that there was not effect of location on the percent N.
+    
     
 ##### CN 
     
@@ -265,22 +337,6 @@ After 14 weeks, the percent C of the TOP samples minus the percent C of the SED 
     
 ##### Percent N
     
-    t.test(perc.N.diff[CN.diff$Date == "2019-02-07"], mu = 0)
-    
-    #===========================
-    
-    One Sample t-test
-    
-    data:  perc.N.diff[CN.diff$Date == "2019-02-07"]
-    t = 0.2777, df = 15, p-value = 0.785
-    alternative hypothesis: true mean is not equal to 0
-    95 percent confidence interval:
-      -0.275355  0.357855
-    sample estimates:
-      mean of x 
-    0.04125 
-    
-    #===========================
     
 ##### CN 
     
@@ -356,19 +412,6 @@ After 14 weeks, the percent C of the TOP samples minus the percent C of the SED 
 ##### 14-week 
 >>>>>>> fe5a92e4e836f7209f4c948322b16e8113a41441
     
-    anova(lm(perc.C.diff ~ Treat.diff, data = CN.diff, subset = Date.diff == "2019-02-07"))
-
-########################################
-# Difference in percent C between the top and sediment after 14 weeks
-    
-    Analysis of Variance Table
-
-    Response: perc.C.diff
-               Df  Sum Sq Mean Sq F value Pr(>F)
-    Treat.diff  3   0.798  0.2659  0.0102 0.9985
-    Residuals  12 312.201 26.0168 
-    
-########################################    
 # Plots for SFS
 ## Differences
    # Week 2 
