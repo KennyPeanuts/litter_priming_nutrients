@@ -333,6 +333,24 @@ The perc N after 2 weeks was significantly different in the samples that receive
     
 There was no significant interaction between the nutrient and glucose additions.
    
+#### Effect of treatment additons on Perc N after 14 Weeks
+    
+    anova(lm(perc_N ~ Glucose * Nutrients, data = CN, subset = Date == "2019-02-07"))
+
+    ##################################################
+    # Two-way ANOVA of the effect of the treatment additions on the percent C after 14 weeks
+    
+    Analysis of Variance Table
+    
+    Response: perc_N
+                       Df Sum Sq Mean Sq  F value Pr(>F)  
+    Glucose            1  0.0021 0.00211  0.0083  0.9280  
+    Nutrients          1  1.4535 1.45351  5.7140  0.0238 *
+    Glucose:Nutrients  1  0.1326 0.13261  0.5213  0.4763  
+    Residuals         28  7.1225 0.25438  
+    
+    ################################################## 
+
 ##### Summary of percent N of the samples with and without nutrient additions after 14 weeks
 
     tapply(CN$perc_N[CN$Date == "2019-02-07"], CN$Nutrients[CN$Date == "2019-02-07"], summary)
@@ -351,25 +369,9 @@ There was no significant interaction between the nutrient and glucose additions.
     
     ################################################## 
     
-#### Effect of treatment additons on Perc N after 14 Weeks
     
-    anova(lm(perc_N ~ Glucose * Nutrients, data = CN, subset = Date == "2019-02-07"))
-
-    ##################################################
-    # Two-way ANOVA of the effect of the treatment additions on the percent C after 14 weeks
+After 14 weeks the effect of the addition of glucose seen in after 2 weeks is no longer significant but there remains a significant effect of nutrients. The magnitiude of the effect was approximately double with the samples with nutrient additions having a mean percent N that was 0.427 percent greater than those without nutrient additions.
     
-    Analysis of Variance Table
-    
-    Response: perc_N
-                       Df Sum Sq Mean Sq  F value Pr(>F)  
-    Glucose            1  0.0021 0.00211  0.0083  0.9280  
-    Nutrients          1  1.4535 1.45351  5.7140  0.0238 *
-    Glucose:Nutrients  1  0.1326 0.13261  0.5213  0.4763  
-    Residuals         28  7.1225 0.25438  
-    
-    ################################################## 
-    
-After 14 weeks the effect of the addition of glucose seen in after 2 weeks is no longer significant but there remains a significant effect of nutrients.
     
 ### Summary of Perc N by location    
 #### Percent N in the TOP and SED locations across all treatments after Week 2
