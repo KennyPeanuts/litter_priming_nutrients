@@ -250,7 +250,7 @@ After 2 weeks, there were no significant effects of the treatment additions on t
 After 14 weeks, there were no significant effects of the treatment additions on the difference in the perc C between the TOP and SED locations, indicating that the greater percent C in the TOP location was not affected by the increased labile C or N and P.
     
 ## Summary of Perc N
-#### Summary of Perc N by date across all locations and treatments
+### Summary of Perc N by date across all locations and treatments
     
     tapply(CN$perc_N, CN$Date, summary)
     tapply(CN$perc_N, CN$Date, sd)
@@ -268,6 +268,109 @@ After 14 weeks, there were no significant effects of the treatment additions on 
     
     ##################################################    
 
+### Effect of Treatment Additions on Perc N
+    
+There was no effect of location on percent N (see below). The following tests to see if there was an effect of the additions of glucose and nutrients on the percent nitrogen after 2 weeks and 14 weeks of incubation.
+    
+#### Effect of treatment additons on Perc N after 2 Weeks
+    
+    anova(lm(perc_N ~ Glucose * Nutrients, data = CN, subset = Date == "2018-11-12"))
+    
+    ##################################################
+    # Two-way ANOVA of the effect of the treatment additions on the percent N after 2 weeks
+    
+    Analysis of Variance Table
+    
+    Response: perc_N
+                       Df  Sum Sq  Mean Sq  F value  Pr(>F)  
+    Glucose            1   0.37411 0.37411  4.6615   0.03956 *
+    Nutrients          1   0.33620 0.33620  4.1891   0.05018 .
+    Glucose:Nutrients  1   0.00720 0.00720  0.0897   0.76675  
+    Residuals         28   2.24717 0.08026          
+    
+    ################################################## 
+    
+##### Summary of percent N by glucose and nutrient additions after 2 weeks
+###### Glucose
+    
+    tapply(CN$perc_N[CN$Date == "2018-11-12"], CN$Glucose[CN$Date == "2018-11-12"], summary)
+    tapply(CN$perc_N[CN$Date == "2018-11-12"], CN$Glucose[CN$Date == "2018-11-12"], sd)
+
+    ################################################## 
+    # Summary of the perc N in samples with and without glucose additions after 2 weeks
+    
+    $N
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.   SD
+    0.840   0.995   1.090   1.221   1.327   2.050  0.3369842 
+    
+    $Y
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.   SD
+    0.650   0.775   1.060   1.005   1.165   1.390  0.2432009 
+    
+    ################################################## 
+    
+The perc N after 2 weeks was significantly different in the samples that received glucose additions. Evaluation of the magnitiude of the effect shows that the mean percent N of the samples with glucose additions was lower than those without by 0.216 percent.
+    
+###### Nutrients
+    
+    tapply(CN$perc_N[CN$Date == "2018-11-12"], CN$Nutrients[CN$Date == "2018-11-12"], summary)
+    tapply(CN$perc_N[CN$Date == "2018-11-12"], CN$Nutrients[CN$Date == "2018-11-12"], sd)
+
+    ################################################## 
+    # Summary of the perc N in samples with and without nutrients additions after 2 weeks
+    
+    $N
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    SD
+    0.6500  0.8375  1.0300  1.0106  1.0850  1.8100  0.2607801 
+    
+    $Y
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    SD
+    0.760   1.018   1.240   1.216   1.353   2.050   0.3274542 
+    
+    ################################################## 
+    
+The perc N after 2 weeks was significantly different in the samples that received nutrients additions. Evaluation of the magnitiude of the effect shows that the mean percent N of the samples with nutrient additions was greater than those without by 0.186 percent.
+    
+There was no significant interaction between the nutrient and glucose additions.
+   
+##### Summary of percent N of the samples with and without nutrient additions after 14 weeks
+
+    tapply(CN$perc_N[CN$Date == "2019-02-07"], CN$Nutrients[CN$Date == "2019-02-07"], summary)
+    tapply(CN$perc_N[CN$Date == "2019-02-07"], CN$Nutrients[CN$Date == "2019-02-07"], sd)
+
+    ################################################## 
+    # Summary of the perc N in samples with and without nutrients additions after 14 weeks
+    
+    $N
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    SD 
+    0.750   1.107   1.455   1.452   1.810   2.130   0.4030467 
+    
+    $Y
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    SD
+    1.070   1.510   1.760   1.879   2.225   3.300   0.5668965 
+    
+    ################################################## 
+    
+#### Effect of treatment additons on Perc N after 14 Weeks
+    
+    anova(lm(perc_N ~ Glucose * Nutrients, data = CN, subset = Date == "2019-02-07"))
+
+    ##################################################
+    # Two-way ANOVA of the effect of the treatment additions on the percent C after 14 weeks
+    
+    Analysis of Variance Table
+    
+    Response: perc_N
+                       Df Sum Sq Mean Sq  F value Pr(>F)  
+    Glucose            1  0.0021 0.00211  0.0083  0.9280  
+    Nutrients          1  1.4535 1.45351  5.7140  0.0238 *
+    Glucose:Nutrients  1  0.1326 0.13261  0.5213  0.4763  
+    Residuals         28  7.1225 0.25438  
+    
+    ################################################## 
+    
+After 14 weeks the effect of the addition of glucose seen in after 2 weeks is no longer significant but there remains a significant effect of nutrients.
+    
 ### Summary of Perc N by location    
 #### Percent N in the TOP and SED locations across all treatments after Week 2
     
@@ -352,7 +455,7 @@ The mean of the difference in percent N between the TOP and SED samples was not 
     
 The mean of the difference in percent N between the TOP and SED samples was not different from 0 after 14 weeks, which indicates that there was not effect of location on the percent N.
     
-    
+# CURRENT ANALYSIS STOPS HERE (2020-11-10)    
 ##### CN 
     
     t.test(CN.mol.diff[CN.diff$Date == "2018-11-12"], mu = 0)
