@@ -7,6 +7,7 @@
 ## Modified
 
 * 2020-10-21 - KF - cleaned up formatting and added metadata
+* 2021-01-21 - KF - ran analysis of the treatment effect on ergosterol mass
 
 ## Authors
 
@@ -31,9 +32,17 @@ The data from the Khuen lab are reported as the total ergosterol (ug) per sample
     
     Location <- c(rep(c(rep("Sed", 4), rep("Top", 4)), 8))
     
+### Create Glucose Variable
+    
+    Glucose <- c(rep("N", 16), rep("Y", 16), rep("N", 16), rep("Y", 16))
+    
+### Create Nutrient Variable
+    
+    Nutrient <- rep(c(rep("N", 8), rep("Y", 8)), 4)
+    
 ### Add Created Variables to erg data.frame
     
-    erg <- data.frame(erg, ErgLeaf, Location)
+    erg <- data.frame(erg, ErgLeaf, Location, Glucose, Nutrient)
     
 ## Metadata for the erg data frame
 This data frame contains the cleaned ergosterol data.
@@ -47,6 +56,8 @@ This data frame contains the cleaned ergosterol data.
 * LeafNum = the number of leaves in the sample
 * ErgLeaf = the estmated mass of ergosterol per leaf (ug)
 * Location = the position of the leaf discs in the microcosm, where "Sed" means the leaves were resting on the sediment surface and "Top" means the leaves were elevated 4 cm above the sediment surface.
+* Glucose = identifier for is glucose was added to the jar, where "N" means that no glucose was added and "Y" means that glucose was added.
+* Nutrient = identifier for is N and P were added to the jar, where "N" means that no N and P were added and "Y" means that N and P were added.
 
 ## Create Difference Variable 
     
@@ -222,3 +233,41 @@ calculate the summary statistics for the ergosterol after 2 weeks of incubation 
     
 ###################################
     
+## Test of the effect of treatment additions on ergosterol mass
+### Two-weeks
+    
+    anova(lm(ErgLeaf ~ Glucose * Nutrient, data = erg, subset = HarvestDate == "11/12/18"))
+    
+##################################################
+    # ANOVA of the effect of treatment additions on ergosterol mass per leaf 
+    
+    >     anova(lm(ErgLeaf ~ Glucose * Nutrient, data = erg, subset = HarvestDate == "11/12/18"))
+    Analysis of Variance Table
+ 
+    Response: ErgLeaf
+                     Df  Sum Sq  Mean Sq F value Pr(>F)
+    Glucose           1 0.00233 0.002329  0.0359 0.8511
+    Nutrient          1 0.01407 0.014074  0.2170 0.6451
+    Glucose:Nutrient  1 0.01317 0.013167  0.2030 0.6559
+    Residuals        27 1.75150 0.064870      
+    
+##################################################
+    
+## 14-weeks
+
+    anova(lm(ErgLeaf ~ Glucose * Nutrient, data = erg, subset = HarvestDate == "2/7/19"))
+    
+##################################################
+    # ANOVA of the effect of treatment additions on ergosterol mass per leaf 
+    
+    >     anova(lm(ErgLeaf ~ Glucose * Nutrient, data = erg, subset = HarvestDate == "2/7/19"))
+    Analysis of Variance Table
+
+    Response: ErgLeaf
+                     Df  Sum Sq Mean Sq F value Pr(>F)
+    Glucose           1  0.0840 0.08398  0.0870 0.7702
+    Nutrient          1  1.7290 1.72899  1.7904 0.1916
+    Glucose:Nutrient  1  0.0206 0.02057  0.0213 0.8850
+    Residuals        28 27.0401 0.96572 
+    
+##################################################
