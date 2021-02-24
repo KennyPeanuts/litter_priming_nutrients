@@ -6,6 +6,8 @@
 
 ## Modified
 
+* 2021-02-24 - KF - added the dates that the experiment began and when the samples were harvested. Also calculated the incubation times.
+
 ## Authors
 
 * KF
@@ -14,7 +16,23 @@
 
 ## Description
 
-## Create Dataset
+## Experiment Dates
+### Create Dataset
+
+    sediment_collected <- as.POSIXct("2018-10-02")
+    jars_setup <- as.POSIXct("2018-10-03")
+    jar_water_change <- as.POSIXct(c("2018-10-10", "2018-10-17"))
+    leaves_added_exp_begin <- as.POSIXct("2018-10-31")
+    sampling_no1 <- as.POSIXct("2018-11-14")
+    sampling_no2 <- as.POSIXct("2019-02-06")
+    
+### Calculate Times
+    
+    sampling_no1_incubation <- difftime(sampling_no1, leaves_added_exp_begin)
+    sampling_no2_incubation <- difftime(sampling_no2, leaves_added_exp_begin, units = "weeks")
+
+## Nutrient and Glucose Additions
+### Create Dataset
 
     glucose_stock <- 0.286
     nitrogen_stock <- 0.043
@@ -31,7 +49,7 @@
     jar_nitrogen_conc <- (nitrogen_mass / jar_volume) * 1000
     jar_phosphorus_conc <- (phosphorus_mass / jar_volume) * 1000
 
-## Variable Descriptions
+### Variable Descriptions
 
 * glucose_stock = the concentration of the glucose stock solution that was added to the treatments (g/L). The description of how the stock was made can be found in [litter_priming_nutrient_nut_stock_prep](https://docs.google.com/document/d/1qf_M_EQpM8oQec1bGvvScHu9cLStaY0TueYi5lqEyg0/edit?usp=sharing) lab notes.
 
@@ -61,7 +79,7 @@
 
 * jar_phosphorus_conc = the increased concentration of phosphorus in the jar immediately after the supplement was added (mgP/L).
     
-## Variable Values
+### Variable Values
     
     addition_dates
     [1] "2018-10-31 EDT" "2018-11-19 EST" "2018-11-28 EST" "2018-12-06 EST" "2018-12-14 EST"
