@@ -25,11 +25,13 @@
     leaves_added_exp_begin <- as.POSIXct("2018-10-31")
     sampling_no1 <- as.POSIXct("2018-11-14")
     sampling_no2 <- as.POSIXct("2019-02-06")
+    addition_dates <- as.POSIXct(c("2018-10-31", "2018-11-19", "2018-11-28", "2018-12-06", "2018-12-14", "2018-12-20", "2019-01-04", "2019-01-17", "2019-01-24", "2019-01-31"))
     
 ### Calculate Times
     
-    sampling_no1_incubation <- difftime(sampling_no1, leaves_added_exp_begin)
+    sampling_no1_incubation <- difftime(sampling_no1, leaves_added_exp_begin, units = "weeks")
     sampling_no2_incubation <- difftime(sampling_no2, leaves_added_exp_begin, units = "weeks")
+    supplement_times <- difftime(addition_dates, leaves_added_exp_begin, units = "days")
 
 ## Nutrient and Glucose Additions
 ### Create Dataset
@@ -37,7 +39,6 @@
     glucose_stock <- 0.286
     nitrogen_stock <- 0.043
     phosphorus_stock <- 0.0187
-    addition_dates <- as.POSIXct(c("2018-10-31", "2018-11-19", "2018-11-28", "2018-12-06", "2018-12-14", "2018-12-20", "2019-01-04", "2019-01-17", "2019-01-24", "2019-01-31"))
     glucose_vol <- 0.001
     nitrogen_vol <- 0.001
     phosphorus_vol <- 0.001
@@ -48,6 +49,7 @@
     jar_glucose_conc <- (glucose_mass / jar_volume) * 1000
     jar_nitrogen_conc <- (nitrogen_mass / jar_volume) * 1000
     jar_phosphorus_conc <- (phosphorus_mass / jar_volume) * 1000
+    
 
 ### Variable Descriptions
 
