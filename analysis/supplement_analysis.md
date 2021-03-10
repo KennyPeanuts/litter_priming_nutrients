@@ -35,22 +35,51 @@
     sampling_no2_incubation <- difftime(sampling_no2, leaves_added_exp_begin, units = "weeks")
     supplement_times <- difftime(addition_dates, leaves_added_exp_begin, units = "days")
 
-### Variable Descriptions
+### Variable Descriptions and Values
     
 * sediment_collected = the date that the sediments and pond water were sampled from LPP. (YYYY-MM-DD)
+      
+    [1] "2018-10-02 EDT"
 
 * jars_setup = the date that the jars were filled with sediment and pond water. (YYYY-MM-DD)
+    
+    [1] "2018-10-03 EDT"
 
-* jars_water_change = the date that the water in the jars was changed. (YYYY-MM-DD)
+* jar_water_change = the date that the water in the jars was changed. (YYYY-MM-DD)
 
+    [1] "2018-10-10 EDT" "2018-10-17 EDT"
+    
 * leaves_added_exp_begin = the date that the leaf disks wre added to the jars and the incubation period to measure decomposition began. (YYYY-MM-DD)
     
+    [1] "2018-10-31 EDT"
+    
 * sampling_no1 = the date that the first set of jars were harvested to sample leaf decomposition. (YYYY-MM-DD)
-
+    
+    [1] "2018-11-14 EST"
+    
 * sampling_no2 = the date that the second set of jars were harvested to sample leaf decomposition. (YYYY-MM-DD)
 
+    [1] "2019-02-06 EST"
+    
 * addition_dates = the dates that the supplements were added to each treatment jar (YYYY-MM-DDG).
     
+    [1] "2018-10-31 EDT" "2018-11-19 EST" "2018-11-28 EST" "2018-12-06 EST" "2018-12-14 EST"
+    [6] "2018-12-20 EST" "2019-01-04 EST" "2019-01-17 EST" "2019-01-24 EST" "2019-01-31 EST"
+    
+* sampling_no1_incubation = the length of the incubation time in weeks before the first sampling date.
+    
+    Time difference of 2.005952 weeks
+    
+* sampling_no2_incubation = the length of the incubation time in weeks before the first sampling date.
+    
+    Time difference of 14.00595 weeks
+    
+* supplement_times = the number of days from the beginning of the experiment to when the supplements were added.
+    
+    Time differences in days
+    [1]  0.00000 19.04167 28.04167 36.04167 44.04167 50.04167 65.04167 78.04167 85.04167
+    [10] 92.04167
+
 ## Nutrient and Glucose Additions
 ### Create Dataset
 
@@ -101,8 +130,7 @@
 ### Variable Values
     
     addition_dates
-    [1] "2018-10-31 EDT" "2018-11-19 EST" "2018-11-28 EST" "2018-12-06 EST" "2018-12-14 EST"
-    [6] "2018-12-20 EST" "2019-01-04 EST" "2019-01-17 EST" "2019-01-24 EST" "2019-01-31 EST"
+    
 
     > glucose_mass
     [1] 0.286
