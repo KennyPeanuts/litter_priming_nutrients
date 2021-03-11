@@ -9,6 +9,7 @@
 * 25 April 2019 - KF - completed the analysis based on the diff between the top and sediment
 * 25 April 2019 - KF - began coding figure of toughness difference
 * 26 Feb 2020 - KF - summary stats for treatment levels 
+* 11 March 2021 - KF - calculated the % difference in the mass required to puncture the leaves.
 
 ## Authors
 
@@ -55,6 +56,10 @@ Three replicate leaves were randomly selected from the top and sediments from ea
     mean.tot.mass2.diff <- mean.tough$mean.tot.mass2[mean.tough$location == "top"] - mean.tough$mean.tot.mass2[mean.tough$location == "sed"]
     mean.tot.mass14.diff <- mean.tough$mean.tot.mass14[mean.tough$location == "top"] - mean.tough$mean.tot.mass14[mean.tough$location == "sed"]
     
+    mean.tot.mass2.percDiff <- ((mean.tough$mean.tot.mass2[mean.tough$location == "top"] - mean.tough$mean.tot.mass2[mean.tough$location == "sed"]) / mean.tough$mean.tot.mass2[mean.tough$location == "top"]) * 100
+    
+    mean.tot.mass14.percDiff <- ((mean.tough$mean.tot.mass14[mean.tough$location == "top"] - mean.tough$mean.tot.mass14[mean.tough$location == "sed"]) / mean.tough$mean.tot.mass14[mean.tough$location == "top"]) * 100
+    
 #### Create treatment name variable
     
     treat <- c(rep("NGNN", 4), rep("NGYN", 4), rep("YGNN", 4), rep("YGYN", 4))
@@ -63,7 +68,7 @@ Three replicate leaves were randomly selected from the top and sediments from ea
     
 #### Create data.frame
     
-    diff.mean.tough <- data.frame(treat, gluc, nut, mean.tot.mass2.diff, mean.tot.mass14.diff)
+    diff.mean.tough <- data.frame(treat, gluc, nut, mean.tot.mass2.diff, mean.tot.mass14.diff, mean.tot.mass2.percDiff, mean.tot.mass14.percDiff)
 
 ### Summary Stats for difference
     
@@ -73,16 +78,38 @@ Three replicate leaves were randomly selected from the top and sediments from ea
     summary(mean.tot.mass14.diff)
     sd(mean.tot.mass14.diff, na.rm = T)
     
-###########################
-#> summary(mean.tot.mass2.diff)
-     Min.      1st Qu.  Median    Mean    3rd Qu.    Max.     NAs  SD 
-     -31.267   4.833    20.667    34.342  56.733     130.133  1    42.82169
+    summary(mean.tot.mass2.percDiff)
+    sd(mean.tot.mass2.percDiff, na.rm = T)
+
+    summary(mean.tot.mass14.percDiff)
+    sd(mean.tot.mass14.percDiff, na.rm = T)
     
-#> summary(mean.tot.mass14.diff)
-     Min.      1st Qu.  Median    Mean    3rd Qu.    Max.   SD
-     -19.833   5.008    37.467    34.640  64.858     94.700 35.55487 
+    ###########################
+    # Mass difference between top - sed
     
-##############################
+    #> summary(mean.tot.mass2.diff)
+    Min.      1st Qu.  Median    Mean    3rd Qu.    Max.     NAs  SD 
+    -31.267   4.833    20.667    34.342  56.733     130.133  1    42.82169
+    
+    #> summary(mean.tot.mass14.diff)
+    Min.      1st Qu.  Median    Mean    3rd Qu.    Max.   SD
+    -19.833   5.008    37.467    34.640  64.858     94.700 35.55487 
+    
+    ##############################
+    
+    #############################
+    # Percent difference in mass for top - sed / top
+    
+    ## 2 weeks
+    Min.     1st Qu.  Median    Mean    3rd Qu.    Max.    NAs   SD
+   -23.807   2.844    12.957    18.766  32.443     63.274   1     23.82531
+    
+    ## 14 weeks
+    Min.    1st Qu.  Median    Mean    3rd Qu.    Max.   SD
+   -53.99   15.17    58.71     35.86   62.40     73.54   38.555
+    
+    ##############################
+   
 ### test for location effect
     
     t.test(diff.mean.tough$mean.tot.mass2, mu = 0)
