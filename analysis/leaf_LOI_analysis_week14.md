@@ -78,11 +78,58 @@
     
 * Cruc_ash_mass = the mass of the crucible and ash after ashing at 550 dC (g).
     
-* leaf_mass = the mass of all the leaf discs in the  
-## Summary Statistics
+* leaf_mass = the mass of all the leaf discs in the crucible before ashing at 550 dC (g).
     
+* ash_mass = the mass of the total amount of ash in the crucibe after ashing at 550 dC (g).
     
+* AFDM_samp = the AFDM of the total sample (all the leaves) in the crucible (g).
+  
+* AFDM_disc = the estimated AFDM of a single leaf determined by dividing AFDM_samp by leaf_number (g).
+    
+* mass_loss_disc = the estimated change in mass of the leaves over the 14 day incubation based on the initial mass of the leaves sampled from the same leaves used in the incubation (g).
 
+## Summary Statistics
+### ADFM of a single leaf disc
+    
+    tapply(mass_loss_14weeks$AFDM_disc, mass_loss_14weeks$Location, summary, na.rm = T)
+    tapply(mass_loss_14weeks$AFDM_disc, mass_loss_14weeks$Location, sd, na.rm = T)
+    
+    ##################################################
+    # AFDM of a single leaf disc at the end of the 14 week incubation in the different locations.
+    
+    $Sed
+    Min.      1st Qu.   Median     Mean       3rd Qu.     Max.        NAs  SD
+    0.001700  0.002237  0.002525   0.002572   0.002875    0.003600     1    0.0005288014
+    
+    $Top
+    Min.      1st Qu.   Median     Mean      3rd Qu.     Max.       NAs  SD 
+    0.001450  0.002112  0.002525   0.002599  0.002917    0.003867    1   0.0006722819
+    
+    ##################################################
+    
+### Estimated AFDM mass loss of a single leaf disc
+    
+    tapply(mass_loss_14weeks$mass_loss_disc, mass_loss_14weeks$Location, summary, na.rm = T)
+    tapply(mass_loss_14weeks$mass_loss_disc, mass_loss_14weeks$Location, sd, na.rm = T)
+    
+    ##################################################
+    # Estimated AFDM mass loss of a single leaf disc at the end of the 14 week incubation in the different locations.
+    
+    $Sed
+    Min.        1st Qu.    Median     Mean       3rd Qu.     Max.        NAs  SD
+    -0.0000600  0.0006650  0.0010150  0.0009683  0.0013025  0.0018400    1    0.0005288014
+    
+    $Top
+    Min.        1st Qu.    Median     Mean      3rd Qu.     Max.       NAs  SD 
+    -0.0003267  0.0006233  0.0010150  0.0009411  0.0014275  0.0020900  1    0.0006722819 
+    
+    
+    ##################################################
+
+    
+    
+    
+    
 ## Analysis
     
 ### Calc the differenece between the TOP and SED samples
