@@ -7,6 +7,7 @@
 ## Modified
 
 * 25 April 2019 - KF - Completed analysis of LOI based on difference
+* 18 March 2021 - KF - Added summary stats
 
 ## Authors
 
@@ -50,6 +51,37 @@
 ### Calculate Mass Lost from a Single Leaf Disc
     
     mass_loss_disc <- Initial_leaf_mass - AFDM_disc
+    
+### Create Data frame with calculated variable
+    
+    mass_loss_14weeks <- data.frame(LOI14, AFDM_disc, AFDM_samp, ash_mass, leaf_mass, mass_loss_disc)
+    
+#### Variable Descriptions in mass_loss_14weeks 
+    
+* Treat = the description of the treatment level combinations, where NG is no glucose addition, YG is glucose addition, NN is no nutrient addition, and YN is N and P addition.
+
+* Location = the description of the location of the leaf discs during incubation, where "Sed" indicates that the leaf discs were incubated in contact with the sediments and "Top" indicates that the leaf discs were incubated on a wire shelf 4 cm above the sediment surface.
+    
+* Glucose = the identifier if glucose was added to the jar, where Y is yes, and N is no.
+    
+* Nutrients = the identifier if N and P were added to the jar, where Y is yes, and N is no.
+    
+* Cruc_number = the number label on the crucuble used in LOI determination.
+    
+* Cruc_mass = the mass of the crucible used in LOI determination in grams.
+    
+* Leaf_number = the number of leaf discs that were in the crucuble used for LOI determination.
+    
+* Jar = the replicate identifier on the jar.
+    
+* Cruc_leaf_mass = the mass of the crucible and leaf discs before ashing at 550 dC (g).
+    
+* Cruc_ash_mass = the mass of the crucible and ash after ashing at 550 dC (g).
+    
+* leaf_mass = the mass of all the leaf discs in the  
+## Summary Statistics
+    
+    
 
 ## Analysis
     
@@ -57,6 +89,8 @@
     
     mass.loss.disc.diff <- mass_loss_disc[LOI14$Location == "Top"] - mass_loss_disc[LOI14$Location == "Sed"]
     treat.diff <- LOI14$Treat[LOI14$Location == "Top"]
+    
+### Test the effect of the location effect on mass lost
     
     t.test(mass.loss.disc.diff, mu = 0)
     
