@@ -6,9 +6,10 @@
 
 ## Modified
 
-* 2019-April-19 - KF - added analysis of the CN results
+* 2019-04-19 - KF - added analysis of the CN results
 * 2020-11-01 - KF- worked on analysis of perc_C for the manuscript
 * 2020-11-05 - KF- worked on analysis of perc_N and CN for the manuscript
+* 2021-03-24 - KF- calculated the change in percent N of the leaves
 
 
 ## Authors
@@ -456,258 +457,26 @@ The mean of the difference in percent N between the TOP and SED samples was not 
     ##################################################
     
 The mean of the difference in percent N between the TOP and SED samples was not different from 0 after 14 weeks, which indicates that there was not effect of location on the percent N.
-    
-# CURRENT ANALYSIS STOPS HERE (2020-11-10)    
-##### CN 
-    
-    t.test(CN.mol.diff[CN.diff$Date == "2018-11-12"], mu = 0)
-    
-    #===========================
-    
-    One Sample t-test
-    
-    data:  CN.mol.diff[CN.diff$Date == "2018-11-12"]
-    t = 1.334, df = 15, p-value = 0.2021
-    alternative hypothesis: true mean is not equal to 0
-    95 percent confidence interval:
-      -2.770642 12.039666
-    sample estimates:
-      mean of x 
-    4.634512 
-    
-    #============================
-    
-    
-#### 14 Weeks
-##### Percent C
-    
-    
-##### Percent N
-    
-    
-##### CN 
-    
-    t.test(CN.mol.diff[CN.diff$Date == "2019-02-07"], mu = 0)
-    
-    #===========================
-    
-    One Sample t-test
-    
-    data:  CN.mol.diff[CN.diff$Date == "2019-02-07"]
-    t = 2.0818, df = 15, p-value = 0.0549
-    alternative hypothesis: true mean is not equal to 0
-    95 percent confidence interval:
-      -0.1094715  9.2843269
-    sample estimates:
-      mean of x 
-    4.587428 
-    
-    #============================
-    
-<<<<<<< HEAD
-### Analysis of Treatment and Date Effects
-#### Perc C Difference by Treatment ANOVA
-    
-    perc.C.diff.aov.2weeks <- aov(perc.C.diff ~ Treat.diff, data = CN.diff, subset = Date.diff == "2018-11-12")
-    summary(perc.C.diff.aov.2weeks)
-    
-##################################################
-    
-    perc.C.diff.aov.14 <- aov(perc.C.diff ~ Treat.diff, data = CN.diff, subset = Date.diff == "2019-02-07")
-    summary(perc.C.diff.aov.14)
-    
-    plot(perc.C.diff ~ Treat.diff, data = CN.diff, subset = Date.diff == "2018-11-12", ylim = c(-5, 15))
-    abline(h = 0)
-    
-    plot(perc.C.diff ~ Treat.diff, data = CN.diff, subset = Date.diff == "2019-02-07", ylim = c(-5, 15))
-=======
-### Plot of Difference by Date
-    
-    boxplot(CN.diff$perc.C.diff[CN.diff$Date.diff == "2018-11-12"], CN.diff$perc.C.diff[CN.diff$Date.diff == "2019-02-07"], axes = F, ylab = "Difference in Percent C")
-    axis(2)
-    axis(1, c("2-weeks", "14-weeks"), at = c(1, 2))
->>>>>>> fe5a92e4e836f7209f4c948322b16e8113a41441
-    abline(h = 0)
-    box()
-    
-#### Analysis of Treatment Effect
-    
-    perc.C.diff.aov <- aov(perc.C.diff ~ Treat.diff * Date.diff, data = CN.diff)
-    summary(perc.C.diff.aov)
-##### Percent C
-##### 2-week 
-    anova(lm(perc.C.diff ~ Treat.diff, data = CN.diff, subset = Date.diff == "2018-11-12"))
-    
-########################################
-# Difference in percent C between the top and sediment after 2 weeks
-    
-    Analysis of Variance Table
 
-    Response: perc.C.diff
-                Df  Sum Sq Mean Sq F value Pr(>F)
-    Treat.diff  3  4.4606  1.4869  0.9818 0.4338
-    Residuals  12 18.1725  1.5144  
+# Analysis of the change in the C and N content of the leaves
     
-<<<<<<< HEAD
-    anova(lm(perc_C ~ Nutrients * Glucose * Date, data = CN))
-    
-    anova(lm(perc_N ~ Nutrients * Glucose * Date, data = CN))
-    anova(lm(perc_N ~ Nutrients * Date, data = CN))
-    tapply(perc_N, Nutrients, 
-=======
-########################################
-##### 14-week 
->>>>>>> fe5a92e4e836f7209f4c948322b16e8113a41441
-    
-# Plots for SFS
-## Differences
-   # Week 2 
-    par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(perc.N.diff ~ Treat.diff, data = CN.diff, subset = Date.diff == "2018-11-12", xlab = " ", ylab = "Percent N Difference", cex.lab = 1.5, cex.axis = 1.2, ylim = c(-1.5, 1.50), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F, cex.lab = 0.5)
-    axis(2)
-    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
-    abline(h = 0, lwd = 3)
-    text(2, 1.50, "No Sediment Contact is Greater")
-    text(2, -1.50, "Sediment Contact is Greater")
-    box()
-    dev.copy(jpeg, "./output/plots/percN_diff_treat_wk2.jpg")
-    dev.off()
-    
-   # Week 14 
-    par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(perc.N.diff ~ Treat.diff, data = CN.diff, subset = Date.diff == "2019-02-07", xlab = " ", ylab = "Percent N Difference", cex.lab = 1.5, cex.axis = 1.2, ylim = c(-1.5, 1.50), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F, cex.lab = 0.5)
-    axis(2)
-    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
-    abline(h = 0, lwd = 3)
-    text(2, 1.50, "No Sediment Contact is Greater")
-    text(2, -1.50, "Sediment Contact is Greater")
-    box()
-    dev.copy(jpeg, "./output/plots/percN_diff_treat_wk14.jpg")
-    dev.off()
-    
+These analyses are to determine how the C and N content of the leaves change during the course of the incubation. 
 
-   # Week 2 
-    par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(perc.C.diff ~ Treat.diff, data = CN.diff, subset = Date.diff == "2018-11-12", xlab = " ", ylab = "Percent C Difference", cex.lab = 1.5, cex.axis = 1.2, ylim = c(-10, 15), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F, cex.lab = 0.5)
-    axis(2)
-    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
-    abline(h = 0, lwd = 3)
-    text(2, 15, "No Sediment Contact is Greater")
-    text(2, -10, "Sediment Contact is Greater")
-    box()
-    dev.copy(jpeg, "./output/plots/percC_diff_treat_wk2.jpg")
-    dev.off()
-    
-   # Week 14 
-    par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(perc.C.diff ~ Treat.diff, data = CN.diff, subset = Date.diff == "2019-02-07", xlab = " ", ylab = "Percent C Difference", cex.lab = 1.5, cex.axis = 1.2, ylim = c(-10, 15), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F, cex.lab = 0.5)
-    axis(2)
-    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
-    abline(h = 0, lwd = 3)
-    text(2, 15, "No Sediment Contact is Greater")
-    text(2, -10, "Sediment Contact is Greater")
-    box()
-    dev.copy(jpeg, "./output/plots/percC_diff_treat_wk14.jpg")
-    dev.off()
+## Import the initial leaf C and N content
 
-## Mass
-### Perc C
+The initial percent C and N comes from the analyses from the leached litter experiment.  The details can be found in the mass loss analysis script [https://github.com/KennyPeanuts/sediment_priming/blob/master/lab_notebook/analysis/mass_loss_analysis.md#determine-the-average-initial-percent-c-and-percent-n](https://github.com/KennyPeanuts/sediment_priming/blob/master/lab_notebook/analysis/mass_loss_analysis.md#determine-the-average-initial-percent-c-and-percent-n)
+ 
+    mean_initial_percC <- 45.13
+    mean_initial_percN <- 0.9850
+    
+### Variable descriptions
+    
+* mean_initial_percC = the estimated percent C in the leaves prior to incubation in the experiment. This value was collected during the leached litter exp. (percent).
+    
+* mean_initial_percN = the estimated percent N in the leaves prior to incubation in the experiment. This value was collected during the leached litter exp. (percent).
 
-   # Week 2 
-    par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(perc_C ~ Treat, data = CN, subset = Date == "2018-11-12" & Location =="Top", xlab = " ", ylab = "Percent C", cex.lab = 1.5, cex.axis = 1.2, ylim = c(30, 50), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F)
-    axis(2)
-    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
-    box()
-    dev.copy(jpeg, "./output/plots/percC_treat_top_wk2.jpg")
-    dev.off()
+## Determine the change in percent 
     
-   # Week 2 
-    par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(perc_C ~ Treat, data = CN, subset = Date == "2018-11-12" & Location =="Sed", xlab = " ", ylab = "Percent C", cex.lab = 1.5, cex.axis = 1.2, ylim = c(30, 50), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F)
-    axis(2)
-    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
-    box()
-    dev.copy(jpeg, "./output/plots/percC_treat_sed_wk2.jpg")
-    dev.off()
-    
-   # Week 14 
-    par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(perc_C ~ Treat, data = CN, subset = Date == "2019-02-07" & Location =="Top", xlab = " ", ylab = "Percent C", cex.lab = 1.5, cex.axis = 1.2, ylim = c(30, 50), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F)
-    axis(2)
-    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
-    box()
-    dev.copy(jpeg, "./output/plots/percC_treat_top_wk14.jpg")
-    dev.off()
-    
-   # Week 14 
-    par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(perc_C ~ Treat, data = CN, subset = Date == "2019-02-07" & Location =="Sed", xlab = " ", ylab = "Percent C", cex.lab = 1.5, cex.axis = 1.2, ylim = c(30, 50), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F)
-    axis(2)
-    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
-    box()
-    dev.copy(jpeg, "./output/plots/percC_treat_sed_wk14.jpg")
-    dev.off()
-    
-### Perc N
-
-   # Week 2 
-    par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(perc_N ~ Treat, data = CN, subset = Date == "2018-11-12" & Location =="Top", xlab = " ", ylab = "Percent N", cex.lab = 1.5, cex.axis = 1.2, ylim = c(0, 4), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F)
-    axis(2)
-    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
-    box()
-    dev.copy(jpeg, "./output/plots/percN_treat_top_wk2.jpg")
-    dev.off()
-    
-   # Week 2 
-    par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(perc_N ~ Treat, data = CN, subset = Date == "2018-11-12" & Location =="Sed", xlab = " ", ylab = "Percent N", cex.lab = 1.5, cex.axis = 1.2, ylim = c(0, 4), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F)
-    axis(2)
-    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
-    box()
-    dev.copy(jpeg, "./output/plots/percN_treat_sed_wk2.jpg")
-    dev.off()
-    
-   # Week 14 
-    par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(perc_N ~ Treat, data = CN, subset = Date == "2019-02-07" & Location =="Top", xlab = " ", ylab = "Percent N", cex.lab = 1.5, cex.axis = 1.2, ylim = c(0, 4), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F)
-    axis(2)
-    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
-    box()
-    dev.copy(jpeg, "./output/plots/percN_treat_top_wk14.jpg")
-    dev.off()
-    
-   # Week 14 
-    par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(perc_N ~ Treat, data = CN, subset = Date == "2019-02-07" & Location =="Sed", xlab = " ", ylab = "Percent N", cex.lab = 1.5, cex.axis = 1.2, ylim = c(0, 4), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F)
-    axis(2)
-    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
-    box()
-    dev.copy(jpeg, "./output/plots/percN_treat_sed_wk14.jpg")
-    dev.off()
+    delta_C_2weeks <- mean_initial_percC - CN$perc_C[CN$Date == "2018-11-12"]
+    delta_C_14weeks <- mean_initial_percC - CN$perc_C[CN$Date == "2019-02-07"]
     
