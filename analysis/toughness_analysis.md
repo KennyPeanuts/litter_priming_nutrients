@@ -279,19 +279,46 @@ Three replicate leaves were randomly selected from the top and sediments from ea
     
 ![Boxplot of toughness](../output/plots/toughness.jpg)
 
-## Plots of Toughness by Timefram 
+## Plot of Toughness Difference by Treatment (Figure 1)
     
-    # Week 2 
     par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(mean.tot.mass2 ~ treat, data = mean.tough, subset = location == "top", xlab = " ", ylab = "Toughness (g of water)", cex.lab = 1.5, cex.axis = 1.2, ylim = c(0, 250), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F, cex.lab = 0.5)
+    par(mfcol = c(2, 2))
+    # two weeks by treatment
+    par(mar = c(1, 10, 3, 10))
+    plot(mean.tot.mass2.percDiff ~ treat, data = diff.mean.tough, xlab = " ", ylab = " ", cex.lab = 0.5, cex.axis = 1.2, ylim = c(-50, 100), col = 8, axes = F, cex.lab = 0.5)
+    axis(2)
+    #axis(1)# c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
+    abline(h = 0, cex = 2)
+    text(1, 100, "Two-weeks")
+    box()
+    #dev.copy(jpeg, "./output/plots/mean_tough_top_treat_wk2.jpg")
+    #dev.off()
+    # fourteen weeks by treatment
+    par(mar = c(3, 10, 1, 10))
+    plot(mean.tot.mass14.percDiff ~ treat, data = diff.mean.tough, xlab = " ", ylab = " ", cex.lab = 0.5, cex.axis = 1.2, ylim = c(-50, 100), col = 8, axes = F, cex.lab = 0.5)
     axis(2)
     axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
+    abline(h = 0, cex = 2)
+    text(1, 100, "Fourteen-weeks")
     box()
-    dev.copy(jpeg, "./output/plots/mean_tough_top_treat_wk2.jpg")
-    dev.off()
+    # two weeks mean 
+    par(mar = c(3, 10, 1, 10))
+    boxplot(mean.tot.mass2.percDiff, data = diff.mean.tough, xlab = " ", ylab = " ", cex.lab = 0.5, cex.axis = 1.2, ylim = c(-50, 100), col = 8, axes = F, cex.lab = 0.5)
+    axis(2)
+    #axis(1)
+    abline(h = 0, cex = 2)
+    text(1, 100, "two-weeks")
+    box()
+    # fourteen weeks mean
+    par(mar = c(3, 10, 1, 10))
+    boxplot(mean.tot.mass14.percDiff, data = diff.mean.tough, xlab = " ", ylab = " ", cex.lab = 0.5, cex.axis = 1.2, ylim = c(-50, 100), col = 8, axes = F, cex.lab = 0.5)
+    axis(2)
+    #axis(1)
+    abline(h = 0, cex = 2)
+    text(1, 100, "two-weeks")
+    box()
     
+###########################################################################    
     # Week 2 
     par(las = 1, cex = 1, lwd = 2)
     #par(mfcol = c(2, 1))
