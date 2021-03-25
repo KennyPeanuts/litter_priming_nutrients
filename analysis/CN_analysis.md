@@ -14,8 +14,8 @@
 
 ## Authors
 
-* KF
-* AO
+* Kenneth Fortino
+* Alyssa Oppedisano
 
 ## Description
 
@@ -475,8 +475,44 @@ The initial percent C and N comes from the analyses from the leached litter expe
     
 * mean_initial_percN = the estimated percent N in the leaves prior to incubation in the experiment. This value was collected during the leached litter exp. (percent).
 
-## Determine the change in percent 
+## Determine the change in percent C and N
+### Change in percent C    
+#### After 2 weeks of incubation
     
     delta_C_2weeks <- mean_initial_percC - CN$perc_C[CN$Date == "2018-11-12"]
+
+Summary of all of the values for the change in percent C of the leaves after 2 weeks of incubation shows a net decrease in the percent C.
+
+    summary(delta_C_2weeks)
+    sd(delta_C_2weeks)
+
+    ##################################################
+    # Data summary of the change in percent C in the leaves after 2 weeks of incubation
+    
+    Min.      1st Qu.  Median    Mean      3rd Qu.    Max.    SD
+    -3.5000  -1.9275   -1.3850   -1.2509  -0.8575     3.8800  1.265312
+    
+    ##################################################
+    
+#### After 14 weeks of incubation
+    
     delta_C_14weeks <- mean_initial_percC - CN$perc_C[CN$Date == "2019-02-07"]
+
+In contrast, after 14 weeks there was a net increase in percent C that was nearly twice as large as the previous decrease.
+
+    summary(delta_C_14weeks)
+    sd(delta_C_14weeks)
+
+    ##################################################
+    # Data summary of the change in percent C in the leaves after 2 weeks of incubation
+
+    Min.     1st Qu.  Median    Mean    3rd Qu.    Max.    SD
+    -4.870   0.100    1.935     2.530   4.095      13.300  3.86232
+
+    ##################################################
+
+### Change in percent N    
+    
+    delta_N_2weeks <- mean_initial_percN - CN$perc_N[CN$Date == "2018-11-12"]
+    delta_N_14weeks <- mean_initial_percN - CN$perc_N[CN$Date == "2019-02-07"]
     
