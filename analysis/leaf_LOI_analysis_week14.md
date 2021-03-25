@@ -86,7 +86,7 @@
   
 * AFDM_disc = the estimated AFDM of a single leaf determined by dividing AFDM_samp by leaf_number (g).
     
-* mass_loss_disc = the estimated change in mass of the leaves over the 14 day incubation based on the initial mass of the leaves sampled from the same leaves used in the incubation (g).
+* mass_loss_disc = the estimated change in mass of the leaves over the 14 week incubation based on the initial mass of the leaves sampled from the same leaves used in the incubation (g).
 
 ## Summary Statistics
 ### ADFM of a single leaf disc
