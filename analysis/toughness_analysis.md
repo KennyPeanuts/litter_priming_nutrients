@@ -10,12 +10,13 @@
 * 25 April 2019 - KF - began coding figure of toughness difference
 * 26 Feb 2020 - KF - summary stats for treatment levels 
 * 11 March 2021 - KF - calculated the % difference in the mass required to puncture the leaves.
+* 30 March 2021 - KF - ran the stats analysis on the % difference req to puncture the leaves. 
 
 ## Authors
 
-* KF
-* AO
-* GH
+* Kenneth Fortino
+* Alyssa Oppedisano
+* Gabby Huerta
 
 ## Description
 
@@ -52,6 +53,8 @@ Three replicate leaves were randomly selected from the top and sediments from ea
     mean.tough <- data.frame(location, treat, nutrients, glucose, mean.tot.mass2, mean.tot.mass14)    
 
 ### Calculate Difference Between Sed and Top
+    
+In order to determine if there was an effect of location of the leaves on the toughness, we subtracted the tougness measurement (both as mass and percent) of the leaves not in contact with the sediments (top) from the toughness measurement of the leaves in contact with the sediment. If there was no effect of the location, then the mean difference should be equal to 0.  Since the leaves were incubated in the same mesocosms, the top and sed samples are not independent and cannot be tested against each other.
     
     mean.tot.mass2.diff <- mean.tough$mean.tot.mass2[mean.tough$location == "top"] - mean.tough$mean.tot.mass2[mean.tough$location == "sed"]
     mean.tot.mass14.diff <- mean.tough$mean.tot.mass14[mean.tough$location == "top"] - mean.tough$mean.tot.mass14[mean.tough$location == "sed"]
@@ -102,49 +105,96 @@ Three replicate leaves were randomly selected from the top and sediments from ea
     
     ## 2 weeks
     Min.     1st Qu.  Median    Mean    3rd Qu.    Max.    NAs   SD
-   -23.807   2.844    12.957    18.766  32.443     63.274   1     23.82531
+    -23.807   2.844    12.957    18.766  32.443     63.274   1     23.82531
     
     ## 14 weeks
     Min.    1st Qu.  Median    Mean    3rd Qu.    Max.   SD
-   -53.99   15.17    58.71     35.86   62.40     73.54   38.555
+    -53.99   15.17    58.71     35.86   62.40     73.54   38.555
     
     ##############################
    
 ### test for location effect
     
-    t.test(diff.mean.tough$mean.tot.mass2, mu = 0)
-    t.test(diff.mean.tough$mean.tot.mass14, mu = 0)
+#### Mass    
+The following is t-test using the difference between the top and sediment leaves in the mass required to puncture the leaf during the toughness test.  The t-test test if the mean difference is equal to 0, which would indicate that there was no effect of the incubation location.
     
-    #=============================================
+    t.test(diff.mean.tough$mean.tot.mass2.diff, mu = 0)
+    t.test(diff.mean.tough$mean.tot.mass14.diff, mu = 0)
     
-    Week 2 One Sample t-test
+    ###################################################
     
-    data:  diff.mean.tough$mean.tot.mass2
+    # Week 2 One Sample t-test
+    
+    One Sample t-test
+
+    data:  diff.mean.tough$mean.tot.mass2.diff
     t = 3.1061, df = 14, p-value = 0.007739
     alternative hypothesis: true mean is not equal to 0
     95 percent confidence interval:
-      10.62836 58.05608
+    10.62836 58.05608
     sample estimates:
-      mean of x 
+    mean of x 
     34.34222 
 
-#===============================================
+    ################################################## 
     
-#================================================
+    ################################################## 
     
-    14 Week One Sample t-test
+    # 14 Week One Sample t-test
     
-    data:  diff.mean.tough$mean.tot.mass14
+    One Sample t-test
+
+    data:  diff.mean.tough$mean.tot.mass14.diff
     t = 3.897, df = 15, p-value = 0.00143
     alternative hypothesis: true mean is not equal to 0
     95 percent confidence interval:
-      15.69373 53.58544
+    15.69373 53.58544
     sample estimates:
-      mean of x 
+    mean of x 
     34.63958 
     
-#===============================================
+    ################################################## 
     
+#### Percent
+The following is t-test using the difference between the top and sediment leaves in the percent difference in mass required to puncture the leaf during the toughness test.  The t-test test if the mean difference is equal to 0, which would indicate that there was no effect of the incubation location.
+    
+    t.test(diff.mean.tough$mean.tot.mass2.percDiff, mu = 0)
+    t.test(diff.mean.tough$mean.tot.mass14.percDiff, mu = 0)
+    
+    ###################################################
+    
+    # Week 2 One Sample t-test
+    
+    One Sample t-test
+
+    data:  diff.mean.tough$mean.tot.mass2.percDiff
+    t = 3.0506, df = 14, p-value = 0.008639
+    alternative hypothesis: true mean is not equal to 0
+    95 percent confidence interval:
+    5.572268 31.960301
+    sample estimates:
+    mean of x 
+    18.76628 
+
+    ################################################## 
+    
+    ################################################## 
+    
+    # 14 Week One Sample t-test
+    
+    One Sample t-test
+
+    data:  diff.mean.tough$mean.tot.mass14.percDiff
+    t = 3.72, df = 15, p-value = 0.002053
+    alternative hypothesis: true mean is not equal to 0
+    95 percent confidence interval:
+    15.31197 56.40099
+    sample estimates:
+    mean of x 
+    35.85648 
+ 
+    ################################################## 
+
 ## Plot of toughness difference by week
     
     boxplot(mean.tot.mass2.diff, mean.tot.mass14.diff, ylab = "Toughness Difference", axes = F, col = 8)
