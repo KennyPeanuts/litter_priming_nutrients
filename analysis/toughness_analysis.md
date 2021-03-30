@@ -52,6 +52,45 @@ Three replicate leaves were randomly selected from the top and sediments from ea
 
     mean.tough <- data.frame(location, treat, nutrients, glucose, mean.tot.mass2, mean.tot.mass14)    
 
+#### Summary Statistics for Toughness based on Mass
+##### Two weeks
+    
+    tapply(mean.tough$mean.tot.mass2, mean.tough$location, summary)
+    tapply(mean.tough$mean.tot.mass2, mean.tough$location, sd, na.rm = T)
+    
+    ##################################################
+    # Summary of the mass required to puncture the leaves based on the location in the 2 week incubation
+    
+    $sed
+     Min.    1st Qu.  Median    Mean     3rd Qu.    Max.    SD 
+     75.53   107.82   155.22    144.27   165.37     212.83  42.29959 
+
+    $top
+     Min.    1st Qu.  Median    Mean     3rd Qu.    Max.    NAs  SD
+     131.3   160.0    175.7     174.7    193.6      208.3   1    22.81981
+     
+    ##################################################
+     
+##### Fourteen Weeks
+     
+    tapply(mean.tough$mean.tot.mass14, mean.tough$location, summary)
+    tapply(mean.tough$mean.tot.mass14, mean.tough$location, sd, na.rm = T)
+    
+    ##################################################
+    # Summary of the mass required to puncture the leaves based on the location in the 14 week incubation 
+    
+    $sed
+     Min.    1st Qu.  Median    Mean    3rd Qu.    Max.     SD
+     21.37   27.19    30.05     37.37   39.52      92.97    18.77204 
+
+    $top
+     Min.    1st Qu.  Median    Mean    3rd Qu.    Max.     SD
+     24.40   36.36    70.65     72.01   99.43      157.60   37.81378 
+     
+    ##################################################
+
+In the 2 week incubation there is more variation in the sed location samples, which means that the variation in the percent difference (see below) will be driven primarily by the numeratior and there should be a linear relationship between the mass difference and the percent difference.  However in the 14-week incubation, there is more variation in the top samples which means that the variation in percent difference will be driven more by the denominator and the relationship between mass difference and percent difference will be asymptiotic.
+     
 ### Calculate Difference Between Sed and Top
     
 In order to determine if there was an effect of location of the leaves on the toughness, we subtracted the tougness measurement (both as mass and percent) of the leaves not in contact with the sediments (top) from the toughness measurement of the leaves in contact with the sediment. If there was no effect of the location, then the mean difference should be equal to 0.  Since the leaves were incubated in the same mesocosms, the top and sed samples are not independent and cannot be tested against each other.
