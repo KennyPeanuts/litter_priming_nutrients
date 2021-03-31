@@ -10,8 +10,8 @@
 * 25 April 2019 - KF - began coding figure of toughness difference
 * 26 Feb 2020 - KF - summary stats for treatment levels 
 * 11 March 2021 - KF - calculated the % difference in the mass required to puncture the leaves.
-* 30 March 2021 - KF - ran the stats analysis on the % difference req to puncture the leaves. 
-
+* 30 March 2021 - KF - ran the stats analysis on the % difference req to puncture the leaves.
+  * this was a false start, since the stats are not appropriate for perc. diff
 ## Authors
 
 * Kenneth Fortino
@@ -34,7 +34,7 @@
 
 ### Calculate the mean mass required to puncture the leaf 
     
-Three replicate leaves were randomly selected from the top and sediments from each jar for use the the penetrometer.  Thus we need to calculate the average for each bottle.
+Three replicate leaves were randomly selected from the top and sediments from each jar for use the penetrometer.  Thus we need to calculate the average for each bottle.
 
     mean.tot.mass2.top <- as.numeric(tapply(tot.mass2[tough2$location == "top"], tough2$bottle[tough2$location == "top"], mean))
     mean.tot.mass2.sed <- as.numeric(tapply(tot.mass2[tough2$location == "sed"], tough2$bottle[tough2$location == "sed"], mean))
@@ -89,7 +89,7 @@ Three replicate leaves were randomly selected from the top and sediments from ea
      
     ##################################################
 
-In the 2 week incubation there is more variation in the sed location samples, which means that the variation in the percent difference (see below) will be driven primarily by the numeratior and there should be a linear relationship between the mass difference and the percent difference.  However in the 14-week incubation, there is more variation in the top samples which means that the variation in percent difference will be driven more by the denominator and the relationship between mass difference and percent difference will be asymptiotic.
+In the 2 week incubation there is more variation in the sed location samples.  However in the 14-week incubation, there is more variation in the top samples.
      
 ### Calculate Difference Between Sed and Top
     
@@ -236,7 +236,7 @@ The following is t-test using the difference between the top and sediment leaves
 
 ### ANOVA by treatment
     
-To determine if there was any effect of the treatments on the difference in the toughness of the leaves, we performed a 2-way ANOVA of the difference between the toughness of top and sed leaf discs (measured as both mass and percent difference) as a function of glucose * nutient addition.
+To determine if there was any effect of the treatments on the difference in the toughness of the leaves, we performed a 2-way ANOVA of the difference between the toughness of top and sed leaf discs (measured as both mass and percent difference) as a function of glucose * nutrient addition.
 
 #### Mass Difference
 ##### Two Weeks
@@ -275,69 +275,11 @@ The following analyses are based on the mass difference that was required to pun
     Residuals   12  14294    1191   
     
     ################################################## 
-    
 
 #### Percent Difference
-    
-##### Two Weeks
-    
-The following analyses are based on the percent difference that was required to puncture the top and sed leaves after 2 weeks.
 
-    summary(aov(mean.tot.mass2.percDiff ~ gluc * nut, data = diff.mean.tough))
-    
-    ##################################################  
-    
-    # Week 2 Percent Diff
-    
-                Df    Sum Sq   Mean Sq   F value  Pr(>F)
-    gluc         1    130      129.5     0.212    0.654
-    nut          1    924      924.5     1.512    0.244
-    gluc:nut     1    167      167.2     0.273    0.611
-    Residuals   11   6726      611.4               
-    1 observation deleted due to missingness
-    
-    ##################################################  
+Since the percent difference effect is multiplicative rather than additive it is not appropriate to use it for the ANOVA without log transformation. And other than to make the stats work, I don't see any advantage of using this response variable over the mass difference.     
 
-##### 14 weeks
-    
-The following analyses are based on the percent difference that was required to puncture the top and sed leaves after 14 weeks.
-    
-    summary(aov(mean.tot.mass14.percDiff ~ gluc * nut, data = diff.mean.tough))
-    
-    ##################################################
-    
-    # Week 14 Percent Difference
-    
-                Df   Sum Sq   Mean Sq  F value  Pr(>F)  
-    gluc         1    6349    6349     5.214    0.0414 
-    nut          1    1115    1115     0.916    0.3575  
-    gluc:nut     1     220     220     0.181    0.6780  
-    Residuals   12   14613    1218                 
-    
-    ################################################## 
-    
-After the 14-week incubation there is a significant effect of the glucose addition on the percent difference between the toughness of the top and sed leaves. This significant effect was not seen when just the mass difference was used. 
-
-The leaves that received the glucose addition had a greater percent difference in the mesocosms that received glucose that those that did not receive glucose. 
-
-    tapply(mean.tot.mass14.percDiff, gluc, summary)
-    tapply(mean.tot.mass14.percDiff, gluc, sd)
-
-    ##################################################     
-    # Summary statistics for the percent difference in the mass that was required to puncture the leaves in the top and sed locations with (Y) and without (N) glucose additions.
-    
-    $N
-     Min.    1st Qu.  Median    Mean    3rd Qu.    Max.   SD 
-     -53.99  -15.80   18.02     15.94   58.95      62.33  43.30885
-
-    $Y
-     Min.    1st Qu.  Median    Mean    3rd Qu.    Max.   SD
-     12.43   54.38    61.78     55.78   67.85      73.54  20.06669 
-     
-     ##################################################  
-     
-This result is different than when only the mass difference is used and it is unclear why. The percent difference is less extreme at larger values of mass difference but it should not be a truncated values because percent difference can exceed 100%
-     
 ##########################
     
 ## Plot of Treatment Effect on Difference between TOP and BOTTOM
