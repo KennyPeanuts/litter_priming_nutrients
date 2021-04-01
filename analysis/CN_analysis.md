@@ -9,7 +9,8 @@
 * 2019-04-19 - KF - added analysis of the CN results
 * 2020-11-01 - KF- worked on analysis of perc_C for the manuscript
 * 2020-11-05 - KF- worked on analysis of perc_N and CN for the manuscript
-* 2021-03-24 - KF- calculated the change in percent N of the leaves
+* 2021-03-24 - KF- calculated the change in percent C and percent Nof the leaves
+* 2021-04-01 - KF- continued calculation of the change in percent C and percent N during the incubation
 
 
 ## Authors
@@ -18,6 +19,9 @@
 * Alyssa Oppedisano
 
 ## Description
+
+This file contains the code for the statistical analysis of the percent C and percent N data from the litter priming nutrient experiment. The details of the experimental design can be found in the lab notes: 
+[https://drive.google.com/drive/folders/15sfGYy5rDuMRrgP2-NH2359eWHkWOVbm?usp=sharing](https://drive.google.com/drive/folders/15sfGYy5rDuMRrgP2-NH2359eWHkWOVbm?usp=sharing)
 
 ## Analysis
 
@@ -475,41 +479,63 @@ The initial percent C and N comes from the analyses from the leached litter expe
     
 * mean_initial_percN = the estimated percent N in the leaves prior to incubation in the experiment. This value was collected during the leached litter exp. (percent).
 
+* delta_C = the change in the percent C of the leaf discs from the estimated initial percent C (percent) - note: positive numbers indicate a loss of percent C
+    
 ## Determine the change in percent C and N
 ### Change in percent C    
-#### After 2 weeks of incubation
+
+    delta_C <- mean_initial_percC - CN$perc_C
     
-    delta_C_2weeks <- mean_initial_percC - CN$perc_C[CN$Date == "2018-11-12"]
+#### Summary of all data by date
 
-Summary of all of the values for the change in percent C of the leaves after 2 weeks of incubation shows a net decrease in the percent C.
-
-    summary(delta_C_2weeks)
-    sd(delta_C_2weeks)
-
-    ##################################################
-    # Data summary of the change in percent C in the leaves after 2 weeks of incubation
-    
-    Min.      1st Qu.  Median    Mean      3rd Qu.    Max.    SD
-    -3.5000  -1.9275   -1.3850   -1.2509  -0.8575     3.8800  1.265312
+    tapply(delta_C, CN$Date, summary)
+    tapply(delta_C, CN$Date, sd)
     
     ##################################################
+    # Data summary of the change in percent C in the leaves for 2 and 14 weeks of incubation
     
-#### After 14 weeks of incubation
+    $`2018-11-12`
+    Min.      1st Qu.    Median    Mean      3rd Qu.    Max.     SD 
+    -3.5000   -1.9275    -1.3850   -1.2509   -0.8575    3.8800   1.265312  
+
+    $`2019-02-07`
+    Min.      1st Qu.   Median     Mean      3rd Qu.    Max.     SD 
+    -4.870    0.100     1.935      2.530     4.095      13.300   3.862320 
     
-    delta_C_14weeks <- mean_initial_percC - CN$perc_C[CN$Date == "2019-02-07"]
-
-In contrast, after 14 weeks there was a net increase in percent C that was nearly twice as large as the previous decrease.
-
-    summary(delta_C_14weeks)
-    sd(delta_C_14weeks)
-
     ##################################################
-    # Data summary of the change in percent C in the leaves after 2 weeks of incubation
 
-    Min.     1st Qu.  Median    Mean    3rd Qu.    Max.    SD
-    -4.870   0.100    1.935     2.530   4.095      13.300  3.86232
+#### Summary of change in percent C by location for both incubation times
+    
+    tapply(delta_C[CN$Date == "2018-11-12"], CN$Location[CN$Date == "2018-11-12"], summary)
+    tapply(delta_C[CN$Date == "2018-11-12"], CN$Location[CN$Date == "2018-11-12"], sd)
+    tapply(delta_C[CN$Date == "2019-02-07"], CN$Location[CN$Date == "2018-11-12"], summary)
+    tapply(delta_C[CN$Date == "2019-02-07"], CN$Location[CN$Date == "2018-11-12"], sd)
+    
+    ################################################## 
+    # Summary of the loss in the percent C by location for the 2 and 14 week incubations
+    
+    ## 2 weeks 
+    $Sed
+    Min.       1st Qu.    Median    Mean      3rd Qu.    Max.     SD 
+    -2.2800    -1.4825    -1.0550   -0.8069   -0.4200    3.8800   1.4140472 
 
-    ##################################################
+    $Top
+    Min.       1st Qu.    Median    Mean      3rd Qu.    Max.     SD
+    -3.500     -2.333     -1.825    -1.695    -1.330     0.230    0.9426346
+    
+    ## 14 Weeks
+    $Sed
+    Min.       1st Qu.    Median    Mean      3rd Qu.    Max.     SD
+   -4.8700     0.9075     4.3000    4.1744    6.8175     13.3000  4.844574 
+
+    $Top
+    Min.       1st Qu.    Median    Mean      3rd Qu.    Max.     SD 
+    -1.9600    0.1000     0.9250    0.8862    2.0225     2.6700   1.262288 
+    
+    ##################################################  
+  
+The percent C of the leaf discs increased during the 2 week incubation with a greater increase seen in the leaf discs in the top location. However, this pattern reversed in the 14 week incubation where the percent C of the leaf discs decresed over the 14 week incbation and the greater decrease was in the leaves in the Sed location.
+    
 
 ### Change in percent N    
     
