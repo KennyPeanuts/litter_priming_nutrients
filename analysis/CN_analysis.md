@@ -479,10 +479,12 @@ The initial percent C and N comes from the analyses from the leached litter expe
     
 * mean_initial_percN = the estimated percent N in the leaves prior to incubation in the experiment. This value was collected during the leached litter exp. (percent).
 
-* delta_C = the change in the percent C of the leaf discs from the estimated initial percent C (percent) - note: positive numbers indicate a loss of percent C
+* delta_C = the loss of percent C of the leaf discs from the estimated initial percent C (percent) - note: positive numbers indicate a loss of percent C
+
+* delta_N = the loss of percent N of the leaf discs from the estimated initial percent N (percent) - note: positive numbers indicate a loss of percent N
     
-## Determine the change in percent C and N
-### Change in percent C    
+## Determine the loss of percent C and N
+### Loss of percent C    
 
     delta_C <- mean_initial_percC - CN$perc_C
     
@@ -492,7 +494,7 @@ The initial percent C and N comes from the analyses from the leached litter expe
     tapply(delta_C, CN$Date, sd)
     
     ##################################################
-    # Data summary of the change in percent C in the leaves for 2 and 14 weeks of incubation
+    # Data summary of the loss of  percent C in the leaves for 2 and 14 weeks of incubation
     
     $`2018-11-12`
     Min.      1st Qu.    Median    Mean      3rd Qu.    Max.     SD 
@@ -504,7 +506,7 @@ The initial percent C and N comes from the analyses from the leached litter expe
     
     ##################################################
 
-#### Summary of change in percent C by location for both incubation times
+#### Summary of loss of percent C by location for both incubation times
     
     tapply(delta_C[CN$Date == "2018-11-12"], CN$Location[CN$Date == "2018-11-12"], summary)
     tapply(delta_C[CN$Date == "2018-11-12"], CN$Location[CN$Date == "2018-11-12"], sd)
@@ -537,8 +539,60 @@ The initial percent C and N comes from the analyses from the leached litter expe
 The percent C of the leaf discs increased during the 2 week incubation with a greater increase seen in the leaf discs in the top location. However, this pattern reversed in the 14 week incubation where the percent C of the leaf discs decresed over the 14 week incbation and the greater decrease was in the leaves in the Sed location.
     
 
-### Change in percent N    
+### Loss of percent N    
     
-    delta_N_2weeks <- mean_initial_percN - CN$perc_N[CN$Date == "2018-11-12"]
-    delta_N_14weeks <- mean_initial_percN - CN$perc_N[CN$Date == "2019-02-07"]
+    delta_N <- mean_initial_percN - CN$perc_N
     
+#### Summary of all data by date
+
+    tapply(delta_N, CN$Date, summary)
+    tapply(delta_N, CN$Date, sd)
+    
+    ##################################################
+    # Data summary of the loss in percent N in the leaves for 2 and 14 weeks of incubation
+    
+    $`2018-11-12`
+    Min.      1st Qu.   Median    Mean     3rd Qu.    Max.     SD 
+    -1.0650   -0.2650  -0.0950    -0.1281  0.0850     0.3350   0.3092492  
+
+    $`2019-02-07`
+    Min.      1st Qu.   Median    Mean     3rd Qu.    Max.     SD 
+    -2.3150   -0.9200  -0.7100    -0.6806  -0.3000    0.2350   0.5300879
+
+    ##################################################
+    
+The percent N of the leaf discs increased (negative loss) over the course of the experiment after both 2 and 14 weeks of incubation.
+
+#### Summary of change in percent N by location for both incubation times
+    
+    tapply(delta_N[CN$Date == "2018-11-12"], CN$Location[CN$Date == "2018-11-12"], summary)
+    tapply(delta_N[CN$Date == "2018-11-12"], CN$Location[CN$Date == "2018-11-12"], sd)
+    tapply(delta_N[CN$Date == "2019-02-07"], CN$Location[CN$Date == "2019-02-07"], summary)
+    tapply(delta_N[CN$Date == "2019-02-07"], CN$Location[CN$Date == "2019-02-07"], sd)
+    
+    ################################################## 
+    # Summary of the loss in the percent C by location for the 2 and 14 week incubations
+    
+    ## 2 weeks 
+    
+    $Sed
+    Min.       1st Qu.    Median    Mean      3rd Qu.    Max.      SD 
+    -0.4050    -0.2750    -0.0950   -0.1263   -0.0525    0.2250    0.1915507 
+
+    $Top
+    Min.       1st Qu.    Median    Mean      3rd Qu.    Max.      SD
+    -1.065     -0.265     -0.035    -0.130    0.160      0.335     0.4011816 
+    
+    ## 14 Weeks
+    
+    $Sed
+    Min.       1st Qu.    Median    Mean      3rd Qu.    Max.      SD 
+    -1.345     -0.855     -0.750    -0.660    -0.480     0.085     0.3953732 
+
+    $Top
+    Min.       1st Qu.    Median    Mean      3rd Qu.    Max.      SD 
+    -2.3150    -1.1600    -0.6650   -0.7013   -0.2425    0.2350    0.6507624 
+    
+    ##################################################  
+  
+The increase in the percent N of the leaves was not related to location and was greater after 14 weeks than 2 weeks.
