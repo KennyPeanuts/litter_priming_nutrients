@@ -526,7 +526,7 @@ The initial percent C and N comes from the analyses from the leached litter expe
     ## 14 Weeks
     $Sed
     Min.       1st Qu.    Median    Mean      3rd Qu.    Max.     SD
-   -4.8700     0.9075     4.3000    4.1744    6.8175     13.3000  4.844574 
+    -4.8700     0.9075     4.3000    4.1744    6.8175     13.3000  4.844574 
 
     $Top
     Min.       1st Qu.    Median    Mean      3rd Qu.    Max.     SD 
