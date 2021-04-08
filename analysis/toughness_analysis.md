@@ -12,6 +12,7 @@
 * 11 March 2021 - KF - calculated the % difference in the mass required to puncture the leaves.
 * 30 March 2021 - KF - ran the stats analysis on the % difference req to puncture the leaves.
   * this was a false start, since the stats are not appropriate for perc. diff
+* 8 April 2021 - KF - Coded toughness figure for manuscript
 
 ## Authors
 
@@ -279,7 +280,7 @@ The following analyses are based on the mass difference that was required to pun
 
 #### Percent Difference
 
-Since the percent difference effect is multiplicative rather than additive it is not appropriate to use it for the ANOVA without log transformation. And other than to make the stats work, I don't see any advantage of using this response variable over the mass difference.     
+Since the percent difference effect is multiplicative rather than additive it is not appropriate to use it for the ANOVA without log transformation. And other than to make the stats work, I do not see any advantage of using this response variable over the mass difference.     
 
 ##########################
     
@@ -328,8 +329,8 @@ Since the percent difference effect is multiplicative rather than additive it is
     box()
     text(1, mean(mean.tough$mean.tot.mass14[mean.tough$location == "sed"]), "*", cex = 2)
     text(2, mean(mean.tough$mean.tot.mass14[mean.tough$location == "top"]), "*", cex = 2)
-    dev.copy(jpeg, "./output/plots/toughness.jpg")
-    dev.off()
+    #dev.copy(jpeg, "./output/plots/toughness.jpg")
+    #dev.off()
     
 ![Boxplot of toughness](../output/plots/toughness.jpg)
 
@@ -338,8 +339,8 @@ Since the percent difference effect is multiplicative rather than additive it is
     par(las = 1, cex = 1, lwd = 2)
     par(mfcol = c(2, 2))
     # two weeks by treatment
-    par(mar = c(1, 10, 3, 10))
-    plot(mean.tot.mass2.percDiff ~ treat, data = diff.mean.tough, xlab = " ", ylab = " ", cex.lab = 0.5, cex.axis = 1.2, ylim = c(-50, 100), col = 8, axes = F, cex.lab = 0.5)
+    par(mar = c(0.5, 5, 2, 0))
+    plot(mean.tot.mass2.diff ~ treat, data = diff.mean.tough, xlab = " ", ylab = " ", cex.lab = 0.5, cex.axis = 1.2, ylim = c(-50, 150), col = 8, axes = F, cex.lab = 0.5)
     axis(2)
     #axis(1)# c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
     abline(h = 0, cex = 2)
@@ -348,30 +349,35 @@ Since the percent difference effect is multiplicative rather than additive it is
     #dev.copy(jpeg, "./output/plots/mean_tough_top_treat_wk2.jpg")
     #dev.off()
     # fourteen weeks by treatment
-    par(mar = c(3, 10, 1, 10))
-    plot(mean.tot.mass14.percDiff ~ treat, data = diff.mean.tough, xlab = " ", ylab = " ", cex.lab = 0.5, cex.axis = 1.2, ylim = c(-50, 100), col = 8, axes = F, cex.lab = 0.5)
+    par(mar = c(2, 5, 0.5, 0))
+    plot(mean.tot.mass14.diff ~ treat, data = diff.mean.tough, xlab = " ", ylab = " ", cex.lab = 0.5, cex.axis = 1.2, ylim = c(-50, 150), col = 8, axes = F, cex.lab = 0.5)
     axis(2)
     axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
     abline(h = 0, cex = 2)
     text(1, 100, "Fourteen-weeks")
     box()
     # two weeks mean 
-    par(mar = c(3, 10, 1, 10))
-    boxplot(mean.tot.mass2.percDiff, data = diff.mean.tough, xlab = " ", ylab = " ", cex.lab = 0.5, cex.axis = 1.2, ylim = c(-50, 100), col = 8, axes = F, cex.lab = 0.5)
-    axis(2)
+    par(mar = c(0.5, 5, 2, 5))
+    boxplot(mean.tot.mass2.diff, data = diff.mean.tough, xlab = " ", ylab = " ", cex.lab = 0.5, cex.axis = 1.2, ylim = c(-50, 150), col = 8, axes = F, cex.lab = 0.5)
+    #axis(2)
     #axis(1)
     abline(h = 0, cex = 2)
     text(1, 100, "two-weeks")
     box()
     # fourteen weeks mean
-    par(mar = c(3, 10, 1, 10))
-    boxplot(mean.tot.mass14.percDiff, data = diff.mean.tough, xlab = " ", ylab = " ", cex.lab = 0.5, cex.axis = 1.2, ylim = c(-50, 100), col = 8, axes = F, cex.lab = 0.5)
-    axis(2)
+    par(mar = c(2, 5, 0.5, 5))
+    boxplot(mean.tot.mass14.diff, data = diff.mean.tough, xlab = " ", ylab = " ", cex.lab = 0.5, cex.axis = 1.2, ylim = c(-50, 150), col = 8, axes = F, cex.lab = 0.5)
+    #axis(2)
     #axis(1)
     abline(h = 0, cex = 2)
-    text(1, 100, "two-weeks")
+    text(1, 100, "14-weeks")
     box()
+
     
+    ggplot(data = diff.mean.tough, mapping = aes(x = treat, y = mean.tot.mass2.diff)) +
+      geom_boxplot() + 
+      geom_point()
+
 ###########################################################################    
     # Week 2 
     par(las = 1, cex = 1, lwd = 2)
