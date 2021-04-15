@@ -13,6 +13,7 @@
 * 30 March 2021 - KF - ran the stats analysis on the % difference req to puncture the leaves.
   * this was a false start, since the stats are not appropriate for perc. diff
 * 8 April 2021 - KF - Coded toughness figure for manuscript
+* 14 April 2021 - KF - Coded toughness figure for manuscript
 
 ## Authors
 
@@ -284,67 +285,18 @@ Since the percent difference effect is multiplicative rather than additive it is
 
 ##########################
     
-## Plot of Treatment Effect on Difference between TOP and BOTTOM
-    par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(mean.tot.mass2.diff ~ treat, data = diff.mean.tough, xlab = " ", ylab = "Toughness Difference (g)", cex.lab = 1.5, cex.axis = 1.2, ylim = c(-50, 150), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F, cex.lab = 0.5)
-    axis(2)
-    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
-    abline(h = 0, lwd = 3)
-    text(2, 150, "No Sediment Contact is Greater")
-    text(2, -50, "Sediment Contact is Greater")
-    box()
-    dev.copy(jpeg, "./output/plots/toughness_diff_treat_week2.jpg")
-    dev.off()
-    
-    par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(mean.tot.mass14.diff ~ treat, data = diff.mean.tough, xlab = " ", ylab = "Toughness Difference (g)", cex.lab = 1.5, cex.axis = 1.2, ylim = c(-50, 150), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F, cex.lab = 0.5)
-    axis(2)
-    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
-    abline(h = 0, lwd = 3)
-    text(2, 150, "No Sediment Contact is Greater")
-    text(2, -50, "Sediment Contact is Greater")
-    box()
-    dev.copy(jpeg, "./output/plots/toughness_diff_treat_week14.jpg")
-    dev.off()
-    
-
-##########################################
-#### Plot of location effect
-  
-    par(las = 1, mfcol = c(2, 1))
-    par(mar = c(1, 10, 4, 10))
-    plot(mean.tot.mass2 ~ location, data = mean.tough, ylim = c(0, 250), axes = F, ylab = "Grams of Water", xlab = "", col = 8 )
-    axis(2)
-    box()
-    text(1, mean(mean.tough$mean.tot.mass2[mean.tough$location == "sed"]), "*", cex = 2)
-    text(2, mean(mean.tough$mean.tot.mass2[mean.tough$location == "top"], na.rm = T), "*", cex = 2)
-    par(mar = c(4, 10, 1, 10))
-    plot(mean.tot.mass14 ~ location, data = mean.tough, ylim = c(0, 250), axes = F, ylab = "Grams of Water", xlab = "", col = 8)
-    axis(2)
-    axis(1, c("Sediment", "No Sediment"), at = c(1, 2))
-    box()
-    text(1, mean(mean.tough$mean.tot.mass14[mean.tough$location == "sed"]), "*", cex = 2)
-    text(2, mean(mean.tough$mean.tot.mass14[mean.tough$location == "top"]), "*", cex = 2)
-    #dev.copy(jpeg, "./output/plots/toughness.jpg")
-    #dev.off()
-    
-![Boxplot of toughness](../output/plots/toughness.jpg)
-
 ## Plot of Toughness Difference by Treatment (Figure 1)
     
-    par(las = 1, cex = 1, lwd = 2)
+    par(las = 1, cex = 1, lwd = 1 )
     par(mfcol = c(2, 2))
     # two weeks by treatment
     par(mar = c(0.5, 5, 2, 0))
     plot(mean.tot.mass2.diff ~ treat, data = diff.mean.tough, xlab = " ", ylab = " ", cex.lab = 0.5, cex.axis = 1.2, ylim = c(-50, 150), col = 8, axes = F, cex.lab = 0.5)
     axis(2)
-    #axis(1)# c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
+    #axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
     abline(h = 0, cex = 2)
-    text(1, 100, "Two-weeks")
+    text(1.5, 149, "Two-weeks")
+    text(-2, -75, "Difference in Toughness")
     box()
     #dev.copy(jpeg, "./output/plots/mean_tough_top_treat_wk2.jpg")
     #dev.off()
@@ -354,61 +306,27 @@ Since the percent difference effect is multiplicative rather than additive it is
     axis(2)
     axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
     abline(h = 0, cex = 2)
-    text(1, 100, "Fourteen-weeks")
+    text(1.5, 149, "Fourteen-weeks")
     box()
     # two weeks mean 
-    par(mar = c(0.5, 5, 2, 5))
+    par(mar = c(0.5, 0.5, 2, 9.5))
     boxplot(mean.tot.mass2.diff, data = diff.mean.tough, xlab = " ", ylab = " ", cex.lab = 0.5, cex.axis = 1.2, ylim = c(-50, 150), col = 8, axes = F, cex.lab = 0.5)
     #axis(2)
     #axis(1)
     abline(h = 0, cex = 2)
-    text(1, 100, "two-weeks")
+    text(1, mean(diff.mean.tough$mean.tot.mass2.diff, na.rm = T), "*", cex = 2)
     box()
     # fourteen weeks mean
-    par(mar = c(2, 5, 0.5, 5))
+    par(mar = c(2, 0.5, 0.5, 9.5))
     boxplot(mean.tot.mass14.diff, data = diff.mean.tough, xlab = " ", ylab = " ", cex.lab = 0.5, cex.axis = 1.2, ylim = c(-50, 150), col = 8, axes = F, cex.lab = 0.5)
     #axis(2)
-    #axis(1)
+    axis(1, at = 1, "All Treatments", tick = F)
     abline(h = 0, cex = 2)
-    text(1, 100, "14-weeks")
+    text(1, mean(diff.mean.tough$mean.tot.mass14.diff, na.rm = T), "*", cex = 2)
     box()
 
     
+###########################################################################    
     ggplot(data = diff.mean.tough, mapping = aes(x = treat, y = mean.tot.mass2.diff)) +
       geom_boxplot() + 
       geom_point()
-
-###########################################################################    
-    # Week 2 
-    par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(mean.tot.mass2 ~ treat, data = mean.tough, subset = location == "sed", xlab = " ", ylab = "Toughness (g of water)", cex.lab = 1.5, cex.axis = 1.2, ylim = c(0, 250), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F, cex.lab = 0.5)
-    axis(2)
-    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
-    box()
-    dev.copy(jpeg, "./output/plots/mean_tough_sed_wk2.jpg")
-    dev.off()
-    
-    # Week 14 
-    par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(mean.tot.mass14 ~ treat, data = mean.tough, subset = location == "top", xlab = " ", ylab = "Toughness (g of water)", cex.lab = 1.5, cex.axis = 1.2, ylim = c(0, 250), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F, cex.lab = 0.5)
-    axis(2)
-    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
-    box()
-    dev.copy(jpeg, "./output/plots/mean_tough_top_treat_wk14.jpg")
-    dev.off()
-    
-    # Week 14 
-    par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(mean.tot.mass14 ~ treat, data = mean.tough, subset = location == "sed", xlab = " ", ylab = "Toughness (g of water)", cex.lab = 1.5, cex.axis = 1.2, ylim = c(0, 250), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F)
-    axis(2)
-    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F, cex.axis = 1)
-    box()
-    dev.copy(jpeg, "./output/plots/mean_tough_sed_wk14.jpg")
-    dev.off()
-    
