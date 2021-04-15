@@ -296,7 +296,7 @@ Since the percent difference effect is multiplicative rather than additive it is
     #axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
     abline(h = 0, cex = 2)
     text(1.5, 149, "Two-weeks")
-    text(-2, -75, "Difference in Toughness")
+    text(2, 75, "Difference in Toughness")
     box()
     #dev.copy(jpeg, "./output/plots/mean_tough_top_treat_wk2.jpg")
     #dev.off()
