@@ -25,6 +25,11 @@
 
 ## Description
 
+
+## Load tidyverse
+    
+    library("tidyverse")
+
 ## Analysis
 
 ### Import Data
@@ -353,27 +358,26 @@ Since the percent difference effect is multiplicative rather than additive it is
     
 ##################################################
 
-## Load tidyverse
-    
-    library("tidyverse")
-
 ## Plot of Toughness Difference by Week (Figure 1)
     
-    pdf(file = "./output/ms_plots/tough_by_week_f1.pdf", height = 8, width = 8)
+    #pdf(file = "./output/ms_plots/tough_by_week_f1.pdf", height = 8, width = 8)
     ggplot(data = diff.mean.tough.comb, mapping = aes(x = factor(week), y = mean.tot.mass.diff)) +
-      geom_boxplot(fill = "light gray") +
+      #geom_boxplot(fill = "light gray") +
       geom_hline(yintercept = 0) +
       stat_summary(
+        fun.y = mean,
+        fun.ymin = function(x) mean(x) - sd(x), 
+        fun.ymax = function(x) mean(x) + sd(x)) +
         #fun.min = min,
         #fun.max = max,
-        fun = mean) +
+        #fun = mean) +
       labs(
         x = "",
         y = "Toughness Difference (g)"
       ) +
       theme_classic(
         base_size = 25)
-    dev.off()
+    #dev.off()
       
 
 ## Plot of Toughness Difference by Treatment
