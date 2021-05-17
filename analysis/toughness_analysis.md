@@ -325,7 +325,19 @@ Since the percent difference effect is multiplicative rather than additive it is
     box()
 
     
-###########################################################################    
+##################################################    
+    
+# Tidyverse Sandbox
+    
+##################################################
+
+## Load tidyverse
+    
+    library("tidyverse")
+
     ggplot(data = diff.mean.tough, mapping = aes(x = treat, y = mean.tot.mass2.diff)) +
-      geom_boxplot() + 
-      geom_point()
+      geom_boxplot() +
+      stat_summary(
+        #fun.min = min,
+        #fun.max = max,
+        fun = mean)
