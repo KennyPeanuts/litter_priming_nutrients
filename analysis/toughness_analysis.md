@@ -14,6 +14,8 @@
   * this was a false start, since the stats are not appropriate for perc. diff
 * 8 April 2021 - KF - Coded toughness figure for manuscript
 * 14 April 2021 - KF - Coded toughness figure for manuscript
+* 17 May 2021 - KF - Coded toughness figure for manuscript
+
 
 ## Authors
 
@@ -113,8 +115,28 @@ In order to determine if there was an effect of location of the leaves on the to
     
 #### Create data.frame
     
+    
     diff.mean.tough <- data.frame(treat, gluc, nut, mean.tot.mass2.diff, mean.tot.mass14.diff, mean.tot.mass2.percDiff, mean.tot.mass14.percDiff)
 
+In order to more effectively plot the different weeks onto a single plot, I a making a new data frame that has week as a factor
+
+##### Create a separate data frame for each week
+
+    diff.mean.tough.2 <- data.frame(treat, gluc, nut, mean.tot.mass2.diff, mean.tot.mass2.percDiff)
+    names(diff.mean.tough.2) <- c("treat", "gluc", "nut", "mean.tot.mass.diff", "mean.tot.mass.percDiff")
+    diff.mean.tough.14 <- data.frame(treat, gluc, nut, mean.tot.mass14.diff, mean.tot.mass14.percDiff)
+    names(diff.mean.tough.14) <- c("treat", "gluc", "nut", "mean.tot.mass.diff", "mean.tot.mass.percDiff")
+    
+##### Combine the data frames vertically
+    
+    diff.mean.tough.comb <- bind_rows(diff.mean.tough.2, diff.mean.tough.14)
+    
+##### Create a factor for "week" and add to diff.mean.tough.comb
+    
+     week <- c(rep("Two Weeks", 16), rep("Fourteen Weeks", 16))
+     week <- factor(week, levels = c("Two Weeks", "Fourteen Weeks"))
+     diff.mean.tough.comb <- data.frame(diff.mean.tough.comb, week)
+     
 ### Summary Stats for difference
     
     summary(mean.tot.mass2.diff)
@@ -327,7 +349,7 @@ Since the percent difference effect is multiplicative rather than additive it is
     
 ##################################################    
     
-# Tidyverse Sandbox
+# Tidyverse Plots
     
 ##################################################
 
@@ -335,9 +357,34 @@ Since the percent difference effect is multiplicative rather than additive it is
     
     library("tidyverse")
 
-    ggplot(data = diff.mean.tough, mapping = aes(x = treat, y = mean.tot.mass2.diff)) +
+## Plot of Toughness Difference by Week (Figure 1)
+    
+    ggplot(data = diff.mean.tough.comb, mapping = aes(x = factor(week), y = mean.tot.mass.diff)) +
       geom_boxplot() +
+      geom_hline(yintercept = 0) +
       stat_summary(
         #fun.min = min,
         #fun.max = max,
-        fun = mean)
+        fun = mean) + 
+      labs(
+        x = "Week",
+        y = "Toughness Difference (g)"
+      ) +
+      theme_bw()
+    
+## Plot of Toughness Difference by Treatment (Figure 1)
+    
+    ggplot(data = diff.mean.tough.comb, mapping = aes(x = factor(treat), y = mean.tot.mass.diff)) +
+      facet_wrap(~ week) +
+      geom_boxplot() +
+      geom_hline(yintercept = 0) +
+      stat_summary(
+        #fun.min = min,
+        #fun.max = max,
+        fun = mean) + 
+      scale_x_discrete(labels = c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P")) +
+      labs(
+        x = "Treatment",
+        y = "Toughness Difference (g)"
+      ) +
+      theme_bw()
