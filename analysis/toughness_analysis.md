@@ -360,24 +360,29 @@ Since the percent difference effect is multiplicative rather than additive it is
 
 ## Plot of Toughness Difference by Week (Figure 1)
     
-    #pdf(file = "./output/ms_plots/tough_by_week_f1.pdf", height = 8, width = 8)
+    pdf(file = "./output/ms_plots/tough_by_week_f1.pdf", height = 7, width = 7)
     ggplot(data = diff.mean.tough.comb, mapping = aes(x = factor(week), y = mean.tot.mass.diff)) +
-      #geom_boxplot(fill = "light gray") +
-      geom_hline(yintercept = 0) +
+      geom_hline(yintercept = 0, size = 1, col = 1) +
       stat_summary(
-        fun.y = mean,
-        fun.ymin = function(x) mean(x) - sd(x), 
-        fun.ymax = function(x) mean(x) + sd(x)) +
-        #fun.min = min,
-        #fun.max = max,
-        #fun = mean) +
+        fun = mean,
+        fun.min = function(x) mean(x) - sd(x), 
+        fun.max = function(x) mean(x) + sd(x),
+        size = 1
+        ) +
+      geom_jitter(
+        size = 2,
+        col = 8,
+        width = 0.1
+        ) +
       labs(
         x = "",
         y = "Toughness Difference (g)"
       ) +
+      #theme_classic()
       theme_classic(
-        base_size = 25)
-    #dev.off()
+        base_size = 25
+        )
+    dev.off()
       
 
 ## Plot of Toughness Difference by Treatment
