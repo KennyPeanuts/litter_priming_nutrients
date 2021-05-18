@@ -11,6 +11,7 @@
 * 2020-11-05 - KF- worked on analysis of perc_N and CN for the manuscript
 * 2021-03-24 - KF- calculated the change in percent C and percent Nof the leaves
 * 2021-04-01 - KF- continued calculation of the change in percent C and percent N during the incubation
+* 2021-05-18 - KF- Created plots for manuscript
 
 
 ## Authors
@@ -24,6 +25,14 @@ This file contains the code for the statistical analysis of the percent C and pe
 [https://drive.google.com/drive/folders/15sfGYy5rDuMRrgP2-NH2359eWHkWOVbm?usp=sharing](https://drive.google.com/drive/folders/15sfGYy5rDuMRrgP2-NH2359eWHkWOVbm?usp=sharing)
 
 ## Analysis
+
+### Load Required Packages
+
+The "tidyverse" package provides ggplot2 and other data processing tools
+    library("tidyverse")
+
+The "ggpubr" package provides plot construction tools
+    library("ggpubr")
 
 ### Import Data
 
@@ -89,7 +98,7 @@ Although there was an effect of location on the perc C (i.e., the difference bet
     
     ################################################## 
 
-#### Effect of treatment additons on Perc C after 2 Weeks
+#### Effect of treatment additons on Perc C after 14 Weeks
     
     anova(lm(perc_C ~ Glucose * Nutrients, data = CN, subset = Date == "2019-02-07"))
 
@@ -596,3 +605,143 @@ The percent N of the leaf discs increased (negative loss) over the course of the
     ##################################################  
   
 The increase in the percent N of the leaves was not related to location and was greater after 14 weeks than 2 weeks.
+
+## Plots
+    
+### Plot of the difference in percent C and N between the top and sed by date
+#### Create plot of Percent C difference between sed and top
+    
+    percC.diff.plot <- 
+      ggplot(data = CN.diff, mapping = aes(y = perc.C.diff, x = factor(Date.diff))) +
+     geom_jitter(
+       col = 8,
+       size = 2,
+       width = 0.1
+     ) +
+     stat_summary(
+       fun = mean,
+       fun.min = function(x) mean(x) - sd(x),
+       fun.max = function(x) mean(x) + sd(x)
+     ) +
+     geom_hline(yintercept = 0) +
+     labs(
+       x = " ",
+       y = "Difference in Percent C"
+     ) +
+     scale_x_discrete(
+       labels = c(" ", " ")
+       ) +
+     coord_cartesian(
+        ylim = c(-5, 10)
+      ) +
+     theme_classic()
+       #base_size = 25
+       )
+    
+#### Create plot of Percent N difference between sed and top
+    
+    percN.diff.plot <- 
+      ggplot(data = CN.diff, mapping = aes(y = perc.N.diff, x = factor(Date.diff))) +
+     geom_jitter(
+       col = 8,
+       size = 2,
+       width = 0.1
+     ) +
+     stat_summary(
+       fun = mean,
+       fun.min = function(x) mean(x) - sd(x),
+       fun.max = function(x) mean(x) + sd(x)
+     ) +
+     geom_hline(yintercept = 0) +
+     labs(
+       x = " ",
+       y = "Difference in Percent N"
+     ) +
+     scale_x_discrete(
+       labels = c(" ", " ")
+       ) +
+      coord_cartesian(
+        ylim = c(-5, 10)
+      ) +
+     theme_classic()
+       #base_size = 25
+       )
+
+#### Create plot of Percent C by date
+    
+    percC.plot <-
+      ggplot(data = CN, mapping = aes(y = perc_C, x = factor(Date))) +
+     geom_jitter(
+       col = 8,
+       size = 2,
+       width = 0.1
+     ) +
+     stat_summary(
+       fun = mean,
+       fun.min = function(x) mean(x) - sd(x),
+       fun.max = function(x) mean(x) + sd(x)
+     ) +
+     labs(
+       x = "Incubation Time",
+       y = "Percent C"
+     ) +
+     scale_x_discrete(
+       labels = c("Two Weeks", "Fourteen Weeks")
+       ) +
+      #coord_cartesian(
+        #ylim = c(-5, 10)
+      #) +
+     geom_point(
+       mapping = aes(x = 0.5, y = 45.13),
+       size = 2,
+       col = 2
+       ) + 
+     theme_classic()
+       #base_size = 25
+       )
+
+#### Create plot of Percent N by date
+    
+    percN.plot <-
+      ggplot(data = CN, mapping = aes(y = perc_N, x = factor(Date))) +
+     geom_jitter(
+       col = 8,
+       size = 2,
+       width = 0.1
+     ) +
+     stat_summary(
+       fun = mean,
+       fun.min = function(x) mean(x) - sd(x),
+       fun.max = function(x) mean(x) + sd(x)
+     ) +
+     labs(
+       x = "Incubation Time",
+       y = "Percent N"
+     ) +
+     scale_x_discrete(
+       labels = c("Two Weeks", "Fourteen Weeks")
+       ) +
+      #coord_cartesian(
+        #ylim = c(-5, 10)
+      #) +
+     geom_point(
+       mapping = aes(x = 0.5, y = 0.09850),
+       size = 2,
+       col = 2
+       ) + 
+        # adds the initial percent N to the plot
+     theme_classic()
+       #base_size = 25
+       )
+
+#### Arrange plots onto a single figure
+
+    percC_N_by_date_f2 <- ggarrange(percC.diff.plot, percN.diff.plot, percC.plot, percN.plot, labels = c("A", "B", "C", "D"))
+
+#### Export plot as pdf
+
+NOTE: this seems only to produce a file in the home directory, so it needs to be moved manually to ./output/ms_plots after creating.
+
+    ggexport(percC_N_by_date_f2, width = 7, height = 7, filename = "percC_N_by_date_f2.pdf")
+    
+    

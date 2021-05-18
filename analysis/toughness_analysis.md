@@ -375,7 +375,7 @@ Since the percent difference effect is multiplicative rather than additive it is
         width = 0.1
         ) +
       labs(
-        x = "",
+        x = "Incubation Time",
         y = "Toughness Difference (g)"
       ) +
       #theme_classic()
