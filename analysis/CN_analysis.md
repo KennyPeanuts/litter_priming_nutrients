@@ -12,6 +12,7 @@
 * 2021-03-24 - KF- calculated the change in percent C and percent Nof the leaves
 * 2021-04-01 - KF- continued calculation of the change in percent C and percent N during the incubation
 * 2021-05-18 - KF- Created plots for manuscript
+* 2021-05-19 - KF- Created plots for manuscript
 
 
 ## Authors
@@ -37,6 +38,13 @@ The "ggpubr" package provides plot construction tools
 ### Import Data
 
     CN <- read.table("./data/CN_all.csv", header = T, sep = ",")
+
+#### Create Incubation Time Labels
+For the plots, I need text labels for the incubation times
+
+    Incubation <- c(rep("Two Weeks", 32), rep("Fourteen Weeks", 32))
+    Incubation <- factor(Incubation, levels = c("Two Weeks", "Fourteen Weeks"))
+    CN <- data.frame(CN, Incubation)
     
 ## Analysis
     
@@ -83,6 +91,8 @@ Although there was an effect of location on the perc C (i.e., the difference bet
 #### Effect of treatment additons on Perc C after 2 Weeks
     
     anova(lm(perc_C ~ Glucose * Nutrients, data = CN, subset = Date == "2018-11-12"))
+    summary(aov(perc_C ~ Treat, data = CN, subset = Date == "2018-11-12"))
+    TukeyHSD(aov(perc_C ~ Treat, data = CN, subset = Date == "2018-11-12"))
     
     ##################################################
     # Two-way ANOVA of the effect of the treatment additions on the percent C after 2 weeks
@@ -101,6 +111,8 @@ Although there was an effect of location on the perc C (i.e., the difference bet
 #### Effect of treatment additons on Perc C after 14 Weeks
     
     anova(lm(perc_C ~ Glucose * Nutrients, data = CN, subset = Date == "2019-02-07"))
+    summary(aov(perc_C ~ Treat, data = CN, subset = Date == "2019-02-07"))
+    TukeyHSD(aov(perc_C ~ Treat, data = CN, subset = Date == "2019-02-07"))
 
     ##################################################
     # Two-way ANOVA of the effect of the treatment additions on the percent C after 14 weeks
@@ -744,4 +756,63 @@ NOTE: this seems only to produce a file in the home directory, so it needs to be
 
     ggexport(percC_N_by_date_f2, width = 7, height = 7, filename = "percC_N_by_date_f2.pdf")
     
+### Plot of percent C and N by treatment level
+#### Create plot of Percent C by treatment level
     
+    #percC.by.treat.plot <- 
+    
+    ggplot(data = CN, mapping = aes(y = perc_C, x = factor(Treat))) +
+     geom_jitter(
+       col = 8,
+       size = 2,
+       width = 0.1
+     ) +
+     stat_summary(
+       fun = mean,
+       fun.min = function(x) mean(x) - sd(x),
+       fun.max = function(x) mean(x) + sd(x)
+     ) +
+      facet_wrap(
+        ~ Incubation
+      ) +
+     labs(
+       x = " ",
+       y = "Percent C"
+     ) + 
+     scale_x_discrete(labels = c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P")) +
+     #coord_cartesian(
+     #   ylim = c(-5, 10)
+     # ) +
+     theme_classic()
+       #base_size = 25
+       #)
+    
+#### Create plot of Percent N by treatment level
+    
+    #percN.by.treat.plot <- 
+    
+    ggplot(data = CN, mapping = aes(y = perc_N, x = factor(Treat))) +
+     geom_jitter(
+       col = 8,
+       size = 2,
+       width = 0.1
+     ) +
+     stat_summary(
+       fun = mean,
+       fun.min = function(x) mean(x) - sd(x),
+       fun.max = function(x) mean(x) + sd(x)
+     ) +
+      facet_wrap(
+        ~ Incubation
+      ) +
+     labs(
+       x = " ",
+       y = "Percent N"
+     ) + 
+     scale_x_discrete(labels = c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P")) +
+     #coord_cartesian(
+     #   ylim = c(-5, 10)
+     # ) +
+     theme_classic()
+       #base_size = 25
+       #)
