@@ -91,8 +91,6 @@ Although there was an effect of location on the perc C (i.e., the difference bet
 #### Effect of treatment additons on Perc C after 2 Weeks
     
     anova(lm(perc_C ~ Glucose * Nutrients, data = CN, subset = Date == "2018-11-12"))
-    summary(aov(perc_C ~ Treat, data = CN, subset = Date == "2018-11-12"))
-    TukeyHSD(aov(perc_C ~ Treat, data = CN, subset = Date == "2018-11-12"))
     
     ##################################################
     # Two-way ANOVA of the effect of the treatment additions on the percent C after 2 weeks
@@ -111,8 +109,6 @@ Although there was an effect of location on the perc C (i.e., the difference bet
 #### Effect of treatment additons on Perc C after 14 Weeks
     
     anova(lm(perc_C ~ Glucose * Nutrients, data = CN, subset = Date == "2019-02-07"))
-    summary(aov(perc_C ~ Treat, data = CN, subset = Date == "2019-02-07"))
-    TukeyHSD(aov(perc_C ~ Treat, data = CN, subset = Date == "2019-02-07"))
 
     ##################################################
     # Two-way ANOVA of the effect of the treatment additions on the percent C after 14 weeks
@@ -758,10 +754,10 @@ NOTE: this seems only to produce a file in the home directory, so it needs to be
     
 ### Plot of percent C and N by treatment level
 #### Create plot of Percent C by treatment level
+##### Glucose
     
-    #percC.by.treat.plot <- 
-    
-    ggplot(data = CN, mapping = aes(y = perc_C, x = factor(Treat))) +
+    percC.by.glucose.plot <- 
+    ggplot(data = CN, mapping = aes(y = perc_C, x = factor(Glucose))) +
      geom_jitter(
        col = 8,
        size = 2,
@@ -779,7 +775,48 @@ NOTE: this seems only to produce a file in the home directory, so it needs to be
        x = " ",
        y = "Percent C"
      ) + 
-     scale_x_discrete(labels = c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P")) +
+     scale_x_discrete(labels = c("No Addition", "+Glucose")) +
+     geom_point(
+       mapping = aes(x = 0.5, y = 45.13),
+       size = 2,
+       col = 2
+       ) + 
+        # adds the initial percent C to the plot
+     #coord_cartesian(
+     #   ylim = c(-5, 10)
+     # ) +
+     theme_classic()
+       #base_size = 25
+       #)
+
+##### Nutrients
+    
+    percC.by.nutrients.plot <- 
+    ggplot(data = CN, mapping = aes(y = perc_C, x = factor(Nutrients))) +
+     geom_jitter(
+       col = 8,
+       size = 2,
+       width = 0.1
+     ) +
+     stat_summary(
+       fun = mean,
+       fun.min = function(x) mean(x) - sd(x),
+       fun.max = function(x) mean(x) + sd(x)
+     ) +
+      facet_wrap(
+        ~ Incubation
+      ) +
+     labs(
+       x = " ",
+       y = "Percent C"
+     ) + 
+     scale_x_discrete(labels = c("No Addition", "+N+P")) +
+     geom_point(
+       mapping = aes(x = 0.5, y = 45.13),
+       size = 2,
+       col = 2
+       ) + 
+        # adds the initial percent C to the plot
      #coord_cartesian(
      #   ylim = c(-5, 10)
      # ) +
@@ -787,11 +824,23 @@ NOTE: this seems only to produce a file in the home directory, so it needs to be
        #base_size = 25
        #)
     
-#### Create plot of Percent N by treatment level
+#### Arrange plots onto a single figure
+
+    #percC_by_treat_f3 <- 
+      
+      ggarrange(percC.by.glucose.plot, percC.by.nutrients.plot, ncol = 1, nrow = 2) 
+
+#### Export plot as pdf
+
+NOTE: this seems only to produce a file in the home directory, so it needs to be moved manually to ./output/ms_plots after creating.
+
+    ggexport(percC_by_treat_f3, width = 7, height = 7, filename = "percC_by_treat_f3.pdf")
     
-    #percN.by.treat.plot <- 
+#### Create plot of Percent N by treatment levels
+##### Glucose
     
-    ggplot(data = CN, mapping = aes(y = perc_N, x = factor(Treat))) +
+    percN.by.glucose.plot <- 
+    ggplot(data = CN, mapping = aes(y = perc_N, x = factor(Glucose))) +
      geom_jitter(
        col = 8,
        size = 2,
@@ -809,10 +858,61 @@ NOTE: this seems only to produce a file in the home directory, so it needs to be
        x = " ",
        y = "Percent N"
      ) + 
-     scale_x_discrete(labels = c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P")) +
+     scale_x_discrete(labels = c("No Addition", "+Glucose")) +
+     geom_point(
+       mapping = aes(x = 0.5, y = 0.09850),
+       size = 2,
+       col = 2
+       ) + 
+        # adds the initial percent N to the plot
      #coord_cartesian(
      #   ylim = c(-5, 10)
      # ) +
      theme_classic()
        #base_size = 25
        #)
+
+##### Nutrients
+    
+    percN.by.nutrients.plot <- 
+    ggplot(data = CN, mapping = aes(y = perc_N, x = factor(Nutrients))) +
+     geom_jitter(
+       col = 8,
+       size = 2,
+       width = 0.1
+     ) +
+     stat_summary(
+       fun = mean,
+       fun.min = function(x) mean(x) - sd(x),
+       fun.max = function(x) mean(x) + sd(x)
+     ) +
+      facet_wrap(
+        ~ Incubation
+      ) +
+     labs(
+       x = " ",
+       y = "Percent N"
+     ) + 
+     scale_x_discrete(labels = c("No Addition", "+N+P")) +
+     geom_point(
+       mapping = aes(x = 0.5, y = 0.09850),
+       size = 2,
+       col = 2
+       ) + 
+        # adds the initial percent N to the plot
+     #coord_cartesian(
+     #   ylim = c(-5, 10)
+     # ) +
+     theme_classic()
+       #base_size = 25
+       #)
+    
+#### Arrange plots onto a single figure
+
+    percN_by_treat_f4 <- ggarrange(percN.by.glucose.plot, percN.by.nutrients.plot, ncol = 1, nrow = 2) 
+
+#### Export plot as pdf
+
+NOTE: this seems only to produce a file in the home directory, so it needs to be moved manually to ./output/ms_plots after creating.
+
+    ggexport(percN_by_treat_f4, width = 7, height = 7, filename = "percN_by_treat_f4.pdf")
