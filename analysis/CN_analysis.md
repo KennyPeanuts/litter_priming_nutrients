@@ -826,9 +826,7 @@ NOTE: this seems only to produce a file in the home directory, so it needs to be
     
 #### Arrange plots onto a single figure
 
-    #percC_by_treat_f3 <- 
-      
-      ggarrange(percC.by.glucose.plot, percC.by.nutrients.plot, ncol = 1, nrow = 2) 
+    percC_by_treat_f3 <- ggarrange(percC.by.glucose.plot, percC.by.nutrients.plot, ncol = 1, nrow = 2) 
 
 #### Export plot as pdf
 
