@@ -169,6 +169,7 @@ This data frame contains the difference between the ergosterol in the treatment 
 ## Summary Statistics
 
 ### Ergosterol by Location
+    `
 calculate the summary statistics for the ergosterol after 2 weeks of incubation for the sediment or water treatments
     
     tapply(erg$ErgLeaf[erg$HarvestDate == "11/12/18"], erg$Location[erg$HarvestDate == "11/12/18"], summary)
