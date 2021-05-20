@@ -8,15 +8,20 @@
 
 * 2020-10-21 - KF - cleaned up formatting and added metadata
 * 2021-01-21 - KF - ran analysis of the treatment effect on ergosterol mass
+* 2021-05-20 - KF - ran 2-way anova with glucose * nutrients to make consistent with the other response variables.
 
 ## Authors
 
-* KF
-* AO
+* Kenneth Fortino
+* Alyssa Oppedisano
 
 ## Description
 
 ## Analysis
+
+### Load Packages
+
+    library("tidyverse")
 
 ### Import Data
 
@@ -68,10 +73,12 @@ This data frame contains the cleaned ergosterol data.
 ### Create Labels For Difference Variables
     
     treat.diff <- c(rep("NGNN", 4), rep("NGYN", 4), rep("YGNN", 4), rep("YGYN", 4))
+    glucose.diff <- c(rep("N", 8), rep("Y", 8))
+    nutrients.diff <- c(rep("N", 4), rep("Y", 4), rep("N", 4), rep("Y", 4))
     
 ### Make Difference Data Frame 
     
-    erg.diff <- data.frame(treat.diff, erg.diff.2, erg.diff.14)
+    erg.diff <- data.frame(treat.diff, glucose.diff, nutrients.diff, erg.diff.2, erg.diff.14)
 
 ## Metadata for erg.diff
 This data frame contains the difference between the ergosterol in the treatment levels of the experiment. It is used to run t-tests that the difference is equal to or not equal to 0 to determine the treatment effect.
@@ -85,23 +92,8 @@ This data frame contains the difference between the ergosterol in the treatment 
 * erg.diff.14 is the ergosterol concentration of the leaf discs not in contact with the sediment (TOP) minus the ergosterol concentration of the leaf discs in contact with the sediment (SED) at the 14-week harvesting time. Ergosterol concentration is in ug ergosterol / leaf disc.
 
     
-## Treatment Effect Analysis
-    
-    plot(erg.diff.2 ~ treat.diff, data= erg.diff)
-    abline(h = 0)
-
-    plot(erg.diff.14 ~ treat.diff, data= erg.diff)    
-    abline(h = 0)
-    
-    
-### Test for Location Effect
-    
-    boxplot(erg.diff$erg.diff.2, erg.diff$erg.diff.14, ylab = c(axes = F)
-    abline(h = 0)
-    axis(2)
-    axis(1, c("2-weeks", "14-weeks"), at = c(1, 2))
-    box()
-    
+## Test for Location Effect
+### Two Weeks
     
     t.test(erg.diff$erg.diff.2, mu=0)
 
@@ -119,7 +111,13 @@ This data frame contains the difference between the ergosterol in the treatment 
       mean of x 
     0.1848733 
     
+    ################################################## 
+
+### Fourteen Weeks
+    
     t.test(erg.diff$erg.diff.14, mu=0)
+    
+    ################################################## 
     
     > t.test(erg.diff$erg.diff.14, mu=0)
     
@@ -134,35 +132,40 @@ This data frame contains the difference between the ergosterol in the treatment 
       mean of x 
     0.8388344 
 
-###############################    
+    ###############################    
 
 ## Test of the effect of the treatments on the difference in the ergosterol 
-    anova(lm(erg.diff.2~ treat.diff, data= erg.diff))
+   
+    summary(aov(erg.diff.2 ~ glucose.diff * nutrients.diff, data= erg.diff))
 
-################################    
+    ##################################################
+    # 2-way ANOVA of ergosterol difference by treatment after 2 weeks 
 
-    anova(lm(erg.diff.2~ treat.diff, data= erg.diff))
-    Analysis of Variance Table
+    > summary(aov(erg.diff.2 ~ glucose.diff * nutrients.diff, data= erg.diff))
+    Df Sum Sq Mean Sq F value Pr(>F)
+    glucose.diff                 1 0.0379 0.03791   0.391  0.545
+    nutrients.diff               1 0.0539 0.05388   0.555  0.472
+    glucose.diff:nutrients.diff  1 0.0026 0.00256   0.026  0.874
+    Residuals                   11 1.0679 0.09708               
+    1 observation deleted due to missingness
     
-    Response: erg.diff.2
-    Df  Sum Sq  Mean Sq F value Pr(>F)
-    treat.diff  3 0.09435 0.031450   0.324 0.8081
-    Residuals  11 1.06786 0.097079
+    ##################################################
     
-##########################
+### Fourteen Weeks
     
-    anova(lm(erg.diff.14~ treat.diff, data= erg.diff))
+    summary(aov(erg.diff.14 ~ glucose.diff * nutrients.diff, data= erg.diff))
     
-    anova(lm(erg.diff.14~ treat.diff, data= erg.diff))
-    Analysis of Variance Table
+    ################################################## 
+    # 2-way ANOVA of ergosterol difference by treatment after 14 weeks 
     
-    Response: erg.diff.14
-    Df  Sum Sq Mean Sq F value Pr(>F)
-    treat.diff  3  1.3579 0.45262  0.5204 0.6763
-    Residuals  12 10.4374 0.86978 
+    Df Sum Sq Mean Sq F value Pr(>F)
+    glucose.diff                 1  0.267  0.2666   0.307  0.590
+    nutrients.diff               1  0.639  0.6393   0.735  0.408
+    glucose.diff:nutrients.diff  1  0.452  0.4519   0.520  0.485
+    Residuals                   12 10.437  0.8698            
     
-#######################################
-  
+    ################################################## 
+    
 ## Summary Statistics
 
 ### Ergosterol by Location
