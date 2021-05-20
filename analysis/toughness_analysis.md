@@ -100,7 +100,38 @@ Three replicate leaves were randomly selected from the top and sediments from ea
     ##################################################
 
 In the 2 week incubation there is more variation in the sed location samples.  However in the 14-week incubation, there is more variation in the top samples.
+
+#### Test of the treatment effect on the toughness indep. of location
+##### Two Weeks
      
+    summary(aov(mean.tot.mass2 ~ glucose * nutrients, data = mean.tough))
+     
+    ################################################## 
+    # ANOVA of the toughness after week 2 by treatment
+    
+    > summary(aov(mean.tot.mass2 ~ glucose * nutrients, data = mean.tough))
+    Df Sum Sq Mean Sq F value Pr(>F)
+    glucose            1     56      56   0.040  0.843
+    nutrients          1   3499    3499   2.512  0.125
+    glucose:nutrients  1    134     134   0.096  0.759
+    Residuals         27  37613    1393               
+    1 observation deleted due to missingness
+    
+##### Fourteen Weeks
+     
+    summary(aov(mean.tot.mass14 ~ glucose * nutrients, data = mean.tough))
+     
+    ################################################## 
+    # ANOVA of the toughness after week 14 by treatment
+    
+    > summary(aov(mean.tot.mass14 ~ glucose * nutrients, data = mean.tough))
+    Df Sum Sq Mean Sq F value Pr(>F)
+    glucose            1    591   591.4   0.497  0.487
+    nutrients          1   2105  2105.5   1.768  0.194
+    glucose:nutrients  1    294   293.8   0.247  0.623
+    Residuals         28  33343  1190.8  
+    
+    ################################################## 
 ### Calculate Difference Between Sed and Top
     
 In order to determine if there was an effect of location of the leaves on the toughness, we subtracted the tougness measurement (both as mass and percent) of the leaves not in contact with the sediments (top) from the toughness measurement of the leaves in contact with the sediment. If there was no effect of the location, then the mean difference should be equal to 0.  Since the leaves were incubated in the same mesocosms, the top and sed samples are not independent and cannot be tested against each other.
