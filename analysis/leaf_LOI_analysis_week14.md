@@ -8,16 +8,21 @@
 
 * 25 April 2019 - KF - Completed analysis of LOI based on difference
 * 18 March 2021 - KF - Added summary stats
+* 20 May 2021 - KF - Added 2-way ANOVA to make consistent with other resp var
 
 ## Authors
 
-* KF
-* AO
-* GH
+* Kenneth Fortino
+* Alyssa Oppedisano
+* Gabrielle Huerta
 
 ## Description
 
 ## Analysis
+
+### Install Packages
+
+    library("tidyverse")
 
 ### Import Data
 
@@ -125,10 +130,6 @@
     
     
     ##################################################
-
-    
-    
-    
     
 ## Analysis
     
@@ -160,65 +161,57 @@
     
 Since there was no effect of location, I analyzed the effect of treatment on mass loss with the locations pooled
   
-    anova(lm(AFDM_disc ~ Treat, data = LOI14))
+    summary(aov(mass_loss_disc ~ Glucose * Nutrients, data = mass_loss_14weeks))
     
-    #========================================
+    ################################################## 
+    # 2-way ANOVA of mass loss after 14 weeks
     
-    Analysis of Variance Table
+    > summary(aov(mass_loss_disc ~ Glucose * Nutrients, data = mass_loss_14weeks))
+                       Df Sum Sq   Mean Sq     F value Pr(>F)  
+    Glucose            1 2.880e-07 2.884e-07   0.918   0.3469  
+    Nutrients          1 4.700e-08 4.650e-08   0.148   0.7035  
+    Glucose:Nutrients  1 1.742e-06 1.742e-06   5.542   0.0264 *
+    Residuals         26 8.171e-06 3.143e-07                 
     
-    Response: AFDM_disc
-    Df     Sum Sq    Mean Sq F value Pr(>F)
-    Treat      3 2.0766e-06 6.9220e-07  2.2025 0.1118
-    Residuals 26 8.1713e-06 3.1428e-07  
-
-    #========================================    
+    ################################################## 
     
-    par(las = 1, cex = 1, lwd = 2, mar = c(6, 6, 6, 6))
-    plot(mass_loss_disc * 1000 ~ Location, data = LOI14, ylab = "Change in Mass (mg)", cex.lab = 1.5, cex.axis = 1.2, col = c("light green", "light blue"))
-    dev.copy(jpeg, "./output/plots/mass_loss_location.jpg")
-    dev.off()
+## Plots
     
-![Mass Loss by Location](../output/plots/mass_loss_location.jpg)
+    ggplot(mass_loss_14weeks, mapping = aes(y = mass_loss_disc * 1000, x = factor(Glucose))) +
+      geom_jitter(
+        col = 8,
+        width = 0.1) +
+      facet_wrap(
+        ~ Nutrients
+      ) +
+      stat_summary(
+        fun = mean,
+        fun.min = function(x) mean(x) - sd(x),
+        fun.max = function(x) mean(x) + sd(x)
+      ) +
+      theme_classic()
     
-### Plot of Mass Loss by Treatment
-#### TOP    
-    par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(mass_loss_disc * 1000 ~ Treat, data = LOI14, subset = Location == "Top", xlab = " ", ylab = "Mass Loss (mg)", cex.lab = 1.5, cex.axis = 1.2, ylim = c(-0.5, 2.5), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F, cex.lab = 0.5)
-    axis(2)
-    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
-    abline(h = 0, lwd = 3)
-    box()
-    text(1.15, 2.5, "No Sediment Contact")
-    dev.copy(jpeg, "./output/plots/mass_loss_treat_top_wk14.jpg")
-    dev.off()
+    ggplot(mass_loss_14weeks, mapping = aes(y = mass_loss_disc * 1000, x = factor(Nutrients))) +
+      geom_jitter(
+        col = 8,
+        width = 0.1) +
+      facet_wrap(
+        ~ Glucose
+      ) +
+      stat_summary(
+        fun = mean,
+        fun.min = function(x) mean(x) - sd(x),
+        fun.max = function(x) mean(x) + sd(x)
+      ) +
+      theme_classic()
     
-#### SED    
-    par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(mass_loss_disc * 1000 ~ Treat, data = LOI14, subset = Location == "Sed", xlab = " ", ylab = "Mass Loss (mg)", cex.lab = 1.5, cex.axis = 1.2, ylim = c(-0.5, 2.5), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F, cex.lab = 0.5)
-    axis(2)
-    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
-    abline(h = 0, lwd = 3)
-    box()
-    text(1, 2.5, "Sediment Contact")
-    dev.copy(jpeg, "./output/plots/mass_loss_treat_sed_wk14.jpg")
-    dev.off()
-    
-### Plot of Mass Loss Difference by Treatment
-    
-    par(las = 1, cex = 1, lwd = 2)
-    #par(mfcol = c(2, 1))
-    par(mar = c(5, 5, 5, 5))
-    plot(mass.loss.disc.diff * 1000 ~ treat.diff, data = LOI14, xlab = " ", ylab = "Mass Loss Difference (mg)", cex.lab = 1.5, cex.axis = 1.2, ylim = c(-1.5, 1.50), col = c(0, "gold1", "lightskyblue2", "olivedrab3"), axes = F, cex.lab = 0.5)
-    axis(2)
-    axis(1, c("No Addition", "+N +P", "+Glucose", "+Glucose\n +N + P"), at = c(1, 2, 3, 4), tick = F)
-    abline(h = 0, lwd = 3)
-    text(2, 1.50, "No Sediment Contact is Greater")
-    text(2, -1.50, "Sediment Contact is Greater")
-    box()
-    dev.copy(jpeg, "./output/plots/mass_loss_diff_treat_wk14.jpg")
-    dev.off()
+    ggplot(mass_loss_14weeks, mapping = aes(y = mass_loss_disc * 1000, x = factor(Nutrients), color = factor(Glucose))) +
+      geom_jitter(
+        width = 0.1) +
+      stat_summary(
+        fun = mean,
+        #fun.min = function(x) mean(x) - sd(x),
+        #fun.max = function(x) mean(x) + sd(x)
+      ) +
+      theme_classic()
     
