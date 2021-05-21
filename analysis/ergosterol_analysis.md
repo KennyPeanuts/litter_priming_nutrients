@@ -23,6 +23,7 @@
 ### Load Packages
 
     library("tidyverse")
+    library("ggpubr")
 
 ### Import Data
 
@@ -324,14 +325,13 @@ calculate the summary statistics for the ergosterol after 2 weeks of incubation 
     
 ### Plot of Ergosterol Difference by Week
    
-    pdf(file = "./output/ms_plots/erg_by_week_f6.pdf", width = 7, height = 7) 
-    ggplot(erg.diff.comb, mapping = aes(y = erg.diff.resp, x = weeks.comb)) +
+    erg.diff.by.week <- ggplot(erg.diff.comb, mapping = aes(y = erg.diff.resp, x = weeks.comb)) +
       geom_hline(
         yintercept = 0
       ) +
       geom_jitter(
         col = 8,
-        width = 0.1
+        width = 0.05
       ) +
       stat_summary(
         fun = mean,
@@ -339,25 +339,41 @@ calculate the summary statistics for the ergosterol after 2 weeks of incubation 
         fun.max = function(x) mean(x) + sd(x)
       ) +
       labs(
-        x = "Incubation Time",
-        y = "Ergosterol Mass Difference"
+        x = " ",
+        y = expression("Ergosterol Difference ("*mu*"g / leaf disc)")
       ) +
-      theme_classic(
-        base_size = 25
-        )
-    dev.off()
+      scale_x_discrete(
+        labels = c(" ", " ")
+      ) +
+      theme_classic()
 
-    ggplot(erg, mapping = aes(y = ErgLeaf, x = factor(Weeks))) +
+    erg.by.week <- ggplot(erg, mapping = aes(y = ErgLeaf, x = factor(Weeks))) +
       geom_jitter(
         col = 8,
-        width = 0.1
+        width = 0.05
       ) +
       stat_summary(
         fun = mean,
         fun.min = function(x) mean(x) - sd(x),
         fun.max = function(x) mean(x) + sd(x)
       ) +
+      labs(
+        y = expression("Ergosterol Mass ("*mu*"g / leaf disc)"),
+        x = "Incubation Time"
+        ) +
       theme_classic()
+    
+### Make plot 
+    
+    #### Arrange plots onto a single figure
+    
+    erg_by_week_f6 <- ggarrange(erg.diff.by.week, erg.by.week, ncol = 1, nrow = 2) 
+    
+    #### Export plot as pdf
+    
+    NOTE: this seems only to produce a file in the home directory, so it needs to be moved manually to ./output/ms_plots after creating.
+    
+    ggexport(erg_by_week_f6, width = 7, height = 7, filename = "erg_by_week_f6.pdf")
     
     ggplot(erg, mapping = aes(y = ErgLeaf, x = factor(Treat))) +
       geom_jitter(
