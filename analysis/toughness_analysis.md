@@ -151,7 +151,6 @@ In order to determine if there was an effect of location of the leaves on the to
     
 #### Create data.frame
     
-    
     diff.mean.tough <- data.frame(treat, gluc, nut, mean.tot.mass2.diff, mean.tot.mass14.diff, mean.tot.mass2.percDiff, mean.tot.mass14.percDiff)
 
 In order to more effectively plot the different weeks onto a single plot, I a making a new data frame that has week as a factor

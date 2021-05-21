@@ -9,6 +9,7 @@
 * 2020-10-21 - KF - cleaned up formatting and added metadata
 * 2021-01-21 - KF - ran analysis of the treatment effect on ergosterol mass
 * 2021-05-20 - KF - ran 2-way anova with glucose * nutrients to make consistent with the other response variables.
+* 2021-05-20 - KF - created plots for ms and tested weeks effect.
 
 ## Authors
 
@@ -80,6 +81,27 @@ This data frame contains the cleaned ergosterol data.
     
     erg.diff <- data.frame(treat.diff, glucose.diff, nutrients.diff, erg.diff.2, erg.diff.14)
 
+#### Combine the erg.diff data.frame into one with weeks as a factor
+    
+The erg.diff data frame has separate columns for the 2 and 14 week incubations but there needs to be a week factor in order to plot by week.
+
+##### Combine the erg.diff respones into a single variable
+
+    erg.diff.resp <- c(erg.diff.2, erg.diff.14)
+    
+##### Create the other variables for the data.frame
+    
+    treat.diff.comb <- c(treat.diff, treat.diff)
+    glucose.diff.comb <- c(glucose.diff, glucose.diff)
+    nutrients.diff.comb <- c(nutrients.diff, nutrients.diff)
+    weeks.comb <- c(rep("Two Weeks", 16), rep("Fourteen Weeks", 16))
+    weeks.comb <- factor(weeks.comb, levels = c("Two Weeks", "Fourteen Weeks")) # this puts the factors in the correct order with two first.
+
+###### Create new combined data.frame
+    
+    erg.diff.comb <- data.frame(weeks.comb, treat.diff.comb, glucose.diff.comb, nutrients.diff.comb, erg.diff.resp)
+    
+    
 ## Metadata for erg.diff
 This data frame contains the difference between the ergosterol in the treatment levels of the experiment. It is used to run t-tests that the difference is equal to or not equal to 0 to determine the treatment effect.
 
@@ -205,10 +227,6 @@ calculate the summary statistics for the ergosterol after 2 weeks of incubation 
 
 ########################################
     
-### Plot of ErgLeaf
-    
-    plot(ErgLeaf ~ Location, subset = HarvestDate == "11/12/18", data = erg)
-    plot(ErgLeaf ~ Location, subset = HarvestDate == "2/7/19", data = erg)
 
 ### Summary for Ergosterol Difference
 #### Week 2
@@ -242,7 +260,7 @@ calculate the summary statistics for the ergosterol after 2 weeks of incubation 
     
     anova(lm(ErgLeaf ~ Glucose * Nutrient, data = erg, subset = HarvestDate == "11/12/18"))
     
-##################################################
+    ##################################################
     # ANOVA of the effect of treatment additions on ergosterol mass per leaf 
     
     >     anova(lm(ErgLeaf ~ Glucose * Nutrient, data = erg, subset = HarvestDate == "11/12/18"))
@@ -255,13 +273,13 @@ calculate the summary statistics for the ergosterol after 2 weeks of incubation 
     Glucose:Nutrient  1 0.01317 0.013167  0.2030 0.6559
     Residuals        27 1.75150 0.064870      
     
-##################################################
+    ##################################################
     
 ## 14-weeks
 
     anova(lm(ErgLeaf ~ Glucose * Nutrient, data = erg, subset = HarvestDate == "2/7/19"))
     
-##################################################
+    ##################################################
     # ANOVA of the effect of treatment additions on ergosterol mass per leaf 
     
     >     anova(lm(ErgLeaf ~ Glucose * Nutrient, data = erg, subset = HarvestDate == "2/7/19"))
@@ -274,4 +292,31 @@ calculate the summary statistics for the ergosterol after 2 weeks of incubation 
     Glucose:Nutrient  1  0.0206 0.02057  0.0213 0.8850
     Residuals        28 27.0401 0.96572 
     
-##################################################
+    ##################################################
+    
+## Plots
+    
+### Plot of Ergosterol Difference by Week
+    
+    ggplot(erg.diff.comb, mapping = aes(y = erg.diff.resp, x = weeks.comb)) +
+      geom_hline(
+        yintercept = 0
+      ) +
+      geom_jitter(
+        col = 8,
+        width = 0.1
+      ) +
+      stat_summary(
+        fun = mean,
+        fun.min = function(x) mean(x) - sd(x),
+        fun.max = function(x) mean(x) + sd(x)
+      ) +
+      labs(
+        x = "Incubation Time",
+        y = "Ergosterol Mass Difference"
+      ) +
+      theme_classic(
+        base_size = 25
+        )
+
+### Plot of 
