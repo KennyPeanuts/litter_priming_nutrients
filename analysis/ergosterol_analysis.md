@@ -9,7 +9,7 @@
 * 2020-10-21 - KF - cleaned up formatting and added metadata
 * 2021-01-21 - KF - ran analysis of the treatment effect on ergosterol mass
 * 2021-05-20 - KF - ran 2-way anova with glucose * nutrients to make consistent with the other response variables.
-* 2021-05-20 - KF - created plots for ms and tested weeks effect.
+* 2021-05-20 - KF - created plots for ms and tested weeks effect. Tested the effect of weeks on erg mass.
 
 ## Authors
 
@@ -46,9 +46,15 @@ The data from the Khuen lab are reported as the total ergosterol (ug) per sample
     
     Nutrient <- rep(c(rep("N", 8), rep("Y", 8)), 4)
     
+### Create Incubation Time Variable
+    
+    Weeks <- c(rep("Fourteen Weeks", 32), rep("Two Weeks", 32))
+    Weeks <- factor(Weeks, levels = c("Two Weeks", "Fourteen Weeks"))
+    
 ### Add Created Variables to erg data.frame
     
-    erg <- data.frame(erg, ErgLeaf, Location, Glucose, Nutrient)
+    erg <- data.frame(erg, Weeks, ErgLeaf, Location, Glucose, Nutrient)
+    
     
 ## Metadata for the erg data frame
 This data frame contains the cleaned ergosterol data.
@@ -198,8 +204,8 @@ calculate the summary statistics for the ergosterol after 2 weeks of incubation 
     tapply(erg$ErgLeaf[erg$HarvestDate == "11/12/18"], erg$Location[erg$HarvestDate == "11/12/18"], sd, na.rm = T)
     
 
-###################################
-# 2 weeks Ergosterol Mass (ug/leaf disc)
+    ###################################
+    # 2 weeks Ergosterol Mass (ug/leaf disc)
     
     $Sed
     Min.     1st Qu.  Median    Mean     3rd Qu.  Max.    SD
@@ -209,13 +215,13 @@ calculate the summary statistics for the ergosterol after 2 weeks of incubation 
     Min.    1st Qu.  Median   Mean    3rd Qu.   Max.    SD          NAs 
     0.0853  0.1003   0.1648   0.2930  0.3795    1.3065  0.32386367     1 
 
-###################################
+    ###################################
     
     tapply(erg$ErgLeaf[erg$HarvestDate == "2/7/19"], erg$Location[erg$HarvestDate == "2/7/19"], summary)
     tapply(erg$ErgLeaf[erg$HarvestDate == "2/7/19"], erg$Location[erg$HarvestDate == "2/7/19"], sd, na.rm = T)
 
-####################################
-# 14-weeks Ergosterol Mass (ug/leaf disc)
+    ####################################
+    # 14-weeks Ergosterol Mass (ug/leaf disc)
     
     $Sed
     Min.     1st Qu.  Median    Mean     3rd Qu.    Max.    SD
@@ -225,35 +231,55 @@ calculate the summary statistics for the ergosterol after 2 weeks of incubation 
     Min.    1st Qu.  Median    Mean     3rd Qu.    Max.     SD
     0.1039  0.6278   1.5230    1.4742   2.0782     4.0646   1.0420158 
 
-########################################
+    ########################################
     
+## Test of weeks difference on ergosterol mass 
+    
+    anova(lm(log10(ErgLeaf) ~ Weeks, data = erg))
+    # NOTE: the response variable was log10 transformed to homogenize variance    
 
+    ##################################################
+    # ANOVA of the effect of weeks incubation on ergosterol mass / leaf
+    # NOTE: respone log transformed to fix non-homogenity of variance
+    > anova(lm(log10(ErgLeaf) ~ Weeks, data = erg))
+    Analysis of Variance Table
+    
+    Response: log10(ErgLeaf)
+    Df  Sum Sq Mean Sq F value    Pr(>F)    
+    Weeks      1  6.6817  6.6817  34.385 1.977e-07 ***
+    Residuals 61 11.8534  0.1943 
+    
+    ################################################## 
+    
 ### Summary for Ergosterol Difference
 #### Week 2
 
     summary(erg.diff$erg.diff.2)
     sd(erg.diff$erg.diff.2, na.rm = T)
 
-#################    
-# Week 2 ergosterol mass on top - ergosterol mass on sed (ug/leaf disc)
+    #################################################    
+    # Week 2 ergosterol mass on top - ergosterol mass on sed (ug/leaf disc)
     
     Min.      1st Qu.   Median     Mean     3rd Qu.     Max.     SD        NAs 
     -0.02435  0.02405   0.10515    0.18487  0.18190     1.10425  0.2881235     1 
     
-####################
+    ################################################## 
     
 ### Week 14
     
     summary(erg.diff$erg.diff.14)
     sd(erg.diff$erg.diff.14, na.rm = T) 
     
-###############################
-# Week 14 ergosterol mass on top - ergosterol mass on sed (ug/leaf disc)
+    ###############################
+    # Week 14 ergosterol mass on top - ergosterol mass on sed (ug/leaf disc)
     
     Min.     1st Qu.  Median    Mean    3rd Qu.    Max.    SD
     -0.5226  0.1668   0.7249    0.8388  1.5106     2.3681  0.8867637
     
-###################################
+    ###################################
+
+    
+    
     
 ## Test of the effect of treatment additions on ergosterol mass
 ### Two-weeks
@@ -297,7 +323,8 @@ calculate the summary statistics for the ergosterol after 2 weeks of incubation 
 ## Plots
     
 ### Plot of Ergosterol Difference by Week
-    
+   
+    pdf(file = "./output/ms_plots/erg_by_week_f6.pdf", width = 7, height = 7) 
     ggplot(erg.diff.comb, mapping = aes(y = erg.diff.resp, x = weeks.comb)) +
       geom_hline(
         yintercept = 0
@@ -318,5 +345,31 @@ calculate the summary statistics for the ergosterol after 2 weeks of incubation 
       theme_classic(
         base_size = 25
         )
+    dev.off()
 
-### Plot of 
+    ggplot(erg, mapping = aes(y = ErgLeaf, x = factor(Weeks))) +
+      geom_jitter(
+        col = 8,
+        width = 0.1
+      ) +
+      stat_summary(
+        fun = mean,
+        fun.min = function(x) mean(x) - sd(x),
+        fun.max = function(x) mean(x) + sd(x)
+      ) +
+      theme_classic()
+    
+    ggplot(erg, mapping = aes(y = ErgLeaf, x = factor(Treat))) +
+      geom_jitter(
+        width = 0.1
+      ) +
+      stat_summary(
+        fun = mean,
+        fun.min = function(x) mean(x) - sd(x),
+        fun.max = function(x) mean(x) + sd(x)
+      ) +
+      facet_wrap(
+        ~ HarvestDate
+      ) +
+      theme_classic()
+    
