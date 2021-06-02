@@ -28,7 +28,8 @@
 
 ## Load tidyverse
     
-    library("tidyverse")
+    library("tidyverse") # provides ggplot and other data manipulation tools
+    library("ggpubr") # provided figure publishing tools.
 
 ## Analysis
 
@@ -412,9 +413,30 @@ Since the percent difference effect is multiplicative rather than additive it is
       theme_classic(
         base_size = 25
         )
-    dev.off()
       
-
+## Plot of Toughness by Week (Figure 1)
+    
+    ggplot(data = diff.mean.tough.comb, mapping = aes(x = factor(week), y = mean.tot.mass.diff)) +
+      geom_hline(yintercept = 0, size = 1, col = 1) +
+      stat_summary(
+        fun = mean,
+        fun.min = function(x) mean(x) - sd(x), 
+        fun.max = function(x) mean(x) + sd(x),
+        size = 1
+        ) +
+      geom_jitter(
+        size = 2,
+        col = 8,
+        width = 0.1
+        ) +
+      labs(
+        x = "Incubation Time",
+        y = "Toughness Difference (g)"
+      ) +
+      #theme_classic()
+      theme_classic(
+        base_size = 25
+        )
 ## Plot of Toughness Difference by Treatment
     
     ggplot(data = diff.mean.tough.comb, mapping = aes(x = factor(treat), y = mean.tot.mass.diff)) +
@@ -431,3 +453,4 @@ Since the percent difference effect is multiplicative rather than additive it is
         y = "Toughness Difference (g)"
       ) +
       theme_bw()
+
