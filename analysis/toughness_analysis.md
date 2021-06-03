@@ -62,6 +62,32 @@ Three replicate leaves were randomly selected from the top and sediments from ea
     glucose <- rep(c(rep("N", 8), rep("Y", 8)), 2)
 
     mean.tough <- data.frame(location, treat, nutrients, glucose, mean.tot.mass2, mean.tot.mass14)    
+    
+#### Combine the sampling dates into a single variable
+
+In order to more logically arrange the data for plotting (I should have done this for the analysis but I I dont want to rewrite all the code :|) I am combining the response variable on the two sampling dates into a single variable and then creating a new data.frame with a sampling date variable
+
+##### Create separate data frames to be merged 
+
+First I am creating a single response variable that combines the 2 and 14 week data
+
+    mean.tot.mass <- c(mean.tough$mean.tot.mass2, mean.tough$mean.tot.mass14)
+    
+Next, I replicating the other variables so that they are the same length
+
+    location <- c(mean.tough$location, mean.tough$location)
+    treat <- c(mean.tough$treat, mean.tough$treat)
+    nutrients <- c(mean.tough$nutrients, mean.tough$nutrients)
+    glucose <- c(mean.tough$glucose, mean.tough$glucose)
+    week <- c(rep("Two Weeks", 32), rep("Fourteen Weeks", 32))
+    
+Next, I create a new data.frame with the new variables:w
+
+    mean.tough.comb <- data.frame(week, location, treat, glucose, nutrients, mean.tot.mass)
+    
+Finally, I reorder the `week` factor so that the weeks are in chroological order
+
+    mean.tough.comb$week <- factor(mean.tough.comb$week, levels = c("Two Weeks", "Fourteen Weeks"))
 
 #### Summary Statistics for Toughness based on Mass
 ##### Two weeks
@@ -391,52 +417,52 @@ Since the percent difference effect is multiplicative rather than additive it is
 
 ## Plot of Toughness Difference by Week (Figure 1)
     
-    pdf(file = "./output/ms_plots/tough_by_week_f1.pdf", height = 7, width = 7)
+    #pdf(file = "./output/ms_plots/tough_by_week_f1.pdf", height = 7, width = 7)
+    
     ggplot(data = diff.mean.tough.comb, mapping = aes(x = factor(week), y = mean.tot.mass.diff)) +
       geom_hline(yintercept = 0, size = 1, col = 1) +
+      geom_jitter(
+        size = 2,
+        col = 8,
+        width = 0.1
+        ) +
       stat_summary(
         fun = mean,
         fun.min = function(x) mean(x) - sd(x), 
         fun.max = function(x) mean(x) + sd(x),
         size = 1
         ) +
-      geom_jitter(
-        size = 2,
-        col = 8,
-        width = 0.1
-        ) +
       labs(
         x = "Incubation Time",
         y = "Toughness Difference (g)"
       ) +
-      #theme_classic()
       theme_classic(
-        base_size = 25
         )
       
 ## Plot of Toughness by Week (Figure 1)
     
-    ggplot(data = diff.mean.tough.comb, mapping = aes(x = factor(week), y = mean.tot.mass.diff)) +
-      geom_hline(yintercept = 0, size = 1, col = 1) +
+    ggplot(data = mean.tough.comb, mapping = aes(x = factor(location), y = mean.tot.mass)) +
+      geom_jitter(
+        color = 8,
+        size = 2,
+        width = 0.1
+        ) +
       stat_summary(
         fun = mean,
         fun.min = function(x) mean(x) - sd(x), 
         fun.max = function(x) mean(x) + sd(x),
         size = 1
         ) +
-      geom_jitter(
-        size = 2,
-        col = 8,
-        width = 0.1
-        ) +
+      facet_wrap(
+        ~ week
+      ) +
       labs(
         x = "Incubation Time",
-        y = "Toughness Difference (g)"
+        y = "Toughness (g)"
       ) +
-      #theme_classic()
       theme_classic(
-        base_size = 25
         )
+    
 ## Plot of Toughness Difference by Treatment
     
     ggplot(data = diff.mean.tough.comb, mapping = aes(x = factor(treat), y = mean.tot.mass.diff)) +
