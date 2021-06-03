@@ -419,7 +419,8 @@ Since the percent difference effect is multiplicative rather than additive it is
     
     #pdf(file = "./output/ms_plots/tough_by_week_f1.pdf", height = 7, width = 7)
     
-    ggplot(data = diff.mean.tough.comb, mapping = aes(x = factor(week), y = mean.tot.mass.diff)) +
+    diff.tough.by.week <- 
+      ggplot(data = diff.mean.tough.comb, mapping = aes(x = factor(week), y = mean.tot.mass.diff)) +
       geom_hline(yintercept = 0, size = 1, col = 1) +
       geom_jitter(
         size = 2,
@@ -441,7 +442,8 @@ Since the percent difference effect is multiplicative rather than additive it is
       
 ## Plot of Toughness by Week (Figure 1)
     
-    ggplot(data = mean.tough.comb, mapping = aes(x = factor(location), y = mean.tot.mass)) +
+    tough.by.week <- 
+      ggplot(data = mean.tough.comb, mapping = aes(x = factor(location), y = mean.tot.mass)) +
       geom_jitter(
         color = 8,
         size = 2,
@@ -460,8 +462,16 @@ Since the percent difference effect is multiplicative rather than additive it is
         x = "Incubation Time",
         y = "Toughness (g)"
       ) +
+      scale_x_discrete(
+        labels = c("Sediment Leaves", "Water Leaves")
+      ) +
       theme_classic(
         )
+    
+#### Create Figure 1
+    
+    #tough_by_week_f1 <- 
+      ggarrange(diff.tough.by.week, tough.by.week, ncol = 1, nrow = 2)
     
 ## Plot of Toughness Difference by Treatment
     
