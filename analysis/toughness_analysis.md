@@ -459,7 +459,7 @@ Since the percent difference effect is multiplicative rather than additive it is
         ~ week
       ) +
       labs(
-        x = "Incubation Time",
+        x = " ",
         y = "Toughness (g)"
       ) +
       scale_x_discrete(
@@ -471,7 +471,7 @@ Since the percent difference effect is multiplicative rather than additive it is
 #### Create Figure 1
     
     #tough_by_week_f1 <- 
-      ggarrange(diff.tough.by.week, tough.by.week, ncol = 1, nrow = 2)
+      ggarrange(diff.tough.by.week, tough.by.week, ncol = 2, nrow = 1)
     
 ## Plot of Toughness Difference by Treatment
     
