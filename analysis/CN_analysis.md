@@ -13,6 +13,7 @@
 * 2021-04-01 - KF- continued calculation of the change in percent C and percent N during the incubation
 * 2021-05-18 - KF- Created plots for manuscript
 * 2021-05-19 - KF- Created plots for manuscript
+* 2021-06-04 - KF- Created plots for manuscript
 
 
 ## Authors
@@ -677,8 +678,8 @@ The increase in the percent N of the leaves was not related to location and was 
 
 #### Create plot of Percent C by date
     
-    percC.plot <-
-      ggplot(data = CN, mapping = aes(y = perc_C, x = factor(Date))) +
+    #percC.plot <-
+      ggplot(data = CN, mapping = aes(y = perc_C, x = factor(Location))) +
      geom_jitter(
        col = 8,
        size = 2,
@@ -689,12 +690,15 @@ The increase in the percent N of the leaves was not related to location and was 
        fun.min = function(x) mean(x) - sd(x),
        fun.max = function(x) mean(x) + sd(x)
      ) +
+     facet_wrap(
+       ~ Incubation
+     ) +
      labs(
        x = "Incubation Time",
        y = "Percent C"
      ) +
      scale_x_discrete(
-       labels = c("Two Weeks", "Fourteen Weeks")
+       labels = c("Sediment Leaves", "Water Leaves")
        ) +
       #coord_cartesian(
         #ylim = c(-5, 10)
@@ -708,10 +712,10 @@ The increase in the percent N of the leaves was not related to location and was 
        #base_size = 25
        )
 
-#### Create plot of Percent N by date
+#### Create plot of Percent N by date and location
     
-    percN.plot <-
-      ggplot(data = CN, mapping = aes(y = perc_N, x = factor(Date))) +
+    #percN.plot <-
+      ggplot(data = CN, mapping = aes(y = perc_N, x = factor(Location))) +
      geom_jitter(
        col = 8,
        size = 2,
@@ -721,6 +725,9 @@ The increase in the percent N of the leaves was not related to location and was 
        fun = mean,
        fun.min = function(x) mean(x) - sd(x),
        fun.max = function(x) mean(x) + sd(x)
+     ) +
+     facet_wrap(
+       ~ Incubation
      ) +
      labs(
        x = "Incubation Time",
