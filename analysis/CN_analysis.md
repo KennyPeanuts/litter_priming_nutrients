@@ -799,7 +799,7 @@ NOTE: this seems only to produce a file in the home directory, so it needs to be
      geom_point(
        mapping = aes(x = 0.5, y = 45.13),
        size = 2,
-       col = 2
+       pch = 1
        ) + 
         # adds the initial percent C to the plot
      #coord_cartesian(
@@ -834,7 +834,7 @@ NOTE: this seems only to produce a file in the home directory, so it needs to be
      geom_point(
        mapping = aes(x = 0.5, y = 45.13),
        size = 2,
-       col = 2
+       pch = 1
        ) + 
         # adds the initial percent C to the plot
      #coord_cartesian(
@@ -846,13 +846,13 @@ NOTE: this seems only to produce a file in the home directory, so it needs to be
     
 #### Arrange plots onto a single figure
 
-    percC_by_treat_f3 <- ggarrange(percC.by.glucose.plot, percC.by.nutrients.plot, ncol = 1, nrow = 2) 
+    percC_by_treat_f4 <- ggarrange(percC.by.glucose.plot, percC.by.nutrients.plot, ncol = 1, nrow = 2) 
 
 #### Export plot as pdf
 
 NOTE: this seems only to produce a file in the home directory, so it needs to be moved manually to ./output/ms_plots after creating.
 
-    ggexport(percC_by_treat_f3, width = 7, height = 7, filename = "percC_by_treat_f3.pdf")
+    ggexport(percC_by_treat_f4, width = 7, height = 7, filename = "percC_by_treat_f4.pdf")
     
 #### Create plot of Percent N by treatment levels
 ##### Glucose
@@ -880,7 +880,7 @@ NOTE: this seems only to produce a file in the home directory, so it needs to be
      geom_point(
        mapping = aes(x = 0.5, y = 0.09850),
        size = 2,
-       col = 2
+       pch = 1
        ) + 
         # adds the initial percent N to the plot
      #coord_cartesian(
@@ -915,7 +915,7 @@ NOTE: this seems only to produce a file in the home directory, so it needs to be
      geom_point(
        mapping = aes(x = 0.5, y = 0.09850),
        size = 2,
-       col = 2
+       pch = 1
        ) + 
         # adds the initial percent N to the plot
      #coord_cartesian(
@@ -927,10 +927,10 @@ NOTE: this seems only to produce a file in the home directory, so it needs to be
     
 #### Arrange plots onto a single figure
 
-    percN_by_treat_f4 <- ggarrange(percN.by.glucose.plot, percN.by.nutrients.plot, ncol = 1, nrow = 2) 
+    percN_by_treat_f5 <- ggarrange(percN.by.glucose.plot, percN.by.nutrients.plot, ncol = 1, nrow = 2) 
 
 #### Export plot as pdf
 
 NOTE: this seems only to produce a file in the home directory, so it needs to be moved manually to ./output/ms_plots after creating.
 
-    ggexport(percN_by_treat_f4, width = 7, height = 7, filename = "percN_by_treat_f4.pdf")
+    ggexport(percN_by_treat_f5, width = 7, height = 7, filename = "percN_by_treat_f5.pdf")
