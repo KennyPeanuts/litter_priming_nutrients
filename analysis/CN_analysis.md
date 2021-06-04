@@ -677,7 +677,7 @@ The increase in the percent N of the leaves was not related to location and was 
      geom_point(
        mapping = aes(x = 0.5, y = 45.13),
        size = 2,
-       col = 2
+       pch = 1
        ) + 
      theme_classic()
        #base_size = 25
@@ -754,7 +754,7 @@ NOTE: this seems only to produce a file in the home directory, so it needs to be
      geom_point(
        mapping = aes(x = 0.5, y = 0.09850),
        size = 2,
-       col = 2
+       pch = 1
        ) + 
         # adds the initial percent N to the plot
      theme_classic()
@@ -763,14 +763,14 @@ NOTE: this seems only to produce a file in the home directory, so it needs to be
 
 #### Arrange plots onto a single figure
 
-    #percN_f3 <- 
+    percN_f3 <- 
       ggarrange(percN.plot, percN.diff.plot, ncol = 1, nrow = 2)
 
 #### Export plot as pdf
 
 NOTE: this seems only to produce a file in the home directory, so it needs to be moved manually to ./output/ms_plots after creating.
 
-    ggexport(percC_N_by_date_f2, width = 7, height = 7, filename = "percC_N_by_date_f2.pdf")
+    ggexport(percN_f3, width = 7, height = 7, filename = "percN_f3.pdf")
     
 ### Plot of percent C and N by treatment level
 #### Create plot of Percent C by treatment level
