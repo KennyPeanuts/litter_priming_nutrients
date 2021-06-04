@@ -10,6 +10,7 @@
 * 2021-01-21 - KF - ran analysis of the treatment effect on ergosterol mass
 * 2021-05-20 - KF - ran 2-way anova with glucose * nutrients to make consistent with the other response variables.
 * 2021-05-20 - KF - created plots for ms and tested weeks effect. Tested the effect of weeks on erg mass.
+* 2021-06-04 - KF - editied plots for ms
 
 ## Authors
 
@@ -343,11 +344,11 @@ calculate the summary statistics for the ergosterol after 2 weeks of incubation 
         y = expression("Ergosterol Difference ("*mu*"g / leaf disc)")
       ) +
       scale_x_discrete(
-        labels = c(" ", " ")
+        labels = c("Two Weeks", "Fourteen Weeks")
       ) +
       theme_classic()
 
-    erg.by.week <- ggplot(erg, mapping = aes(y = ErgLeaf, x = factor(Weeks))) +
+    erg.by.week <- ggplot(erg, mapping = aes(y = ErgLeaf, x = factor(Location))) +
       geom_jitter(
         col = 8,
         width = 0.05
@@ -357,23 +358,32 @@ calculate the summary statistics for the ergosterol after 2 weeks of incubation 
         fun.min = function(x) mean(x) - sd(x),
         fun.max = function(x) mean(x) + sd(x)
       ) +
+      facet_wrap(
+        ~ Weeks
+      ) +
       labs(
         y = expression("Ergosterol Mass ("*mu*"g / leaf disc)"),
-        x = "Incubation Time"
+        x = " "
         ) +
+      scale_x_discrete(
+        labels = c("Sediment Leaves", "Water Leaves")
+      ) +
       theme_classic()
     
 ### Make plot 
     
-    #### Arrange plots onto a single figure
+#### Arrange plots onto a single figure
     
-    erg_by_week_f6 <- ggarrange(erg.diff.by.week, erg.by.week, ncol = 1, nrow = 2) 
-    
-    #### Export plot as pdf
+    #erg_by_week_f6 <- 
+      ggarrange(erg.by.week, erg.diff.by.week, ncol = 1, nrow = 2) 
+
+#### Export plot as pdf
     
     NOTE: this seems only to produce a file in the home directory, so it needs to be moved manually to ./output/ms_plots after creating.
-    
+
     ggexport(erg_by_week_f6, width = 7, height = 7, filename = "erg_by_week_f6.pdf")
+    
+### Treatment Plot
     
     ggplot(erg, mapping = aes(y = ErgLeaf, x = factor(Treat))) +
       geom_jitter(
