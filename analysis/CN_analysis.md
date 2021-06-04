@@ -617,7 +617,7 @@ The increase in the percent N of the leaves was not related to location and was 
 
 ## Plots
     
-### Plot of the difference in percent C and N between the top and sed by date
+### C Plot of difference and percent C - Figure 2
 #### Create plot of Percent C difference between sed and top
     
     percC.diff.plot <- 
@@ -638,7 +638,7 @@ The increase in the percent N of the leaves was not related to location and was 
        y = "Difference in Percent C"
      ) +
      scale_x_discrete(
-       labels = c(" ", " ")
+       labels = c("Two Weeks", "Fourteen Weeks")
        ) +
      coord_cartesian(
         ylim = c(-5, 10)
@@ -647,6 +647,54 @@ The increase in the percent N of the leaves was not related to location and was 
        #base_size = 25
        )
     
+#### Create plot of Percent C by date and location
+    
+    percC.plot <-
+    ggplot(data = CN, mapping = aes(y = perc_C, x = factor(Location))) +
+     geom_jitter(
+       col = 8,
+       size = 2,
+       width = 0.1
+     ) +
+     stat_summary(
+       fun = mean,
+       fun.min = function(x) mean(x) - sd(x),
+       fun.max = function(x) mean(x) + sd(x)
+     ) +
+     facet_wrap(
+       ~ Incubation
+     ) +
+     labs(
+       x = " ",
+       y = "Percent C"
+     ) +
+     scale_x_discrete(
+       labels = c("Sediment Leaves", "Water Leaves")
+       ) +
+      #coord_cartesian(
+        #ylim = c(-5, 10)
+      #) +
+     geom_point(
+       mapping = aes(x = 0.5, y = 45.13),
+       size = 2,
+       col = 2
+       ) + 
+     theme_classic()
+       #base_size = 25
+       )
+
+#### Arrange C plots onto a single figure
+
+    percC_f2 <- 
+      ggarrange(percC.plot, percC.diff.plot, ncol = 1, nrow = 2)
+
+#### Export plot as pdf
+
+NOTE: this seems only to produce a file in the home directory, so it needs to be moved manually to ./output/ms_plots after creating.
+
+    ggexport(percC_f2, width = 7, height = 7, filename = "percC_f2.pdf")
+    
+### N Plot of difference and percent N by date and location - Figure 3
 #### Create plot of Percent N difference between sed and top
     
     percN.diff.plot <- 
@@ -667,7 +715,7 @@ The increase in the percent N of the leaves was not related to location and was 
        y = "Difference in Percent N"
      ) +
      scale_x_discrete(
-       labels = c(" ", " ")
+       labels = c("Two Weeks", "Fourteen Weeks")
        ) +
       coord_cartesian(
         ylim = c(-5, 10)
@@ -676,45 +724,9 @@ The increase in the percent N of the leaves was not related to location and was 
        #base_size = 25
        )
 
-#### Create plot of Percent C by date
-    
-    #percC.plot <-
-      ggplot(data = CN, mapping = aes(y = perc_C, x = factor(Location))) +
-     geom_jitter(
-       col = 8,
-       size = 2,
-       width = 0.1
-     ) +
-     stat_summary(
-       fun = mean,
-       fun.min = function(x) mean(x) - sd(x),
-       fun.max = function(x) mean(x) + sd(x)
-     ) +
-     facet_wrap(
-       ~ Incubation
-     ) +
-     labs(
-       x = "Incubation Time",
-       y = "Percent C"
-     ) +
-     scale_x_discrete(
-       labels = c("Sediment Leaves", "Water Leaves")
-       ) +
-      #coord_cartesian(
-        #ylim = c(-5, 10)
-      #) +
-     geom_point(
-       mapping = aes(x = 0.5, y = 45.13),
-       size = 2,
-       col = 2
-       ) + 
-     theme_classic()
-       #base_size = 25
-       )
-
 #### Create plot of Percent N by date and location
     
-    #percN.plot <-
+    percN.plot <-
       ggplot(data = CN, mapping = aes(y = perc_N, x = factor(Location))) +
      geom_jitter(
        col = 8,
@@ -730,11 +742,11 @@ The increase in the percent N of the leaves was not related to location and was 
        ~ Incubation
      ) +
      labs(
-       x = "Incubation Time",
+       x = " ",
        y = "Percent N"
      ) +
      scale_x_discrete(
-       labels = c("Two Weeks", "Fourteen Weeks")
+       labels = c("Sediment Leaves", "Water Leaves")
        ) +
       #coord_cartesian(
         #ylim = c(-5, 10)
@@ -751,7 +763,8 @@ The increase in the percent N of the leaves was not related to location and was 
 
 #### Arrange plots onto a single figure
 
-    percC_N_by_date_f2 <- ggarrange(percC.diff.plot, percN.diff.plot, percC.plot, percN.plot, labels = c("A", "B", "C", "D"))
+    #percN_f3 <- 
+      ggarrange(percN.plot, percN.diff.plot, ncol = 1, nrow = 2)
 
 #### Export plot as pdf
 
